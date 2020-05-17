@@ -1,0 +1,7 @@
+com/little/g/springcloud/sample/model/AiAssistantExample.class
+com/little/g/springcloud/sample/bootstrap/DubboDao.class
+com/little/g/springcloud/sample/mapper/AiAssistantMapper.class
+com/little/g/springcloud/sample/model/AiAssistant.class
+com/little/g/springcloud/sample/model/AiAssistantExample$GeneratedCriteria.class
+com/little/g/springcloud/sample/model/AiAssistantExample$Criteria.class
+com/little/g/springcloud/sample/model/AiAssistantExample$Criterion.class

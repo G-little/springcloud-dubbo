@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sample-http:war">
+    <output-path>$PROJECT_DIR$/sample/sample-http/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>sample-http</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="sample-http.war">
+      <element id="artifact" artifact-name="sample-http:war exploded" />
+    </root>
+  </artifact>
+</component>
