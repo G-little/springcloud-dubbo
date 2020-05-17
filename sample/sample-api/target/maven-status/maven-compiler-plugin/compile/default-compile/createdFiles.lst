@@ -1,0 +1,6 @@
+com/little/g/springcloud/sample/dto/UserDTO.class
+com/little/g/springcloud/sample/util/LoggerUtils.class
+com/little/g/springcloud/sample/params/UserParams.class
+com/little/g/springcloud/sample/api/EchoService.class
+com/little/g/springcloud/sample/api/UserService.class
+com/little/g/springcloud/sample/api/RestService.class

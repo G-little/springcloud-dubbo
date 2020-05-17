@@ -1,0 +1,4 @@
+com/little/g/springcloud/sample/service/EchoServiceImpl.class
+com/little/g/springcloud/sample/service/StandardRestService.class
+com/little/g/springcloud/sample/service/InMemoryUserService.class
+com/little/g/springcloud/sample/bootstrap/DubboSpringCloudProviderBootstrap.class
