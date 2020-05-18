@@ -27,10 +27,10 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @ComponentScan(basePackages = { "com.little.g.springcloud.sample" })
-public class DubboSpringCloudWebProviderBootstrap {
+public class SpringCloudWebBootstrap {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(DubboSpringCloudWebProviderBootstrap.class)
+		new SpringApplicationBuilder(SpringCloudWebBootstrap.class)
 				.properties("spring.profiles.active=nacos").run(args);
 	}
 
