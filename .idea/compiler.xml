@@ -9,6 +9,7 @@
         <module name="sample-http" />
         <module name="sample-api" />
         <module name="user-dao" />
+        <module name="user-http" />
         <module name="common" />
         <module name="user-api" />
         <module name="sample-dao" />
@@ -26,6 +27,7 @@
       <module name="user" target="1.8" />
       <module name="user-api" target="1.8" />
       <module name="user-dao" target="1.8" />
+      <module name="user-http" target="1.8" />
       <module name="user-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -38,6 +40,7 @@
       <module name="user" options="" />
       <module name="user-api" options="-parameters -parameters" />
       <module name="user-dao" options="-parameters -parameters" />
+      <module name="user-http" options="-parameters -parameters" />
       <module name="user-server" options="-parameters -parameters" />
     </option>
   </component>

@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.little.g.springcloud.sample.bootstrap;
+package com.little.g.springcloud.user.bootstrap;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 /**
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@ComponentScan(basePackages = { "com.little.g.springcloud.sample" })
+@EnableAuthorizationServer
+@ComponentScan(basePackages = { "com.little.g.springcloud.user" })
 public class SpringCloudWebBootstrap {
 
 	public static void main(String[] args) {
