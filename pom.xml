@@ -41,6 +41,7 @@
         <spring-cloud-config.version>2.2.2.RELEASE</spring-cloud-config.version>
         <spring-cloud-zookeeper.version>2.2.1.RELEASE</spring-cloud-zookeeper.version>
         <spring-cloud-oauth2.version>2.2.1.RELEASE</spring-cloud-oauth2.version>
+        <zookeeper.version>[3.4.14,)</zookeeper.version>
 
         <junit.version>4.12</junit.version>
         <javax-servlet-api>3.0</javax-servlet-api>
@@ -235,6 +236,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>1.1.16</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
             </dependency>
 
 

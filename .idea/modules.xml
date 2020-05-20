@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample-api/sample-api.iml" filepath="$PROJECT_DIR$/sample/sample-api/sample-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample-dao/sample-dao.iml" filepath="$PROJECT_DIR$/sample/sample-dao/sample-dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample-http/sample-http.iml" filepath="$PROJECT_DIR$/sample/sample-http/sample-http.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample-server/sample-server.iml" filepath="$PROJECT_DIR$/sample/sample-server/sample-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/springcloud-dubbo.iml" filepath="$PROJECT_DIR$/.idea/springcloud-dubbo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user/user.iml" filepath="$PROJECT_DIR$/user/user.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user/user-api/user-api.iml" filepath="$PROJECT_DIR$/user/user-api/user-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user/user-dao/user-dao.iml" filepath="$PROJECT_DIR$/user/user-dao/user-dao.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user/user-http/user-http.iml" filepath="$PROJECT_DIR$/user/user-http/user-http.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user/user-server/user-server.iml" filepath="$PROJECT_DIR$/user/user-server/user-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-alibaba.iml" filepath="$PROJECT_DIR$/spring-cloud-alibaba.iml" />
     </modules>
   </component>
 </project>
