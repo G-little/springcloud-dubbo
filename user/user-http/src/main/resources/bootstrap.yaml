@@ -1,8 +1,12 @@
 spring:
   application:
-    name: springcloud-dubbo-simple-http
+    name: user-http
   main:
     allow-bean-definition-overriding: true
+  profiles:
+  redis:
+    database: 2
+    host:
 
 
   # default disable all
@@ -21,6 +25,9 @@ spring:
 eureka:
   client:
     enabled: false
+
+
+
 
 
 ---

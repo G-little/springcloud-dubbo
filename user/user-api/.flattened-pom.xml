@@ -4,14 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.little.g</groupId>
-    <artifactId>sample</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>user</artifactId>
+    <version>${revision}</version>
   </parent>
   <groupId>com.little.g</groupId>
-  <artifactId>sample-api</artifactId>
+  <artifactId>user-api</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <description>Spring Cloud Alibaba</description>
-  <url>https://spring.io/spring-cloud/spring-cloud-alibaba/sample/sample-api</url>
+  <url>https://spring.io/spring-cloud/spring-cloud-alibaba/user/user-api</url>
   <organization>
     <name>Pivotal Software, Inc.</name>
     <url>https://www.spring.io</url>
@@ -90,9 +90,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/sample/sample-api</connection>
-    <developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/sample/sample-api</developerConnection>
-    <url>https://github.com/spring-cloud/spring-cloud-build/spring-cloud-alibaba/sample/sample-api</url>
+    <connection>scm:git:git://github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/user/user-api</connection>
+    <developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/user/user-api</developerConnection>
+    <url>https://github.com/spring-cloud/spring-cloud-build/spring-cloud-alibaba/user/user-api</url>
   </scm>
   <dependencies>
     <dependency>

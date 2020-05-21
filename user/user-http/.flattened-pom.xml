@@ -4,14 +4,14 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.little.g</groupId>
-    <artifactId>sample</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>user</artifactId>
+    <version>${revision}</version>
   </parent>
   <groupId>com.little.g</groupId>
-  <artifactId>sample-http</artifactId>
+  <artifactId>user-http</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>sample-http Maven Webapp</name>
+  <name>user-http Maven Webapp</name>
   <description>Spring Cloud Alibaba</description>
   <url>http://www.example.com</url>
   <organization>
@@ -92,9 +92,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git://github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/sample/sample-http</connection>
-    <developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/sample/sample-http</developerConnection>
-    <url>https://github.com/spring-cloud/spring-cloud-build/spring-cloud-alibaba/sample/sample-http</url>
+    <connection>scm:git:git://github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/user/user-http</connection>
+    <developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-build.git/spring-cloud-alibaba/user/user-http</developerConnection>
+    <url>https://github.com/spring-cloud/spring-cloud-build/spring-cloud-alibaba/user/user-http</url>
   </scm>
   <dependencies>
     <dependency>
@@ -110,8 +110,20 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-oauth2</artifactId>
+      <version>2.2.1.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <version>2.2.1.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>com.little.g</groupId>
-      <artifactId>sample-api</artifactId>
+      <artifactId>user-api</artifactId>
       <version>1.0.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
@@ -160,6 +172,7 @@
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
       <artifactId>zookeeper</artifactId>
+      <version>[3.4.14,)</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
