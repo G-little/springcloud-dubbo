@@ -3,7 +3,16 @@ spring:
     name: springcloud-dubbo-simple-http
   main:
     allow-bean-definition-overriding: true
-
+  redis:
+    database: 2
+    host: @little.redis.nodes@
+    password: @little.redis.password@
+    jedis:
+      pool:
+        max-active: 20
+        max-idle: 8
+        min-idle: 0
+    timeout: 1000ms
 
   # default disable all
   cloud:
@@ -21,6 +30,20 @@ spring:
 eureka:
   client:
     enabled: false
+
+
+security:
+  oauth2:
+    client:
+      client-id: simple-client
+      client-secret: user-secret-8888
+      user-authorization-uri: http://localhost:8080/oauth/authorize
+      access-token-uri: http://localhost:8080/oauth/token
+    resource:
+      id: user-client
+      user-info-uri: user-info
+    authorization:
+      check-token-access: http://localhost:8080/oauth/check_token
 
 
 ---

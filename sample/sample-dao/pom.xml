@@ -20,7 +20,7 @@
     <profiles>
         <profile>
             <!-- 开发环境 -->
-            <id>develop</id>
+            <id>dev</id>
             <!-- 默认 -->
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -37,7 +37,7 @@
 
         <profile>
             <!-- 线上环境  TODO -->
-            <id>online</id>
+            <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>

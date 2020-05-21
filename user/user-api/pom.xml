@@ -8,6 +8,7 @@
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>user-api</artifactId>
@@ -15,16 +16,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>com.little.g</groupId>
+            <artifactId>common-lib</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
-        <!-- Dubbo -->
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
-            <version>${dubbo.version}</version>
-        </dependency>
+
     </dependencies>
 
 

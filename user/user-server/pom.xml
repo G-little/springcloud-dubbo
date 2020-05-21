@@ -14,7 +14,22 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>qcloudsms</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.little.g</groupId>
+            <artifactId>user-token</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-core</artifactId>
+        </dependency>
 
         <!-- Resolve the Dubbo REST RPC issue -->
         <dependency>

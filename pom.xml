@@ -22,6 +22,7 @@
     <modules>
         <module>sample</module>
         <module>user</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -69,6 +70,43 @@
     </properties>
 
 
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 日志 -->
+                <little.log.level>DEBUG</little.log.level>
+                <little.log.path>/data/logs</little.log.path>
+                <little.redis.nodes>192.168.0.195</little.redis.nodes>
+                <little.redis.password>password</little.redis.password>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <!-- 线上环境 -->
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+
+                <!-- 日志 -->
+                <little.log.level>DEBUG</little.log.level>
+                <little.log.path>/data/logs</little.log.path>
+                <little.redis.nodes>192.168.0.195:6379</little.redis.nodes>
+                <little.redis.password>password</little.redis.password>
+            </properties>
+        </profile>
+    </profiles>
+
+
     <dependencyManagement>
         <dependencies>
 
@@ -86,7 +124,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
 
 
             <dependency>
@@ -252,6 +289,49 @@
                 <version>${zookeeper.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>29.0-jre</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.10</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.12</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jodd</groupId>
+                <artifactId>jodd-props</artifactId>
+                <version>5.1.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.arronlong</groupId>
+                <artifactId>httpclientutil</artifactId>
+                <version>1.0.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.scribejava</groupId>
+                <artifactId>scribejava-core</artifactId>
+                <version>6.5.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.qcloudsms</groupId>
+                <artifactId>qcloudsms</artifactId>
+                <version>1.0.5</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
@@ -289,27 +369,6 @@
 
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <configuration>
-                    <useProjectReferences>false</useProjectReferences>
-                    <additionalConfig>
-                        <file>
-                            <name>.settings/org.eclipse.jdt.ui.prefs</name>
-                            <location>
-                                ${maven.multiModuleProjectDirectory}/eclipse/org.eclipse.jdt.ui.prefs
-                            </location>
-                        </file>
-                        <file>
-                            <name>.settings/org.eclipse.jdt.core.prefs</name>
-                            <location>
-                                ${maven.multiModuleProjectDirectory}/eclipse/org.eclipse.jdt.core.prefs
-                            </location>
-                        </file>
-                    </additionalConfig>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>

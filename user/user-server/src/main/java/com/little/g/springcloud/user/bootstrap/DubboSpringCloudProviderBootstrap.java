@@ -21,14 +21,25 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@MapperScan("com.little.g.**.mapper")
+@MapperScan({ "com.little.g.**.mapper", "com.little.g.**.service",
+		"com.little.g.common.cache" })
 public class DubboSpringCloudProviderBootstrap {
+
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+		source.setBasename("i18n/messages");
+		source.setCacheSeconds(3600);
+		return source;
+	}
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(DubboSpringCloudProviderBootstrap.class)

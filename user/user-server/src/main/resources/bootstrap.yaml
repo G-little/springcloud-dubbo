@@ -22,6 +22,13 @@ eureka:
   client:
     enabled: false
 
+oAuth:
+  weixin:
+    appId: wxc372deec0bd2b594
+    appSecret: 78a9741bdec161bfcdba2db35263c40a
+
+
+
 
 ---
 spring:
