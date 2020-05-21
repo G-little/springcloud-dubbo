@@ -1,6 +1,15 @@
+
+oAuth:
+  weixin:
+    appId: wxc372deec0bd2b594
+    appSecret: 78a9741bdec161bfcdba2db35263c40a
+
+env:
+  online: @little.online@
+
 spring:
   application:
-    name: spring-cloud-alibaba-dubbo-provider
+    name: user-server
   main:
     allow-bean-definition-overriding: true
 
@@ -22,14 +31,6 @@ eureka:
   client:
     enabled: false
 
-oAuth:
-  weixin:
-    appId: wxc372deec0bd2b594
-    appSecret: 78a9741bdec161bfcdba2db35263c40a
-
-
-
-
 ---
 spring:
   profiles: nacos
@@ -42,8 +43,6 @@ spring:
         enabled: true
         register-enabled: true
         server-addr: 127.0.0.1:8848
-
-
 ---
 spring:
   profiles: eureka

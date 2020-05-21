@@ -49,7 +49,11 @@ public class RedisConfig extends CachingConfigurerSupport {
 		// 分割出集群节点
 		for (String node : cNodes) {
 			String[] hp = node.split(":");
-			nodeList.add(new RedisNode(hp[0], Integer.parseInt(hp[1])));
+			Integer port = 6379;
+			if (hp.length > 1) {
+				port = Integer.parseInt(hp[1]);
+			}
+			nodeList.add(new RedisNode(hp[0], port));
 		}
 		redisClusterConfiguration.setClusterNodes(nodeList);
 		if (StringUtils.isNotEmpty(redisProperties.getPassword())) {

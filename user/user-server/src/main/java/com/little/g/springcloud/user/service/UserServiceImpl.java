@@ -15,9 +15,9 @@ import com.little.g.springcloud.user.mapper.UserMapperExt;
 import com.little.g.springcloud.user.model.User;
 import com.little.g.springcloud.user.model.UserExample;
 import com.little.g.springcloud.user.params.UserUpdateParam;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Created by lengligang on 2019/3/26.
  */
-@Service("userService")
+@Service(protocol = "dubbo")
 public class UserServiceImpl implements UserService {
 
 	@Resource

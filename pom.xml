@@ -84,6 +84,7 @@
                 <little.log.path>/data/logs</little.log.path>
                 <little.redis.nodes>192.168.0.195</little.redis.nodes>
                 <little.redis.password>password</little.redis.password>
+                <little.online>false</little.online>
             </properties>
         </profile>
 
@@ -102,6 +103,7 @@
                 <little.log.path>/data/logs</little.log.path>
                 <little.redis.nodes>192.168.0.195:6379</little.redis.nodes>
                 <little.redis.password>password</little.redis.password>
+                <little.online>true</little.online>
             </properties>
         </profile>
     </profiles>

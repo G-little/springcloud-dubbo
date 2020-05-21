@@ -22,6 +22,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
@@ -29,8 +30,9 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  */
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@MapperScan({ "com.little.g.**.mapper", "com.little.g.**.service",
-		"com.little.g.common.cache" })
+@ComponentScan({ "com.little.g.springcloud.user.oauth",
+		"com.little.g.springcloud.common.cache" })
+@MapperScan({ "com.little.g.**.mapper" })
 public class DubboSpringCloudProviderBootstrap {
 
 	@Bean

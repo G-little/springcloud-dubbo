@@ -1,6 +1,6 @@
 dubbo:
   scan:
-    base-packages: com.little.g.springcloud.sample.service
+    base-packages: com.little.g.springcloud.user
   protocols:
     dubbo:
       name: dubbo

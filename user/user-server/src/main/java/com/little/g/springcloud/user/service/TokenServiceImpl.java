@@ -12,9 +12,9 @@ import com.little.g.springcloud.user.dto.UserDeviceTokenDTO;
 import com.little.g.springcloud.user.mapper.UserDeviceTokenMapper;
 import com.little.g.springcloud.user.model.UserDeviceToken;
 import com.little.g.springcloud.user.model.UserDeviceTokenExample;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * Created by lengligang on 2019/3/29.
  */
 
-@Service("tokenService")
+@Service(protocol = "dubbo")
 public class TokenServiceImpl implements TokenService {
 
 	int version = TokenVersion.VERSION_2.getValue();

@@ -16,11 +16,11 @@ import com.little.g.springcloud.user.utils.TencentSmsUtil;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by lengligang on 2019/3/23.
  */
-@Service("smsService")
+@Service(protocol = "dubbo")
 public class SmsServiceImpl implements SmsService {
 
 	@Resource

@@ -2,9 +2,9 @@ package com.little.g.springcloud.user.service;
 
 import com.little.g.springcloud.user.api.RateLimitService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by lengligang on 2018/7/14.
  */
-@Service("rateLimitService")
+@Service(protocol = "dubbo")
 public class RateLimitServiceImpl implements RateLimitService {
 
 	@Resource

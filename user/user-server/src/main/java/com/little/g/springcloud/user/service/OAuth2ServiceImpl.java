@@ -11,11 +11,11 @@ import com.little.g.springcloud.user.dto.UserDTO;
 import com.little.g.springcloud.user.mapper.OAuthUserMapper;
 import com.little.g.springcloud.user.model.OAuthUser;
 import com.little.g.springcloud.user.model.OAuthUserKey;
+import com.little.g.springcloud.user.oauth.api.OAuthServicesApi;
 import com.little.g.springcloud.user.oauth.service.CustomOAuthService;
-import com.little.g.springcloud.user.oauth.service.OAuthServices;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -25,11 +25,11 @@ import javax.validation.constraints.Size;
 /**
  * Created by lengligang on 2019/4/17.
  */
-@Service("oauth2Service")
+@Service(protocol = "dubbo")
 public class OAuth2ServiceImpl implements OAuth2Service {
 
 	@Resource
-	private OAuthServices oAuthServices;
+	private OAuthServicesApi oAuthServices;
 
 	@Resource
 	private OAuthUserMapper oAuthUserMapper;
