@@ -14,39 +14,24 @@
  * limitations under the License.
  */
 
-package com.little.g.springcloud.user.bootstrap;
+package com.little.g.springcloud.user.web.bootstrap;
 
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@ComponentScan({ "com.little.g.springcloud.user.oauth",
-		"com.little.g.springcloud.common.cache" })
-@MapperScan({ "com.little.g.**.mapper" })
-public class DubboSpringCloudProviderBootstrap {
-
-	@Bean
-	public ReloadableResourceBundleMessageSource messageSource() {
-		ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
-		source.setBasename("i18n/messages");
-		source.setCacheSeconds(3600);
-		return source;
-	}
+@ComponentScan(basePackages = { "com.little.g.springcloud.user" })
+public class SpringCloudUserHttpBootstrap {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(DubboSpringCloudProviderBootstrap.class)
-				.properties("spring.profiles.active=nacos").web(WebApplicationType.NONE)
-				.run(args);
+		new SpringApplicationBuilder(SpringCloudUserHttpBootstrap.class)
+				.properties("spring.profiles.active=nacos").run(args);
 	}
 
 }
