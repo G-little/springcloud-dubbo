@@ -1,4 +1,4 @@
-package com.little.g.springcloud.user.web.common;
+package com.little.g.springcloud.user.common;
 
 /**
  * Created by lengligang on 2019/3/26.

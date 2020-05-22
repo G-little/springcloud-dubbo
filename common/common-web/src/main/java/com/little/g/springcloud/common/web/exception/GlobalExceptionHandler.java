@@ -3,6 +3,7 @@ package com.little.g.springcloud.common.web.exception;
 import com.little.g.springcloud.common.ResultJson;
 import com.little.g.springcloud.common.error.ErrorCodes;
 import com.little.g.springcloud.common.exception.ServiceDataException;
+import com.little.g.springcloud.common.web.config.MessageSourceUtil;
 import com.little.g.springcloud.common.web.interceptor.HeaderParamsHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.rpc.RpcException;
@@ -27,6 +28,9 @@ public class GlobalExceptionHandler {
 
 	@Resource
 	private MessageSource messageSource;
+
+	@Resource
+	private MessageSourceUtil messageSourceUtil;
 
 	private static final Logger log = LoggerFactory
 			.getLogger(GlobalExceptionHandler.class);
@@ -68,30 +72,7 @@ public class GlobalExceptionHandler {
 			ServiceDataException service = (ServiceDataException) e;
 			r.setC(service.getCode());
 
-			if (!StringUtils.isEmpty(service.getMessage()) && !StringUtils
-					.equals(service.getMessage(), String.valueOf(service.getCode()))) {
-				if (service.getMessage().startsWith("msg.")) {
-					try {
-						r.setM(messageSource.getMessage(service.getMessage(), null,
-								HeaderParamsHolder.getHeader().getLocale()));
-					}
-					catch (Exception ex) {
-						log.error("message source get message failed code:{},local:{}",
-								service.getMessage(),
-								HeaderParamsHolder.getHeader().getLocale());
-					}
-				}
-			}
-			else {
-				if (service.getCode() > 0) {
-					r.setM(messageSource.getMessage(
-							ErrorCodes.getDefaultMsg(service.getCode()), null,
-							HeaderParamsHolder.getHeader().getLocale()));
-				}
-				if (StringUtils.isEmpty(r.getM())) {
-					r.setM(e.getMessage());
-				}
-			}
+			r.setM(messageSourceUtil.e2Msg(service));
 
 			log.error("Request ServiceDataException url:{},e:{}", req.getRequestURI(),
 					e.getMessage());

@@ -6,7 +6,7 @@ import com.little.g.springcloud.common.enums.TokenVersion;
 import com.little.g.springcloud.common.exception.ServiceDataException;
 import com.little.g.springcloud.user.TokenUtil;
 import com.little.g.springcloud.user.api.TokenService;
-import com.little.g.springcloud.user.web.common.RedisConstants;
+import com.little.g.springcloud.user.common.RedisConstants;
 import com.little.g.springcloud.user.dto.TokenCache;
 import com.little.g.springcloud.user.dto.UserDeviceTokenDTO;
 import com.little.g.springcloud.user.mapper.UserDeviceTokenMapper;

@@ -1,13 +1,13 @@
 package com.little.g.springcloud.common.web.config;
 
 import com.little.g.springcloud.common.web.exception.GlobalExceptionHandler;
+import com.little.g.springcloud.common.web.exception.GlobalExceptionResolver;
 import com.little.g.springcloud.common.web.utils.ReloadableResourceBundleMessageSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
@@ -30,7 +30,6 @@ import java.util.Locale;
 /**
  * Created by lengligang on 2019/3/12.
  */
-@ImportResource(locations = { "classpath:META-INF/spring/dubbo-consume.xml" })
 @Configuration
 public class AppConfig {
 
@@ -43,6 +42,11 @@ public class AppConfig {
 	@Bean
 	GlobalExceptionHandler exceptionHandler() {
 		return new GlobalExceptionHandler();
+	}
+
+	@Bean
+	GlobalExceptionResolver globalExceptionResolver() {
+		return new GlobalExceptionResolver();
 	}
 
 	@Bean

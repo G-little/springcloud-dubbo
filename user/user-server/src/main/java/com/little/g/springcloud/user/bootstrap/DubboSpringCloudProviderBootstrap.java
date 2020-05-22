@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.little.g.springcloud.user.web.bootstrap;
+package com.little.g.springcloud.user.bootstrap;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.WebApplicationType;

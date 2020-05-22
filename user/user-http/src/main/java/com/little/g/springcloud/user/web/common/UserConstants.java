@@ -5,5 +5,6 @@ package com.little.g.springcloud.user.web.common;
  */
 public class UserConstants {
 
-    public static final Integer smsVersion=1;
+	public static final Integer smsVersion = 1;
+
 }

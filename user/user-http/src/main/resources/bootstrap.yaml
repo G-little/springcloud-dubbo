@@ -1,19 +1,11 @@
 spring:
+  messages:
+    basename: classpath*:i18n/messages
   application:
     name: user-http
   main:
     allow-bean-definition-overriding: true
-  profiles:
-  redis:
-    database: 2
-    host: @little.redis.nodes@
-    password: @little.redis.password@
-    jedis:
-      pool:
-        max-active: 20
-        max-idle: 8
-        min-idle: 0
-    timeout: 5000ms
+
 
   # default disable all
   cloud:

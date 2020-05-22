@@ -16,6 +16,7 @@
 
 package com.little.g.springcloud.user.web.bootstrap;
 
+import com.little.g.springcloud.common.web.annotation.EnableCmdErrorMsg;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -26,7 +27,9 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@ComponentScan(basePackages = { "com.little.g.springcloud.user" })
+@EnableCmdErrorMsg
+@ComponentScan(basePackages = { "com.little.g.springcloud.user",
+		"com.little.g.springcloud.common.cache" })
 public class SpringCloudUserHttpBootstrap {
 
 	public static void main(String[] args) {

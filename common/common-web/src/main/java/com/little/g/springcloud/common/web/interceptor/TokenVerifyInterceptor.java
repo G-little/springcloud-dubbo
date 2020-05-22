@@ -17,6 +17,7 @@ import com.little.g.springcloud.user.TokenVersionFactory;
 import com.little.g.springcloud.user.api.TokenService;
 import com.little.g.springcloud.user.dto.TokenCache;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -33,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class TokenVerifyInterceptor extends HandlerInterceptorAdapter {
 
-	@Resource
+	@Reference
 	private TokenService tokenService;
 
 	private static final Logger log = LoggerFactory
