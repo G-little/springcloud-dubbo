@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 @Slf4j
 public class GlobalExceptionResolver implements HandlerExceptionResolver {
 
@@ -26,10 +27,11 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
 			r.setC(s.getCode());
 			r.setM(messageSourceUtil.e2Msg(s));
 			ModelAndView m = new ModelAndView(new MappingJackson2JsonView());
-			m.addObject(r);
-
-			log.error("Request ServiceDataException url:{},e:{}", httpServletRequest.getRequestURI(),
-					e.getMessage());
+			m.addObject("c", r.getC());
+			m.addObject("m", r.getM());
+			m.addObject("d", r.getD());
+			log.error("Request ServiceDataException url:{},e:{}",
+					httpServletRequest.getRequestURI(), e.getMessage());
 			return m;
 		}
 
