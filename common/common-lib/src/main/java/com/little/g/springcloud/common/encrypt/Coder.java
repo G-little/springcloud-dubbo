@@ -68,7 +68,7 @@ public class Coder {
 	/**
 	 * 将参数URLEncode为UTF-8
 	 */
-	public static String encodeUTF8(String params) {
+	public static String encodeUTF8(String params) throws IllegalArgumentException {
 		try {
 			String en = URLEncoder.encode(params,
 					GlobalConstants.DEFAULT_CONTENT_CHARSET);
@@ -84,7 +84,8 @@ public class Coder {
 	/**
 	 * 将参数URLEncode，默认为UTF-8
 	 */
-	public static String encode(String params, String charset) {
+	public static String encode(String params, String charset)
+			throws IllegalArgumentException {
 		try {
 			String en = URLEncoder.encode(params,
 					charset != null ? charset : GlobalConstants.DEFAULT_CONTENT_CHARSET);
@@ -100,7 +101,7 @@ public class Coder {
 	/**
 	 * 将参数URLDecoder为UTF-8
 	 */
-	public static String decodeUTF8(String params) {
+	public static String decodeUTF8(String params) throws IllegalArgumentException {
 		try {
 			String de = URLDecoder.decode(params,
 					GlobalConstants.DEFAULT_CONTENT_CHARSET);
@@ -113,9 +114,8 @@ public class Coder {
 
 	/**
 	 * BASE64解密
-	 * @param key
+	 * @param key 解密key
 	 * @return
-	 * @throws Exception
 	 */
 	public static byte[] decryptBASE64(String key) {
 		return Base64.decodeBase64(key);
@@ -123,8 +123,8 @@ public class Coder {
 
 	/**
 	 * 解码base64
-	 * @param key
-	 * @return
+	 * @param key 解密key
+	 * @return 解密字符串
 	 */
 	public static String decodeBASE64(String key) {
 		byte[] bytes = Base64.decodeBase64(key);
@@ -134,7 +134,7 @@ public class Coder {
 	/**
 	 * BASE64加密
 	 * @param key
-	 * @return
+	 * @return 加密字符串
 	 * @throws Exception
 	 */
 	public static String encryptBase64URLSafeString(byte[] key) throws Exception {

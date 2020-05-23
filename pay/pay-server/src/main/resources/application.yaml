@@ -1,0 +1,25 @@
+dubbo:
+  scan:
+    base-packages: com.little.g.springcloud.pay,com.little.g.springcloud.thirdpay
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+
+  registry:
+#   The Spring Cloud Dubbo's registry extension
+    address: spring-cloud://localhost
+#   The traditional Dubbo's registry
+#   address: zookeeper://127.0.0.1:2181
+  cloud:
+    # The subscribed services in consumer side
+    subscribed-services: user-server
+
+  consumer:
+    check: false
+    timeout: 10000
+
+
+feign:
+  hystrix:
+    enabled: true

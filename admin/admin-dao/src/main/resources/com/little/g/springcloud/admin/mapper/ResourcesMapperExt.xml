@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.little.g.springcloud.admin.mapper.ResourcesMapperExt" >
+
+  <select resultType="java.lang.Integer" id="selectMaxPrivilegePos" >
+    select  max(privilege_pos) from resources
+  </select>
+
+  <select resultType="java.lang.Long" id="selectMaxPrivilegeVal" >
+    select  max(privilege_val) from resources WHERE  privilege_pos = #{pos}
+  </select>
+</mapper>

@@ -17,6 +17,8 @@ public class ErrorCodeDiv {
 
 	public static CodeBorder USER = new CodeBorder(30000, 35000);
 
+	public static CodeBorder PAY = new CodeBorder(40000, 45000);
+
 	public static class CodeBorder {
 
 		public CodeBorder(Integer start, Integer end) {

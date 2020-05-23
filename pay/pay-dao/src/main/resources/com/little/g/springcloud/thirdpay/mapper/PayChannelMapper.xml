@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.little.g.springcloud.thirdpay.mapper.PayChannelMapper">
+  <resultMap id="BaseResultMap" type="com.little.g.springcloud.thirdpay.model.PayChannel">
+    <id column="id" jdbcType="TINYINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="config_version" jdbcType="VARCHAR" property="configVersion" />
+    <result column="max_pay_fee" jdbcType="INTEGER" property="maxPayFee" />
+    <result column="min_pay_fee" jdbcType="INTEGER" property="minPayFee" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, code, config_version, max_pay_fee, min_pay_fee, `status`, memo
+  </sql>
+  <select id="selectByExample" parameterType="com.little.g.springcloud.thirdpay.model.PayChannelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pay_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Byte" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_channel
+    where id = #{id,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
+    delete from pay_channel
+    where id = #{id,jdbcType=TINYINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.little.g.springcloud.thirdpay.model.PayChannelExample">
+    delete from pay_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.little.g.springcloud.thirdpay.model.PayChannel">
+    insert into pay_channel (id, `name`, code, 
+      config_version, max_pay_fee, min_pay_fee, 
+      `status`, memo)
+    values (#{id,jdbcType=TINYINT}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{configVersion,jdbcType=VARCHAR}, #{maxPayFee,jdbcType=INTEGER}, #{minPayFee,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.little.g.springcloud.thirdpay.model.PayChannel">
+    insert into pay_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="configVersion != null">
+        config_version,
+      </if>
+      <if test="maxPayFee != null">
+        max_pay_fee,
+      </if>
+      <if test="minPayFee != null">
+        min_pay_fee,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=TINYINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="configVersion != null">
+        #{configVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="maxPayFee != null">
+        #{maxPayFee,jdbcType=INTEGER},
+      </if>
+      <if test="minPayFee != null">
+        #{minPayFee,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.little.g.springcloud.thirdpay.model.PayChannelExample" resultType="java.lang.Long">
+    select count(*) from pay_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pay_channel
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=TINYINT},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configVersion != null">
+        config_version = #{record.configVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maxPayFee != null">
+        max_pay_fee = #{record.maxPayFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.minPayFee != null">
+        min_pay_fee = #{record.minPayFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.memo != null">
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pay_channel
+    set id = #{record.id,jdbcType=TINYINT},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      config_version = #{record.configVersion,jdbcType=VARCHAR},
+      max_pay_fee = #{record.maxPayFee,jdbcType=INTEGER},
+      min_pay_fee = #{record.minPayFee,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=TINYINT},
+      memo = #{record.memo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.little.g.springcloud.thirdpay.model.PayChannel">
+    update pay_channel
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="configVersion != null">
+        config_version = #{configVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="maxPayFee != null">
+        max_pay_fee = #{maxPayFee,jdbcType=INTEGER},
+      </if>
+      <if test="minPayFee != null">
+        min_pay_fee = #{minPayFee,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.little.g.springcloud.thirdpay.model.PayChannel">
+    update pay_channel
+    set `name` = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      config_version = #{configVersion,jdbcType=VARCHAR},
+      max_pay_fee = #{maxPayFee,jdbcType=INTEGER},
+      min_pay_fee = #{minPayFee,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=TINYINT},
+      memo = #{memo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=TINYINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.little.g.springcloud.thirdpay.model.PayChannelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pay_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

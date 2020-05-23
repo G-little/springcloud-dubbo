@@ -13,6 +13,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
         <!-- Resolve the Spring Cloud registration issue -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -151,6 +157,24 @@
         </dependency>
 
     </dependencies>
+
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 
 
 </project>

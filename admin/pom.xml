@@ -15,6 +15,7 @@
         <module>admin-api</module>
         <module>admin-server</module>
         <module>admin-dao</module>
+        <module>admin-http</module>
     </modules>
 
 

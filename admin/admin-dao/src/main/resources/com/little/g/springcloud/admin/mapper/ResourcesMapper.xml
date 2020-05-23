@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.little.g.springcloud.admin.mapper.ResourcesMapper">
+  <resultMap id="BaseResultMap" type="com.little.g.springcloud.admin.model.Resources">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="is_menu" jdbcType="TINYINT" property="isMenu" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="privilege_pos" jdbcType="INTEGER" property="privilegePos" />
+    <result column="privilege_val" jdbcType="BIGINT" property="privilegeVal" />
+    <result column="need_auth" jdbcType="TINYINT" property="needAuth" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, `path`, parent_id, `type`, is_menu, create_time, privilege_pos, privilege_val, 
+    need_auth, sort
+  </sql>
+  <select id="selectByExample" parameterType="com.little.g.springcloud.admin.model.ResourcesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resources
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resources
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from resources
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.little.g.springcloud.admin.model.ResourcesExample">
+    delete from resources
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.little.g.springcloud.admin.model.Resources" useGeneratedKeys="true">
+    insert into resources (title, `path`, parent_id, 
+      `type`, is_menu, create_time, 
+      privilege_pos, privilege_val, need_auth, 
+      sort)
+    values (#{title,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{type,jdbcType=TINYINT}, #{isMenu,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{privilegePos,jdbcType=INTEGER}, #{privilegeVal,jdbcType=BIGINT}, #{needAuth,jdbcType=TINYINT}, 
+      #{sort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.little.g.springcloud.admin.model.Resources" useGeneratedKeys="true">
+    insert into resources
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="isMenu != null">
+        is_menu,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="privilegePos != null">
+        privilege_pos,
+      </if>
+      <if test="privilegeVal != null">
+        privilege_val,
+      </if>
+      <if test="needAuth != null">
+        need_auth,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="isMenu != null">
+        #{isMenu,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="privilegePos != null">
+        #{privilegePos,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeVal != null">
+        #{privilegeVal,jdbcType=BIGINT},
+      </if>
+      <if test="needAuth != null">
+        #{needAuth,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.little.g.springcloud.admin.model.ResourcesExample" resultType="java.lang.Long">
+    select count(*) from resources
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update resources
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null">
+        `path` = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.isMenu != null">
+        is_menu = #{record.isMenu,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.privilegePos != null">
+        privilege_pos = #{record.privilegePos,jdbcType=INTEGER},
+      </if>
+      <if test="record.privilegeVal != null">
+        privilege_val = #{record.privilegeVal,jdbcType=BIGINT},
+      </if>
+      <if test="record.needAuth != null">
+        need_auth = #{record.needAuth,jdbcType=TINYINT},
+      </if>
+      <if test="record.sort != null">
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update resources
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      `path` = #{record.path,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      `type` = #{record.type,jdbcType=TINYINT},
+      is_menu = #{record.isMenu,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      privilege_pos = #{record.privilegePos,jdbcType=INTEGER},
+      privilege_val = #{record.privilegeVal,jdbcType=BIGINT},
+      need_auth = #{record.needAuth,jdbcType=TINYINT},
+      sort = #{record.sort,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.little.g.springcloud.admin.model.Resources">
+    update resources
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="isMenu != null">
+        is_menu = #{isMenu,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="privilegePos != null">
+        privilege_pos = #{privilegePos,jdbcType=INTEGER},
+      </if>
+      <if test="privilegeVal != null">
+        privilege_val = #{privilegeVal,jdbcType=BIGINT},
+      </if>
+      <if test="needAuth != null">
+        need_auth = #{needAuth,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.little.g.springcloud.admin.model.Resources">
+    update resources
+    set title = #{title,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      is_menu = #{isMenu,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      privilege_pos = #{privilegePos,jdbcType=INTEGER},
+      privilege_val = #{privilegeVal,jdbcType=BIGINT},
+      need_auth = #{needAuth,jdbcType=TINYINT},
+      sort = #{sort,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.little.g.springcloud.admin.model.ResourcesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resources
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

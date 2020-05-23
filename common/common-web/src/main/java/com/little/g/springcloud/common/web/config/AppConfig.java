@@ -113,7 +113,7 @@ public class AppConfig {
 			for (org.springframework.core.io.Resource r : resources) {
 				MetadataReader reader = metaReader.getMetadataReader(r);
 
-				if ("com.little.g.common.error.ErrorCodes"
+				if ("com.little.g.springcloud.common.error.ErrorCodes"
 						.equals(reader.getClassMetadata().getSuperClassName())) {
 					// 说明是子类
 					try {

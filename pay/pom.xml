@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pay</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>pay-api</module>
+        <module>pay-dao</module>
+        <module>pay-server</module>
+        <module>pay-http</module>
+    </modules>
 
 
 </project>
