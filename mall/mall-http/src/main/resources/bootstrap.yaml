@@ -2,7 +2,7 @@ spring:
   messages:
     basename: classpath*:i18n/messages
   application:
-    name: pay-http
+    name: mall-http
   main:
     allow-bean-definition-overriding: true
 

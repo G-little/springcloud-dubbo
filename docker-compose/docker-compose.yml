@@ -12,7 +12,9 @@ services:
     volumes:
       - ./mysql/conf.d:/etc/mysql/conf.d
       - ./mysql/data:/var/lib/mysql
+      - ./mysql/sql:/opt/sql
       - ./mysql/init-sql:/docker-entrypoint-initdb.d
+
     environment:
       MYSQL_ROOT_PASSWORD: little.g
     restart: always
@@ -57,6 +59,27 @@ services:
       - mysql
       - redis
       - nacos
+    environment:
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASS=password
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASS=little.g
+  pay-server:
+    image: pay-server:${app_version}
+    restart: always
+    ports:
+      - '20880'
+    container_name: pay-server
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+      - user-server
     environment:
       - NACOS_HOST=nacos
       - NACOS_PORT=8848

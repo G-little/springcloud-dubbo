@@ -9,4 +9,4 @@ RUN apk add tzdata && \
 ENV LANG="en_US.UTF-8"
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Duser.timezone=Asia/Shanghai","-jar","/app.jar"]
-EXPOSE 8080
+EXPOSE 20880

@@ -1,8 +1,9 @@
+env:
+  online: @little.online@
+
 spring:
-  messages:
-    basename: classpath*:i18n/messages
   application:
-    name: pay-http
+    name: mall-server
   main:
     allow-bean-definition-overriding: true
 
@@ -10,8 +11,6 @@ spring:
   # default disable all
   cloud:
     nacos:
-      username: nacos
-      password: nacos
       discovery:
         enabled: false
         register-enabled: false
@@ -19,14 +18,12 @@ spring:
       enabled: false
     consul:
       enabled: false
+  profiles:
+    include: dao
 
 eureka:
   client:
     enabled: false
-
-
-
-
 
 ---
 spring:
@@ -34,12 +31,12 @@ spring:
 
   cloud:
     nacos:
+      username: nacos
+      password: nacos
       discovery:
         enabled: true
         register-enabled: true
         server-addr: @little.nacos.host@:@little.nacos.port@
-
-
 ---
 spring:
   profiles: eureka
@@ -58,7 +55,6 @@ spring:
     zookeeper:
       enabled: true
       connect-string: 127.0.0.1:2181
-
 
 ---
 spring:

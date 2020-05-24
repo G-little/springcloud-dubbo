@@ -3,26 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>pay</artifactId>
+        <artifactId>mall</artifactId>
         <groupId>com.little.g</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pay-server</artifactId>
+    <artifactId>mall-server</artifactId>
 
     <dependencies>
 
-        <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-sdk-java</artifactId>
-        </dependency>
 
 
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-pay</artifactId>
-        </dependency>
 
         <!-- Resolve the Spring Cloud registration issue -->
         <dependency>
@@ -51,7 +43,7 @@
 
         <dependency>
             <groupId>com.little.g</groupId>
-            <artifactId>pay-dao</artifactId>
+            <artifactId>mall-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
 

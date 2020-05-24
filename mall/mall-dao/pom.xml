@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mall</artifactId>
+        <groupId>com.little.g</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mall-dao</artifactId>
+
+    <properties>
+        <project.basedir>${project.basedir}</project.basedir>
+    </properties>
+
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 数据库 -->
+                <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
+                <priest.jdbc.url>jdbc:mysql://192.168.0.195:3307/springcloud-mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <priest.jdbc.username>bat</priest.jdbc.username>
+                <priest.jdbc.password>bat</priest.jdbc.password>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <!-- 开发环境 -->
+            <id>docker</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 数据库 -->
+                <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
+                <!--suppress UnresolvedMavenProperty -->
+                <priest.jdbc.url>jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/springcloud-mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <!--suppress UnresolvedMavenProperty -->
+                <priest.jdbc.username>${MYSQL_USER}</priest.jdbc.username>
+                <!--suppress UnresolvedMavenProperty -->
+                <priest.jdbc.password>${MYSQL_PASS}</priest.jdbc.password>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <!-- 线上环境  TODO -->
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 数据库 -->
+                <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
+                <priest.jdbc.url>jdbc:mysql://192.168.2.101:3306/little-admin?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <priest.jdbc.username>bat</priest.jdbc.username>
+                <priest.jdbc.password>bat</priest.jdbc.password>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+
+    <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.yaml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
