@@ -36,6 +36,26 @@
 
 
         <profile>
+            <!-- 开发环境 -->
+            <id>docker</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 数据库 -->
+                <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
+                <!--suppress UnresolvedMavenProperty -->
+                <priest.jdbc.url>jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/springcloud-user?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <!--suppress UnresolvedMavenProperty -->
+                <priest.jdbc.username>${MYSQL_USER}</priest.jdbc.username>
+                <!--suppress UnresolvedMavenProperty -->
+                <priest.jdbc.password>${MYSQL_PASS}</priest.jdbc.password>
+            </properties>
+        </profile>
+
+
+        <profile>
             <!-- 线上环境  TODO -->
             <id>release</id>
             <activation>

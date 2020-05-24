@@ -86,7 +86,33 @@
                 <little.log.path>/data/logs</little.log.path>
                 <little.redis.nodes>192.168.0.195</little.redis.nodes>
                 <little.redis.password>password</little.redis.password>
+                <little.nacos.host>127.0.0.1</little.nacos.host>
+                <little.nacos.port>8848</little.nacos.port>
                 <little.online>false</little.online>
+            </properties>
+        </profile>
+
+        <profile>
+            <!-- 线上环境 -->
+            <id>docker</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+
+                <!-- 日志 -->
+                <little.log.level>DEBUG</little.log.level>
+                <little.log.path>/data/logs</little.log.path>
+                <!--suppress UnresolvedMavenProperty -->
+                <little.redis.nodes>${REDIS_HOST}:${REDIS_PORT}</little.redis.nodes>
+                <!--suppress UnresolvedMavenProperty -->
+                <little.redis.password>${REDIS_PASS}</little.redis.password>
+                <!--suppress UnresolvedMavenProperty -->
+                <little.nacos.host>${NACOS_HOST}</little.nacos.host>
+                <!--suppress UnresolvedMavenProperty -->
+                <little.nacos.port>${NACOS_PORT}</little.nacos.port>
+                <little.online>true</little.online>
             </properties>
         </profile>
 
@@ -105,6 +131,8 @@
                 <little.log.path>/data/logs</little.log.path>
                 <little.redis.nodes>192.168.0.195:6379</little.redis.nodes>
                 <little.redis.password>password</little.redis.password>
+                <little.nacos.host>127.0.0.1</little.nacos.host>
+                <little.nacos.port>8848</little.nacos.port>
                 <little.online>true</little.online>
             </properties>
         </profile>
@@ -391,6 +419,23 @@
                         </dependency>
 
                     </dependencies>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>default</id>
+                            <goals>
+                                <!--如果package时不想用docker打包,就注释掉这个goal-->
+                                <goal>build</goal>
+                                <goal>push</goal>
+                            </goals>
+                        </execution>
+
+                    </executions>
+                    <version>1.4.13</version>
                 </plugin>
 
             </plugins>

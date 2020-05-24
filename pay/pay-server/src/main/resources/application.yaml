@@ -4,7 +4,7 @@ dubbo:
   protocols:
     dubbo:
       name: dubbo
-      port: -1
+      port: 20880
 
   registry:
 #   The Spring Cloud Dubbo's registry extension

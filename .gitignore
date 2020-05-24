@@ -9,3 +9,5 @@ classes
 *.lock
 git.properties
 /.idea/
+/docker-compose/nacos/standalone-logs/
+/docker-compose/mysql/data/

@@ -4,7 +4,7 @@ dubbo:
   protocols:
     dubbo:
       name: dubbo
-      port: -1
+      port: 20880
     rest:
       name: rest
       port: 9091
