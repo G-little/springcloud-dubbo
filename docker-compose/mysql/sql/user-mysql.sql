@@ -21,6 +21,7 @@
 
 
 create Database IF NOT EXISTS  `springcloud-user`;
+use `springcloud-user`;
 
 # Dump of table info_send_sms
 # ------------------------------------------------------------
