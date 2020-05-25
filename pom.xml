@@ -25,6 +25,7 @@
         <module>common</module>
         <module>admin</module>
         <module>pay</module>
+        <module>mall</module>
     </modules>
 
     <properties>
