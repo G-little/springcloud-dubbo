@@ -27,7 +27,7 @@
             <properties>
                 <!-- 数据库 -->
                 <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
-                <priest.jdbc.url>jdbc:mysql://192.168.0.195:3307/springcloud-user?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <priest.jdbc.url>jdbc:mysql://192.168.0.195:3307/springcloud-admin?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
                 <priest.jdbc.username>bat</priest.jdbc.username>
                 <priest.jdbc.password>bat</priest.jdbc.password>
             </properties>
