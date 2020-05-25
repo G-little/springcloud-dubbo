@@ -58,8 +58,8 @@ services:
     image: openresty/openresty:alpine
     container_name: openresty
     ports:
-      - '80:180'
-      - '443:1443'
+      - '80'
+      - '443'
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/log:/var/log/nginx
