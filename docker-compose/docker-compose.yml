@@ -1,5 +1,18 @@
 version: '3'
 services:
+  openvpn-server:
+    image: "kylemanna/openvpn"
+    ports:
+      - "1194:1194/udp"
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ovpn-data:/etc/openvpn
+    restart: always
+  volumes:
+    ovpn-data:
+      driver: local
+
   mysql:
     image: mysql:5.7
     container_name: mysql
