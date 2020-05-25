@@ -87,7 +87,7 @@
                 <little.log.path>/data/logs</little.log.path>
                 <little.redis.nodes>192.168.0.195</little.redis.nodes>
                 <little.redis.password>password</little.redis.password>
-                <little.nacos.host>127.0.0.1</little.nacos.host>
+                <little.nacos.host>192.168.0.195</little.nacos.host>
                 <little.nacos.port>8848</little.nacos.port>
                 <little.online>false</little.online>
             </properties>
@@ -428,11 +428,11 @@
                     <executions>
                         <execution>
                             <id>default</id>
-                            <goals>
-                                <!--如果package时不想用docker打包,就注释掉这个goal-->
-                                <goal>build</goal>
-                                <goal>push</goal>
-                            </goals>
+<!--                            <goals>-->
+<!--                                &lt;!&ndash;如果package时不想用docker打包,就注释掉这个goal&ndash;&gt;-->
+<!--                                <goal>build</goal>-->
+<!--                                <goal>push</goal>-->
+<!--                            </goals>-->
                         </execution>
 
                     </executions>
