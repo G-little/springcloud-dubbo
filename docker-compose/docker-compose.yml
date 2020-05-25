@@ -1,4 +1,9 @@
 version: '3'
+
+volumes:
+  ovpn-data:
+    driver: local
+
 services:
   openvpn-server:
     image: "kylemanna/openvpn"
@@ -9,9 +14,6 @@ services:
     volumes:
       - ovpn-data:/etc/openvpn
     restart: always
-  volumes:
-    ovpn-data:
-      driver: local
 
   mysql:
     image: mysql:5.7
@@ -51,19 +53,19 @@ services:
     command: redis-server --requirepass password
     ports:
       - '6379:6379'
-#  openresty:
-#    restart: always
-#    image: openresty/openresty:alpine
-#    container_name: openresty
-#    ports:
-#      - 80:80
-#      - 443:443
-#    volumes:
-#      - ./nginx/conf.d:/etc/nginx/conf.d
-#      - ./nginx/log:/var/log/nginx
-#    #      - ./nginx/www:/var/www
-#    depends_on:
-#      - user-http
+  openresty:
+    restart: always
+    image: openresty/openresty:alpine
+    container_name: openresty
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+    #      - ./nginx/www:/var/www
+    depends_on:
+      - user-http
   user-server:
     image: user-server:${app_version}
     restart: always
