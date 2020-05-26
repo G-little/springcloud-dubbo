@@ -24,10 +24,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Dubbo Spring Cloud Provider Bootstrap.
  */
+@EnableTransactionManagement
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @ComponentScan({ "com.little.g.springcloud.pay.service.impl",
