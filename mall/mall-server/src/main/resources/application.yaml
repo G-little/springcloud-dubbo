@@ -1,6 +1,6 @@
 dubbo:
   scan:
-    base-packages: com.little.g.springcloud.pay,com.little.g.springcloud.thirdpay
+    base-packages: com.little.g.springcloud.mall
   protocols:
     dubbo:
       name: dubbo

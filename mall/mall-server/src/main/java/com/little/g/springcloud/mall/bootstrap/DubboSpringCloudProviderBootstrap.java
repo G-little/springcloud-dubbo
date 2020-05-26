@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.little.g.springcloud.bootstrap;
+package com.little.g.springcloud.mall.bootstrap;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.mybatis.spring.annotation.MapperScan;
@@ -31,7 +31,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 
-@EnableApolloConfig
+@EnableApolloConfig("application.yaml")
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @ComponentScan({ "com.little.g.springcloud.pay.service.impl",

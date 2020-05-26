@@ -1,16 +1,5 @@
 env:
   online: @little.online@
-app:
-  id: mall-server
-
-apollo:
-  meta: @little.apollo.url@
-
-  bootstrap:
-      enabled: true
-      accesskey:
-        secret: @little.apollo.secret@
-
 
 spring:
   application:

@@ -1,5 +1,6 @@
-package com.little.g.springcloud.bootstrap;
+package com.little.g.springcloud.mall;
 
+import com.little.g.springcloud.mall.bootstrap.DubboSpringCloudProviderBootstrap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +10,7 @@ import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DubboSpringCloudProviderBootstrap.class,
-		properties = "spring.profiles.active=nacos")
+		properties = { "spring.profiles.active=nacos" })
 public class BaseTest {
 
 	@Resource

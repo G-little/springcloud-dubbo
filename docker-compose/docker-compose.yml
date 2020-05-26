@@ -106,6 +106,7 @@ services:
     ports:
       - '20880'
     container_name: user-server
+    mem_limit: 256m
     depends_on:
       - mysql
       - redis
