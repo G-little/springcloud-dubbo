@@ -45,6 +45,8 @@ services:
       - "18070:8070"
     links:
       - "mysql:apollo-db"
+    volumes:
+      - ./apollo/demo.sh:/apollo-quick-start/demo.sh
 
   nacos:
     image: nacos/nacos-server:latest
