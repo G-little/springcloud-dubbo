@@ -9,7 +9,7 @@ apollo:
   bootstrap:
       enabled: true
       accesskey:
-        secret: xxxx
+        secret: @little.apollo.secret@
 
 
 spring:

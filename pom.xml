@@ -92,6 +92,7 @@
                 <little.nacos.host>192.168.0.195</little.nacos.host>
                 <little.nacos.port>8848</little.nacos.port>
                 <little.apollo.url>http://192.168.0.195:18080</little.apollo.url>
+                <little.apollo.secret>http://192.168.0.195:18080</little.apollo.secret>
                 <little.online>false</little.online>
             </properties>
         </profile>
