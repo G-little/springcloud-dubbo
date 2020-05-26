@@ -124,6 +124,7 @@ services:
   pay-server:
     image: pay-server:${app_version}
     restart: always
+    entrypoint: java ${java_mem} -Djava.security.egd=file:/dev/./urandom -Duser.timezone=Asia/Shanghai -jar /app.jar
     ports:
       - '20880'
     container_name: pay-server
@@ -142,29 +143,31 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_USER=root
       - MYSQL_PASS=little.g
-  #  admin-server:
-  #    image: admin-server:${app_version}
-  #    restart: always
-  #    ports:
-  #      - '20880'
-  #    container_name: admin-server
-  #    depends_on:
-  #      - mysql
-  #      - redis
-  #      - nacos
-  #    environment:
-  #      - NACOS_HOST=nacos
-  #      - NACOS_PORT=8848
-  #      - REDIS_HOST=redis
-  #      - REDIS_PORT=6379
-  #      - REDIS_PASS=password
-  #      - MYSQL_HOST=mysql
-  #      - MYSQL_PORT=3306
-  #      - MYSQL_USER=root
-  #      - MYSQL_PASS=little.g
+    admin-server:
+      image: admin-server:${app_version}
+      restart: always
+      entrypoint: java ${java_mem} -Djava.security.egd=file:/dev/./urandom -Duser.timezone=Asia/Shanghai -jar /app.jar
+      ports:
+        - '20880'
+      container_name: admin-server
+      depends_on:
+        - mysql
+        - redis
+        - nacos
+      environment:
+        - NACOS_HOST=nacos
+        - NACOS_PORT=8848
+        - REDIS_HOST=redis
+        - REDIS_PORT=6379
+        - REDIS_PASS=password
+        - MYSQL_HOST=mysql
+        - MYSQL_PORT=3306
+        - MYSQL_USER=root
+        - MYSQL_PASS=little.g
   user-http:
     image: user-http:${app_version}
     restart: always
+    entrypoint: java ${java_mem} -Djava.security.egd=file:/dev/./urandom -Duser.timezone=Asia/Shanghai -jar /app.jar
     ports:
       - '8080'
     container_name: user-http
@@ -178,39 +181,40 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASS=password
-#  pay-http:
-#    image: pay-http:${app_version}
-#    restart: always
-#    ports:
-#      - '8080'
-#    container_name: pay-http
-#    depends_on:
-#      - nacos
-#      - redis
-#      - user-server
-#      - pay-server
-#    environment:
-#      - NACOS_HOST=nacos
-#      - NACOS_PORT=8848
-#      - REDIS_HOST=redis
-#      - REDIS_PORT=6379
-#      - REDIS_PASS=password
-#  admin-http:
-#    image: admin-http:${app_version}
-#    restart: always
-#    ports:
-#      - '8080'
-#    container_name: admin-http
-#    depends_on:
-#      - nacos
-#      - redis
-#      - admin-server
-#    environment:
-#      - NACOS_HOST=nacos
-#      - NACOS_PORT=8848
-#      - REDIS_HOST=redis
-#      - REDIS_PORT=6379
-#      - REDIS_PASS=password
+  pay-http:
+    image: pay-http:${app_version}
+    restart: always
+    entrypoint: java ${java_mem} -Djava.security.egd=file:/dev/./urandom -Duser.timezone=Asia/Shanghai -jar /app.jar
+    ports:
+      - '8080'
+    container_name: pay-http
+    depends_on:
+      - nacos
+      - redis
+      - user-server
+      - pay-server
+    environment:
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASS=password
+  admin-http:
+    image: admin-http:${app_version}
+    restart: always
+    ports:
+      - '8080'
+    container_name: admin-http
+    depends_on:
+      - nacos
+      - redis
+      - admin-server
+    environment:
+      - NACOS_HOST=nacos
+      - NACOS_PORT=8848
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASS=password
 
 
 
