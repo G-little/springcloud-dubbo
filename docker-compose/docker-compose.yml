@@ -44,7 +44,7 @@ services:
       - "18080:8080"
       - "18070:8070"
     links:
-      - "apollo-db:mysql"
+      - "mysql:apollo-db"
 
   nacos:
     image: nacos/nacos-server:latest
