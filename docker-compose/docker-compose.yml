@@ -59,7 +59,7 @@ services:
     volumes_from:
       - apollo-dbdata
 
-    apollo-dbdata:
+  apollo-dbdata:
       image: alpine:latest
       container_name: apollo-dbdata
       volumes:
