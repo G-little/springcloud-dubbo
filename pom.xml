@@ -91,6 +91,7 @@
                 <little.redis.password>password</little.redis.password>
                 <little.nacos.host>192.168.0.195</little.nacos.host>
                 <little.nacos.port>8848</little.nacos.port>
+                <little.apollo.url>http://192.168.0.195:18080</little.apollo.url>
                 <little.online>false</little.online>
             </properties>
         </profile>
@@ -390,6 +391,13 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.1.5.Final</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.ctrip.framework.apollo</groupId>
+                <artifactId>apollo-client</artifactId>
+                <version>1.6.0</version>
             </dependency>
 
 

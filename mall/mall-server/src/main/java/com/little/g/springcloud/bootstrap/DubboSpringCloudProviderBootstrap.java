@@ -16,7 +16,9 @@
 
 package com.little.g.springcloud.bootstrap;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -28,6 +30,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 /**
  * Dubbo Spring Cloud Provider Bootstrap.
  */
+
+@EnableApolloConfig
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @ComponentScan({ "com.little.g.springcloud.pay.service.impl",
@@ -37,11 +41,38 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 public class DubboSpringCloudProviderBootstrap {
 
 	@Bean
+	public TestJavaConfigBean javaConfigBean() {
+		return new TestJavaConfigBean();
+	}
+
+	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
 		source.setBasename("i18n/messages");
 		source.setCacheSeconds(3600);
 		return source;
+	}
+
+	public class TestJavaConfigBean {
+
+		@Value("${timeout:100}")
+		private int timeout;
+
+		private int batch;
+
+		@Value("${batch:200}")
+		public void setBatch(int batch) {
+			this.batch = batch;
+		}
+
+		public int getTimeout() {
+			return timeout;
+		}
+
+		public int getBatch() {
+			return batch;
+		}
+
 	}
 
 	public static void main(String[] args) {
