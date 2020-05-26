@@ -39,15 +39,33 @@ services:
     image: nobodyiam/apollo-quick-start
     container_name: apollo
     depends_on:
-      - mysql
+      - apollo-db
     ports:
       - "18080:8080"
       - "18070:8070"
-    links:
-      - "mysql:apollo-db"
-    command: ["/apollo-quick-start/demo.sh", "start"]
+  apollo-db:
+    image: mysql:5.7
+    container_name: apollo-db
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    depends_on:
+      - apollo-dbdata
+    ports:
+      - "13306:3306"
     volumes:
-      - ./apollo/demo.sh:/apollo-quick-start/demo.sh
+      - ./apollo/init-sql:/docker-entrypoint-initdb.d
+      - ./apollo/sql:/opt/sql
+    volumes_from:
+      - apollo-dbdata
+
+    apollo-dbdata:
+      image: alpine:latest
+      container_name: apollo-dbdata
+      volumes:
+        - /var/lib/apollo-mysql
+
+
 
   nacos:
     image: nacos/nacos-server:latest
