@@ -6,9 +6,9 @@ import org.apache.dubbo.config.annotation.Service;
 @Service(protocol = "dubbo")
 public class EchoTestImpl implements EchoTest {
 
-	@Override
-	public String testEcho(String echo) {
-		return echo;
-	}
+    @Override
+    public String testEcho(String echo) {
+        return echo;
+    }
 
 }

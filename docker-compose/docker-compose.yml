@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 volumes:
   ovpn-data:
@@ -103,10 +103,10 @@ services:
   user-server:
     image: user-server:${app_version}
     restart: always
+    entrypoint: java ${java_mem} -Djava.security.egd=file:/dev/./urandom -Duser.timezone=Asia/Shanghai -jar /app.jar
     ports:
       - '20880'
     container_name: user-server
-    mem_limit: 256m
     depends_on:
       - mysql
       - redis
