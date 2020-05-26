@@ -10,15 +10,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = DubboSpringCloudProviderBootstrap.class, properties = "spring.profiles.active=nacos")
+@SpringBootTest(classes = DubboSpringCloudProviderBootstrap.class,
+		properties = "spring.profiles.active=nacos")
 public class BaseTest {
-    @Reference
-    private UserAccountService userAccountService;
 
-    @Test
-    public void testQuery() {
-        UserAccountDTO userAccountDTO = userAccountService.queryUserAccount(1L);
-        System.out.println(userAccountDTO);
-    }
+	@Reference
+	private UserAccountService userAccountService;
+
+	@Test
+	public void testQuery() {
+		UserAccountDTO userAccountDTO = userAccountService.queryUserAccount(1L);
+		System.out.println(userAccountDTO);
+	}
 
 }
