@@ -31,8 +31,20 @@ services:
       - ./mysql/init-sql:/docker-entrypoint-initdb.d
 
     environment:
+      TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: little.g
     restart: always
+
+  apollo:
+    image: nobodyiam/apollo-quick-start
+    container_name: apollo
+    depends_on:
+      - mysql
+    ports:
+      - "18080:8080"
+      - "18070:8070"
+    links:
+      - "apollo-db:mysql"
 
   nacos:
     image: nacos/nacos-server:latest
