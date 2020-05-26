@@ -121,6 +121,7 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_USER=root
       - MYSQL_PASS=little.g
+
   pay-server:
     image: pay-server:${app_version}
     restart: always
@@ -143,6 +144,7 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_USER=root
       - MYSQL_PASS=little.g
+
     admin-server:
       image: admin-server:${app_version}
       restart: always
