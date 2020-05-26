@@ -45,6 +45,7 @@ services:
       - "18070:8070"
     links:
       - "mysql:apollo-db"
+    command: ["/apollo-quick-start/demo.sh", "start"]
     volumes:
       - ./apollo/demo.sh:/apollo-quick-start/demo.sh
 
