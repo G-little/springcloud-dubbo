@@ -60,10 +60,10 @@ services:
       - apollo-dbdata
 
   apollo-dbdata:
-      image: alpine:latest
-      container_name: apollo-dbdata
-      volumes:
-        - /var/lib/apollo-mysql
+    image: alpine:latest
+    container_name: apollo-dbdata
+    volumes:
+      - /var/lib/apollo-mysql
 
 
 
