@@ -3,6 +3,8 @@ version: '3'
 volumes:
   ovpn-data:
     driver: local
+  apollo-dbdata:
+
 
 services:
   openvpn-server:
@@ -56,8 +58,7 @@ services:
     volumes:
       - ./apollo/init-sql:/docker-entrypoint-initdb.d
       - ./apollo/sql:/opt/sql
-    volumes_from:
-      - apollo-dbdata
+
 
   apollo-dbdata:
     image: alpine:latest
