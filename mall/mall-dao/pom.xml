@@ -26,9 +26,9 @@
             <properties>
                 <!-- 数据库 -->
                 <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
-                <priest.jdbc.url>jdbc:mysql://192.168.0.195:3307/springcloud-mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
-                <priest.jdbc.username>bat</priest.jdbc.username>
-                <priest.jdbc.password>bat</priest.jdbc.password>
+                <priest.jdbc.url>jdbc:mysql://192.168.0.195:3306/litemall?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <priest.jdbc.username>root</priest.jdbc.username>
+                <priest.jdbc.password>little.g</priest.jdbc.password>
             </properties>
         </profile>
 
@@ -70,6 +70,10 @@
     </profiles>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>

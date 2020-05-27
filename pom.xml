@@ -401,6 +401,12 @@
                 <version>1.6.0</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.2.13</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
@@ -417,7 +423,7 @@
                 <plugin>
                     <groupId>org.mybatis.generator</groupId>
                     <artifactId>mybatis-generator-maven-plugin</artifactId>
-                    <version>1.4.0</version>
+                    <version>1.3.7</version>
                     <configuration>
                         <verbose>true</verbose>
                         <overwrite>true</overwrite>
@@ -444,11 +450,12 @@
                     <executions>
                         <execution>
                             <id>default</id>
+                            <!--如果package时不想用docker打包,就注释掉这个goal
                             <goals>
-                                <!--如果package时不想用docker打包,就注释掉这个goal-->
                                 <goal>build</goal>
                                 <goal>push</goal>
                             </goals>
+                            -->
                         </execution>
 
                     </executions>
