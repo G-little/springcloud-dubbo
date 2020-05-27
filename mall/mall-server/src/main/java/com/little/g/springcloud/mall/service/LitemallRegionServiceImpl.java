@@ -6,13 +6,13 @@ import com.little.g.springcloud.mall.api.LitemallRegionService;
 import com.little.g.springcloud.mall.dto.LitemallRegionDTO;
 import com.little.g.springcloud.mall.mapper.LitemallRegionMapper;
 import com.little.g.springcloud.mall.model.LitemallRegionExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallRegionServiceImpl implements LitemallRegionService {
 
     @Resource

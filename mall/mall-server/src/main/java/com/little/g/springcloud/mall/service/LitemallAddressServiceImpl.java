@@ -6,8 +6,8 @@ import com.little.g.springcloud.mall.dto.LitemallAddressDTO;
 import com.little.g.springcloud.mall.mapper.LitemallAddressMapper;
 import com.little.g.springcloud.mall.model.LitemallAddress;
 import com.little.g.springcloud.mall.model.LitemallAddressExample;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallAddressServiceImpl implements LitemallAddressService {
 
     @Resource
