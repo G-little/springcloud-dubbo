@@ -5,6 +5,7 @@ import com.little.g.springcloud.mall.dto.LitemallAddressDTO;
 import java.util.List;
 
 public interface LitemallAddressService {
+
     List<LitemallAddressDTO> queryByUid(Integer uid);
 
     LitemallAddressDTO query(Integer userId, Integer id);
@@ -19,5 +20,7 @@ public interface LitemallAddressService {
 
     void resetDefault(Integer userId);
 
-    List<LitemallAddressDTO> querySelective(Integer userId, String name, Integer page, Integer limit, String sort, String order);
+    List<LitemallAddressDTO> querySelective(Integer userId, String name, Integer page,
+                                            Integer limit, String sort, String order);
+
 }

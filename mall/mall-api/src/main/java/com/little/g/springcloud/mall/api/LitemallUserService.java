@@ -6,27 +6,30 @@ import com.little.g.springcloud.mall.vo.UserVo;
 import java.util.List;
 
 public interface LitemallUserService {
-    LitemallUserDTO findById(Integer userId);
 
-    UserVo findUserVoById(Integer userId);
+	LitemallUserDTO findById(Integer userId);
 
-    LitemallUserDTO queryByOid(String openId);
+	UserVo findUserVoById(Integer userId);
 
-    void add(LitemallUserDTO user);
+	LitemallUserDTO queryByOid(String openId);
 
-    int updateById(LitemallUserDTO user);
+	void add(LitemallUserDTO user);
 
-    List<LitemallUserDTO> querySelective(String username, String mobile, Integer page, Integer size, String sort, String order);
+	int updateById(LitemallUserDTO user);
 
-    int count();
+	List<LitemallUserDTO> querySelective(String username, String mobile, Integer page,
+										 Integer size, String sort, String order);
 
-    List<LitemallUserDTO> queryByUsername(String username);
+	int count();
 
-    boolean checkByUsername(String username);
+	List<LitemallUserDTO> queryByUsername(String username);
 
-    List<LitemallUserDTO> queryByMobile(String mobile);
+	boolean checkByUsername(String username);
 
-    List<LitemallUserDTO> queryByOpenid(String openid);
+	List<LitemallUserDTO> queryByMobile(String mobile);
 
-    void deleteById(Integer id);
+	List<LitemallUserDTO> queryByOpenid(String openid);
+
+	void deleteById(Integer id);
+
 }

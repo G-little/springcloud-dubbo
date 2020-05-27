@@ -5,6 +5,7 @@ import com.little.g.springcloud.mall.dto.LitemallOrderGoodsDTO;
 import java.util.List;
 
 public interface LitemallOrderGoodsService {
+
     int add(LitemallOrderGoodsDTO orderGoods);
 
     List<LitemallOrderGoodsDTO> queryByOid(Integer orderId);
@@ -20,4 +21,5 @@ public interface LitemallOrderGoodsService {
     boolean checkExist(Integer goodsId);
 
     void deleteByOrderId(Integer orderId);
+
 }

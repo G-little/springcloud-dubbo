@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface LitemallCartService {
+
     LitemallCartDTO queryExist(Integer goodsId, Integer productId, Integer userId);
 
     void add(LitemallCartDTO cart);
@@ -26,11 +27,14 @@ public interface LitemallCartService {
 
     void clearGoods(Integer userId);
 
-    List<LitemallCartDTO> querySelective(Integer userId, Integer goodsId, Integer page, Integer limit, String sort, String order);
+    List<LitemallCartDTO> querySelective(Integer userId, Integer goodsId, Integer page,
+                                         Integer limit, String sort, String order);
 
     void deleteById(Integer id);
 
     boolean checkExist(Integer goodsId);
 
-    void updateProduct(Integer id, String goodsSn, String goodsName, BigDecimal price, String url);
+    void updateProduct(Integer id, String goodsSn, String goodsName, BigDecimal price,
+                       String url);
+
 }

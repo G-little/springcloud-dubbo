@@ -5,6 +5,7 @@ import com.little.g.springcloud.mall.dto.LitemallCategoryDTO;
 import java.util.List;
 
 public interface LitemallCategoryService {
+
     List<LitemallCategoryDTO> queryL1WithoutRecommend(int offset, int limit);
 
     List<LitemallCategoryDTO> queryL1(int offset, int limit);
@@ -17,7 +18,8 @@ public interface LitemallCategoryService {
 
     LitemallCategoryDTO findById(Integer id);
 
-    List<LitemallCategoryDTO> querySelective(String id, String name, Integer page, Integer size, String sort, String order);
+    List<LitemallCategoryDTO> querySelective(String id, String name, Integer page,
+                                             Integer size, String sort, String order);
 
     int updateById(LitemallCategoryDTO category);
 
@@ -26,4 +28,5 @@ public interface LitemallCategoryService {
     void add(LitemallCategoryDTO category);
 
     List<LitemallCategoryDTO> queryChannel();
+
 }

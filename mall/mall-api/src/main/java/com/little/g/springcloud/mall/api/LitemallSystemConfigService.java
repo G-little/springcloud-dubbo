@@ -3,6 +3,7 @@ package com.little.g.springcloud.mall.api;
 import java.util.Map;
 
 public interface LitemallSystemConfigService {
+
     Map<String, String> queryAll();
 
     Map<String, String> listMail();
@@ -16,4 +17,5 @@ public interface LitemallSystemConfigService {
     void updateConfig(Map<String, String> data);
 
     void addConfig(String key, String value);
+
 }

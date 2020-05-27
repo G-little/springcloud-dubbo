@@ -3,22 +3,25 @@ package com.little.g.springcloud.mall.vo;
 import java.io.Serializable;
 
 public class UserVo implements Serializable {
-    private String nickname;
-    private String avatar;
 
-    public String getNickname() {
-        return nickname;
-    }
+	private String nickname;
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+	private String avatar;
 
-    public String getAvatar() {
-        return avatar;
-    }
+	public String getNickname() {
+		return nickname;
+	}
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 }

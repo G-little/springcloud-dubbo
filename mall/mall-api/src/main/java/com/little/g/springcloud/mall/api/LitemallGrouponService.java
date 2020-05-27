@@ -5,6 +5,7 @@ import com.little.g.springcloud.mall.dto.LitemallGrouponDTO;
 import java.util.List;
 
 public interface LitemallGrouponService {
+
     List<LitemallGrouponDTO> queryMyGroupon(Integer userId);
 
     List<LitemallGrouponDTO> queryMyJoinGroupon(Integer userId);
@@ -25,7 +26,9 @@ public interface LitemallGrouponService {
 
     int createGroupon(LitemallGrouponDTO groupon);
 
-    List<LitemallGrouponDTO> querySelective(String rulesId, Integer page, Integer size, String sort, String order);
+    List<LitemallGrouponDTO> querySelective(String rulesId, Integer page, Integer size,
+                                            String sort, String order);
 
     List<LitemallGrouponDTO> queryByRuleId(int grouponRuleId);
+
 }

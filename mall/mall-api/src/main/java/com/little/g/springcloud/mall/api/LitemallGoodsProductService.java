@@ -5,6 +5,7 @@ import com.little.g.springcloud.mall.dto.LitemallGoodsProductDTO;
 import java.util.List;
 
 public interface LitemallGoodsProductService {
+
     List<LitemallGoodsProductDTO> queryByGid(Integer gid);
 
     LitemallGoodsProductDTO findById(Integer id);
@@ -22,4 +23,5 @@ public interface LitemallGoodsProductService {
     int reduceStock(Integer id, Short num);
 
     void updateById(LitemallGoodsProductDTO product);
+
 }

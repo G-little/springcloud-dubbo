@@ -5,11 +5,14 @@ import com.little.g.springcloud.mall.dto.LitemallAftersaleDTO;
 import java.util.List;
 
 public interface LitemallAftersaleService {
+
     LitemallAftersaleDTO findById(Integer userId, Integer id);
 
-    List<LitemallAftersaleDTO> queryList(Integer userId, Short status, Integer page, Integer limit, String sort, String order);
+    List<LitemallAftersaleDTO> queryList(Integer userId, Short status, Integer page,
+                                         Integer limit, String sort, String order);
 
-    List<LitemallAftersaleDTO> querySelective(Integer orderId, String aftersaleSn, Short status, Integer page, Integer limit, String sort, String order);
+    List<LitemallAftersaleDTO> querySelective(Integer orderId, String aftersaleSn,
+                                              Short status, Integer page, Integer limit, String sort, String order);
 
     int countByAftersaleSn(Integer userId, String aftersaleSn);
 
@@ -27,4 +30,5 @@ public interface LitemallAftersaleService {
     void updateById(LitemallAftersaleDTO aftersale);
 
     LitemallAftersaleDTO findByOrderId(Integer userId, Integer orderId);
+
 }

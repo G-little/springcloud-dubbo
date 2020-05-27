@@ -22,14 +22,23 @@ import java.util.List;
 public class OrderUtil {
 
     public static final Short STATUS_CREATE = 101;
+
     public static final Short STATUS_PAY = 201;
+
     public static final Short STATUS_SHIP = 301;
+
     public static final Short STATUS_CONFIRM = 401;
+
     public static final Short STATUS_CANCEL = 102;
+
     public static final Short STATUS_AUTO_CANCEL = 103;
+
     public static final Short STATUS_ADMIN_CANCEL = 104;
+
     public static final Short STATUS_REFUND = 202;
+
     public static final Short STATUS_REFUND_CONFIRM = 203;
+
     public static final Short STATUS_AUTO_CONFIRM = 402;
 
     public static String orderStatusText(LitemallOrderDTO order) {
@@ -77,7 +86,6 @@ public class OrderUtil {
 
         throw new IllegalStateException("orderStatus不支持");
     }
-
 
     public static OrderHandleOption build(LitemallOrderDTO order) {
         int status = order.getOrderStatus().intValue();
@@ -135,15 +143,14 @@ public class OrderUtil {
         } else if (showType.equals(4)) {
             // 待评价订单
             status.add((short) 401);
-//            系统超时自动取消，此时应该不支持评价
-//            status.add((short)402);
+            // 系统超时自动取消，此时应该不支持评价
+            // status.add((short)402);
         } else {
             return null;
         }
 
         return status;
     }
-
 
     public static boolean isCreateStatus(LitemallOrderDTO litemallOrder) {
         return OrderUtil.STATUS_CREATE == litemallOrder.getOrderStatus().shortValue();
@@ -172,7 +179,8 @@ public class OrderUtil {
     }
 
     public static boolean isAutoCancelStatus(LitemallOrderDTO litemallOrder) {
-        return OrderUtil.STATUS_AUTO_CANCEL == litemallOrder.getOrderStatus().shortValue();
+        return OrderUtil.STATUS_AUTO_CANCEL == litemallOrder.getOrderStatus()
+                .shortValue();
     }
 
     public static boolean isRefundStatus(LitemallOrderDTO litemallOrder) {
@@ -180,10 +188,13 @@ public class OrderUtil {
     }
 
     public static boolean isRefundConfirmStatus(LitemallOrderDTO litemallOrder) {
-        return OrderUtil.STATUS_REFUND_CONFIRM == litemallOrder.getOrderStatus().shortValue();
+        return OrderUtil.STATUS_REFUND_CONFIRM == litemallOrder.getOrderStatus()
+                .shortValue();
     }
 
     public static boolean isAutoConfirmStatus(LitemallOrderDTO litemallOrder) {
-        return OrderUtil.STATUS_AUTO_CONFIRM == litemallOrder.getOrderStatus().shortValue();
+        return OrderUtil.STATUS_AUTO_CONFIRM == litemallOrder.getOrderStatus()
+                .shortValue();
     }
+
 }

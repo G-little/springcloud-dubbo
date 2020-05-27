@@ -5,7 +5,9 @@ import com.little.g.springcloud.mall.dto.LitemallNoticeAdminDTO;
 import java.util.List;
 
 public interface LitemallNoticeAdminService {
-    List<LitemallNoticeAdminDTO> querySelective(String title, String type, Integer adminId, Integer page, Integer limit, String sort, String order);
+
+    List<LitemallNoticeAdminDTO> querySelective(String title, String type,
+                                                Integer adminId, Integer page, Integer limit, String sort, String order);
 
     LitemallNoticeAdminDTO find(Integer noticeId, Integer adminId);
 
@@ -30,4 +32,5 @@ public interface LitemallNoticeAdminService {
     int countReadByNoticeId(Integer noticeId);
 
     void updateByNoticeId(LitemallNoticeAdminDTO noticeAdmin, Integer noticeId);
+
 }

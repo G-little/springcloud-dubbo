@@ -5,6 +5,7 @@ import com.little.g.springcloud.mall.dto.LitemallGoodsAttributeDTO;
 import java.util.List;
 
 public interface LitemallGoodsAttributeService {
+
     List<LitemallGoodsAttributeDTO> queryByGid(Integer goodsId);
 
     void add(LitemallGoodsAttributeDTO goodsAttribute);
@@ -16,4 +17,5 @@ public interface LitemallGoodsAttributeService {
     void deleteById(Integer id);
 
     void updateById(LitemallGoodsAttributeDTO attribute);
+
 }
