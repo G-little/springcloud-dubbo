@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallIssueService;
 import com.little.g.springcloud.mall.dto.LitemallIssueDTO;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class LitemallIssueServiceImpl implements LitemallIssueService {
@@ -33,8 +33,8 @@ public class LitemallIssueServiceImpl implements LitemallIssueService {
     }
 
     @Override
-    public List<LitemallIssueDTO> querySelective(String question, Integer page,
-                                                 Integer limit, String sort, String order) {
+    public PageInfo<LitemallIssueDTO> querySelective(String question, Integer page,
+													 Integer limit, String sort, String order) {
         LitemallIssueExample example = new LitemallIssueExample();
         LitemallIssueExample.Criteria criteria = example.createCriteria();
 
@@ -48,7 +48,7 @@ public class LitemallIssueServiceImpl implements LitemallIssueService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(issueMapper.selectByExample(example),
+        return DTOUtil.convert2Page(issueMapper.selectByExample(example),
                 LitemallIssueDTO.class);
     }
 

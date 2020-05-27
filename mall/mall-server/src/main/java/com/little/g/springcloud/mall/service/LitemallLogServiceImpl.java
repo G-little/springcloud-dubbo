@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallLogService;
 import com.little.g.springcloud.mall.dto.LitemallLogDTO;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class LitemallLogServiceImpl implements LitemallLogService {
@@ -33,8 +33,8 @@ public class LitemallLogServiceImpl implements LitemallLogService {
     }
 
     @Override
-    public List<LitemallLogDTO> querySelective(String name, Integer page, Integer size,
-                                               String sort, String order) {
+    public PageInfo<LitemallLogDTO> querySelective(String name, Integer page, Integer size,
+												   String sort, String order) {
         LitemallLogExample example = new LitemallLogExample();
         LitemallLogExample.Criteria criteria = example.createCriteria();
 
@@ -48,7 +48,7 @@ public class LitemallLogServiceImpl implements LitemallLogService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(logMapper.selectByExample(example),
+        return DTOUtil.convert2Page(logMapper.selectByExample(example),
                 LitemallLogDTO.class);
     }
 

@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallRegionService;
 import com.little.g.springcloud.mall.dto.LitemallRegionDTO;
@@ -42,8 +43,8 @@ public class LitemallRegionServiceImpl implements LitemallRegionService {
     }
 
     @Override
-    public List<LitemallRegionDTO> querySelective(String name, Integer code, Integer page,
-                                                  Integer size, String sort, String order) {
+    public PageInfo<LitemallRegionDTO> querySelective(String name, Integer code, Integer page,
+													  Integer size, String sort, String order) {
         LitemallRegionExample example = new LitemallRegionExample();
         LitemallRegionExample.Criteria criteria = example.createCriteria();
 
@@ -59,7 +60,7 @@ public class LitemallRegionServiceImpl implements LitemallRegionService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(regionMapper.selectByExample(example),
+        return DTOUtil.convert2Page(regionMapper.selectByExample(example),
                 LitemallRegionDTO.class);
     }
 

@@ -1,5 +1,6 @@
 package com.little.g.springcloud.mall.api;
 
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallTopicDTO;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public interface LitemallTopicService {
 
 	List<LitemallTopicDTO> queryRelatedList(Integer id, int offset, int limit);
 
-	List<LitemallTopicDTO> querySelective(String title, String subtitle, Integer page,
-										  Integer limit, String sort, String order);
+	PageInfo<LitemallTopicDTO> querySelective(String title, String subtitle, Integer page,
+                                              Integer limit, String sort, String order);
 
 	int updateById(LitemallTopicDTO topic);
 

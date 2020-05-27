@@ -14,21 +14,22 @@ import java.util.List;
 @Component
 public class GetRegionManager {
 
-    @Reference
-    private LitemallRegionService regionService;
+	@Reference
+	private LitemallRegionService regionService;
 
-    private static List<LitemallRegionDTO> litemallRegions;
+	private static List<LitemallRegionDTO> litemallRegions;
 
-    protected List<LitemallRegionDTO> getLitemallRegions() {
-        if (litemallRegions == null) {
-            createRegion();
-        }
-        return litemallRegions;
-    }
+	protected List<LitemallRegionDTO> getLitemallRegions() {
+		if (litemallRegions == null) {
+			createRegion();
+		}
+		return litemallRegions;
+	}
 
-    private synchronized void createRegion() {
-        if (litemallRegions == null) {
-            litemallRegions = regionService.getAll();
-        }
-    }
+	private synchronized void createRegion() {
+		if (litemallRegions == null) {
+			litemallRegions = regionService.getAll();
+		}
+	}
+
 }

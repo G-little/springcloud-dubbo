@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface LitemallGoodsSpecificationService {
 
-    List<LitemallGoodsSpecificationDTO> queryByGid(Integer id);
+	List<LitemallGoodsSpecificationDTO> queryByGid(Integer id);
 
-    LitemallGoodsSpecificationDTO findById(Integer id);
+	LitemallGoodsSpecificationDTO findById(Integer id);
 
-    void deleteByGid(Integer gid);
+	void deleteByGid(Integer gid);
 
-    void add(LitemallGoodsSpecificationDTO goodsSpecification);
+	void add(LitemallGoodsSpecificationDTO goodsSpecification);
 
-    Object getSpecificationVoList(Integer id);
+	Object getSpecificationVoList(Integer id);
 
-    void updateById(LitemallGoodsSpecificationDTO specification);
+	void updateById(LitemallGoodsSpecificationDTO specification);
 
 }

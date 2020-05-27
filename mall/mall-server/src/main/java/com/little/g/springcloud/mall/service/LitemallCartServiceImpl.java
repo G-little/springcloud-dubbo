@@ -1,13 +1,14 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallCartService;
 import com.little.g.springcloud.mall.dto.LitemallCartDTO;
 import com.little.g.springcloud.mall.mapper.LitemallCartMapper;
 import com.little.g.springcloud.mall.model.LitemallCart;
 import com.little.g.springcloud.mall.model.LitemallCartExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallCartServiceImpl implements LitemallCartService {
 
     @Resource
@@ -104,8 +105,8 @@ public class LitemallCartServiceImpl implements LitemallCartService {
     }
 
     @Override
-    public List<LitemallCartDTO> querySelective(Integer userId, Integer goodsId,
-                                                Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallCartDTO> querySelective(Integer userId, Integer goodsId,
+                                                    Integer page, Integer limit, String sort, String order) {
         LitemallCartExample example = new LitemallCartExample();
         LitemallCartExample.Criteria criteria = example.createCriteria();
 
@@ -122,7 +123,7 @@ public class LitemallCartServiceImpl implements LitemallCartService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(cartMapper.selectByExample(example),
+        return DTOUtil.convert2Page(cartMapper.selectByExample(example),
                 LitemallCartDTO.class);
     }
 

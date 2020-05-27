@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallUserService;
 import com.little.g.springcloud.mall.dto.LitemallUserDTO;
@@ -59,8 +60,8 @@ public class LitemallUserServiceImpl implements LitemallUserService {
 	}
 
 	@Override
-	public List<LitemallUserDTO> querySelective(String username, String mobile,
-												Integer page, Integer size, String sort, String order) {
+	public PageInfo<LitemallUserDTO> querySelective(String username, String mobile,
+													Integer page, Integer size, String sort, String order) {
 		LitemallUserExample example = new LitemallUserExample();
 		LitemallUserExample.Criteria criteria = example.createCriteria();
 
@@ -77,7 +78,7 @@ public class LitemallUserServiceImpl implements LitemallUserService {
 		}
 
 		PageHelper.startPage(page, size);
-		return DTOUtil.convert2List(userMapper.selectByExample(example),
+		return DTOUtil.convert2Page(userMapper.selectByExample(example),
 				LitemallUserDTO.class);
 	}
 

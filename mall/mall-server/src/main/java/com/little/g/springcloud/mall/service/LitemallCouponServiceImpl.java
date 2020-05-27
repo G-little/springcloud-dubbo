@@ -2,6 +2,7 @@ package com.little.g.springcloud.mall.service;
 
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallCouponService;
 import com.little.g.springcloud.mall.dto.LitemallCouponDTO;
@@ -13,7 +14,7 @@ import com.little.g.springcloud.mall.model.LitemallCouponExample;
 import com.little.g.springcloud.mall.model.LitemallCouponUser;
 import com.little.g.springcloud.mall.model.LitemallCouponUserExample;
 import com.little.g.springcloud.mall.util.CouponConstant;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallCouponServiceImpl implements LitemallCouponService {
 
     @Resource
@@ -129,8 +130,8 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
     }
 
     @Override
-    public List<LitemallCouponDTO> querySelective(String name, Short type, Short status,
-                                                  Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallCouponDTO> querySelective(String name, Short type, Short status,
+                                                      Integer page, Integer limit, String sort, String order) {
         LitemallCouponExample example = new LitemallCouponExample();
         LitemallCouponExample.Criteria criteria = example.createCriteria();
 
@@ -150,7 +151,7 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(couponMapper.selectByExample(example),
+        return DTOUtil.convert2Page(couponMapper.selectByExample(example),
                 LitemallCouponDTO.class);
     }
 

@@ -6,20 +6,20 @@ import java.util.List;
 
 public interface LitemallOrderGoodsService {
 
-    int add(LitemallOrderGoodsDTO orderGoods);
+	int add(LitemallOrderGoodsDTO orderGoods);
 
-    List<LitemallOrderGoodsDTO> queryByOid(Integer orderId);
+	List<LitemallOrderGoodsDTO> queryByOid(Integer orderId);
 
-    List<LitemallOrderGoodsDTO> findByOidAndGid(Integer orderId, Integer goodsId);
+	List<LitemallOrderGoodsDTO> findByOidAndGid(Integer orderId, Integer goodsId);
 
-    LitemallOrderGoodsDTO findById(Integer id);
+	LitemallOrderGoodsDTO findById(Integer id);
 
-    void updateById(LitemallOrderGoodsDTO orderGoods);
+	void updateById(LitemallOrderGoodsDTO orderGoods);
 
-    Short getComments(Integer orderId);
+	Short getComments(Integer orderId);
 
-    boolean checkExist(Integer goodsId);
+	boolean checkExist(Integer goodsId);
 
-    void deleteByOrderId(Integer orderId);
+	void deleteByOrderId(Integer orderId);
 
 }

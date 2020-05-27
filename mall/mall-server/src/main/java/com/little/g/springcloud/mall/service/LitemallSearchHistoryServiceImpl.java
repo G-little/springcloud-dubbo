@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallSearchHistoryService;
 import com.little.g.springcloud.mall.dto.LitemallSearchHistoryDTO;
@@ -47,8 +48,8 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
     }
 
     @Override
-    public List<LitemallSearchHistoryDTO> querySelective(String userId, String keyword,
-                                                         Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallSearchHistoryDTO> querySelective(String userId, String keyword,
+                                                             Integer page, Integer size, String sort, String order) {
         LitemallSearchHistoryExample example = new LitemallSearchHistoryExample();
         LitemallSearchHistoryExample.Criteria criteria = example.createCriteria();
 
@@ -65,7 +66,7 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(searchHistoryMapper.selectByExample(example),
+        return DTOUtil.convert2Page(searchHistoryMapper.selectByExample(example),
                 LitemallSearchHistoryDTO.class);
     }
 

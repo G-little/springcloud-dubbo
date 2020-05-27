@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallCouponUserService;
 import com.little.g.springcloud.mall.dto.LitemallCouponUserDTO;
@@ -8,14 +9,15 @@ import com.little.g.springcloud.mall.mapper.LitemallCouponUserMapper;
 import com.little.g.springcloud.mall.model.LitemallCouponUser;
 import com.little.g.springcloud.mall.model.LitemallCouponUserExample;
 import com.little.g.springcloud.mall.util.CouponUserConstant;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallCouponUserServiceImpl implements LitemallCouponUserService {
 
     @Resource
@@ -45,8 +47,8 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
     }
 
     @Override
-    public List<LitemallCouponUserDTO> queryList(Integer userId, Integer couponId,
-                                                 Short status, Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallCouponUserDTO> queryList(Integer userId, Integer couponId,
+                                                     Short status, Integer page, Integer size, String sort, String order) {
         LitemallCouponUserExample example = new LitemallCouponUserExample();
         LitemallCouponUserExample.Criteria criteria = example.createCriteria();
         if (userId != null) {
@@ -68,30 +70,41 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
             PageHelper.startPage(page, size);
         }
 
-        return DTOUtil.convert2List(couponUserMapper.selectByExample(example),
+        return DTOUtil.convert2Page(couponUserMapper.selectByExample(example),
                 LitemallCouponUserDTO.class);
     }
 
     @Override
     public List<LitemallCouponUserDTO> queryAll(Integer userId, Integer couponId) {
-        return queryList(userId, couponId, CouponUserConstant.STATUS_USABLE, null, null,
+        PageInfo<LitemallCouponUserDTO> p = queryList(userId, couponId, CouponUserConstant.STATUS_USABLE, null, null,
                 "add_time", "desc");
+        if (p != null) {
+            return p.getList();
+        }
+        return null;
     }
 
     @Override
     public List<LitemallCouponUserDTO> queryAll(Integer userId) {
-        return queryList(userId, null, CouponUserConstant.STATUS_USABLE, null, null,
+        PageInfo<LitemallCouponUserDTO> p = queryList(userId, null, CouponUserConstant.STATUS_USABLE, null, null,
                 "add_time", "desc");
+        if (p != null) {
+            return p.getList();
+        }
+        return null;
     }
 
     @Override
     public LitemallCouponUserDTO queryOne(Integer userId, Integer couponId) {
-        List<LitemallCouponUserDTO> couponUserList = queryList(userId, couponId,
+        PageInfo<LitemallCouponUserDTO> p = queryList(userId, couponId,
                 CouponUserConstant.STATUS_USABLE, 1, 1, "add_time", "desc");
-        if (couponUserList.size() == 0) {
+        if (p == null) {
             return null;
         }
-        return couponUserList.get(0);
+        if (CollectionUtils.isEmpty(p.getList())) {
+            return null;
+        }
+        return p.getList().get(0);
     }
 
     @Override

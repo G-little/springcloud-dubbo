@@ -124,13 +124,15 @@ public class AppConfig {
 						m.setAccessible(true);
 						m.invoke(o);
 
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						throw new RuntimeException(e);
 					}
 
 				}
 			}
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 

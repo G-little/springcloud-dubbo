@@ -1,5 +1,6 @@
 package com.little.g.springcloud.common.utils;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -9,25 +10,34 @@ import java.util.stream.Collectors;
 
 public class DTOUtil {
 
-	public static <T> T convert2T(Object source, Class<T> t) {
-		try {
-			if (source == null) {
-				return null;
-			}
-			T target = t.getDeclaredConstructor().newInstance();
-			BeanUtils.copyProperties(source, target);
-			return target;
+    public static <T> T convert2T(Object source, Class<T> t) {
+        try {
+            if (source == null) {
+                return null;
+            }
+            T target = t.getDeclaredConstructor().newInstance();
+            BeanUtils.copyProperties(source, target);
+            return target;
         } catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+            throw new RuntimeException(e);
+        }
+    }
 
-	public static <T> List<T> convert2List(Collection source, Class<T> t) {
-		if (CollectionUtils.isEmpty(source)) {
-			return null;
-		}
-		return (List<T>) source.stream().map(s -> convert2T(s, t))
-				.collect(Collectors.toList());
-	}
+    public static <T> List<T> convert2List(Collection source, Class<T> t) {
+        if (CollectionUtils.isEmpty(source)) {
+            return null;
+        }
+        return (List<T>) source.stream().map(s -> convert2T(s, t))
+                .collect(Collectors.toList());
+    }
+
+    public static <T> PageInfo<T> convert2Page(Collection source, Class<T> t) {
+        if (CollectionUtils.isEmpty(source)) {
+            return null;
+        }
+        PageInfo<T> pageInfo = new PageInfo<>();
+        pageInfo.setList(DTOUtil.convert2List(source, t));
+        return pageInfo;
+    }
 
 }

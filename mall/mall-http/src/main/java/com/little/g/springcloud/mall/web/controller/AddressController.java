@@ -26,13 +26,11 @@ import java.util.List;
 @Validated
 public class AddressController extends GetRegionManager {
 
-
     @Reference
     private LitemallAddressService addressService;
 
     @Reference
     private LitemallRegionService regionService;
-
 
     /**
      * 用户收货地址列表
@@ -44,7 +42,7 @@ public class AddressController extends GetRegionManager {
     public ResultJson list(@LoginUser Integer userId) {
 
         List<LitemallAddressDTO> addressList = addressService.queryByUid(userId);
-        return ResponseUtil.ok(addressList);
+        return ResponseUtil.okList(addressList);
     }
 
     /**
@@ -56,7 +54,6 @@ public class AddressController extends GetRegionManager {
      */
     @GetMapping("detail")
     public ResultJson detail(@LoginUser Integer userId, @NotNull Integer id) {
-
 
         LitemallAddressDTO address = addressService.query(userId, id);
         if (address == null) {
@@ -95,7 +92,6 @@ public class AddressController extends GetRegionManager {
             return ResponseUtil.badArgument();
         }
 
-
         String areaCode = address.getAreaCode();
         if (StringUtils.isEmpty(areaCode)) {
             return ResponseUtil.badArgument();
@@ -121,7 +117,8 @@ public class AddressController extends GetRegionManager {
      * @return 添加或更新操作结果
      */
     @PostMapping("save")
-    public ResultJson save(@LoginUser Integer userId, @RequestBody LitemallAddressDTO address) {
+    public ResultJson save(@LoginUser Integer userId,
+                           @RequestBody LitemallAddressDTO address) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -140,7 +137,8 @@ public class AddressController extends GetRegionManager {
             address.setUserId(userId);
             addressService.add(address);
         } else {
-            LitemallAddressDTO litemallAddress = addressService.query(userId, address.getId());
+            LitemallAddressDTO litemallAddress = addressService.query(userId,
+                    address.getId());
             if (litemallAddress == null) {
                 return ResponseUtil.badArgumentValue();
             }
@@ -164,7 +162,8 @@ public class AddressController extends GetRegionManager {
      * @return 删除操作结果
      */
     @PostMapping("delete")
-    public Object delete(@LoginUser Integer userId, @RequestBody LitemallAddressDTO address) {
+    public Object delete(@LoginUser Integer userId,
+                         @RequestBody LitemallAddressDTO address) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -180,4 +179,5 @@ public class AddressController extends GetRegionManager {
         addressService.delete(id);
         return ResponseUtil.ok();
     }
+
 }

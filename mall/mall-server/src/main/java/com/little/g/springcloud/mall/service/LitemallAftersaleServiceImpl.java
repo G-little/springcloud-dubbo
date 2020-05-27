@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallAftersaleService;
 import com.little.g.springcloud.mall.dto.LitemallAftersaleDTO;
@@ -32,8 +33,8 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
     }
 
     @Override
-    public List<LitemallAftersaleDTO> queryList(Integer userId, Short status,
-                                                Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallAftersaleDTO> queryList(Integer userId, Short status,
+                                                    Integer page, Integer limit, String sort, String order) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
         LitemallAftersaleExample.Criteria criteria = example.or();
         criteria.andUserIdEqualTo(userId);
@@ -48,7 +49,7 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(aftersaleMapper.selectByExample(example),
+        return DTOUtil.convert2Page(aftersaleMapper.selectByExample(example),
                 LitemallAftersaleDTO.class);
     }
 

@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface LitemallGoodsAttributeService {
 
-    List<LitemallGoodsAttributeDTO> queryByGid(Integer goodsId);
+	List<LitemallGoodsAttributeDTO> queryByGid(Integer goodsId);
 
-    void add(LitemallGoodsAttributeDTO goodsAttribute);
+	void add(LitemallGoodsAttributeDTO goodsAttribute);
 
-    LitemallGoodsAttributeDTO findById(Integer id);
+	LitemallGoodsAttributeDTO findById(Integer id);
 
-    void deleteByGid(Integer gid);
+	void deleteByGid(Integer gid);
 
-    void deleteById(Integer id);
+	void deleteById(Integer id);
 
-    void updateById(LitemallGoodsAttributeDTO attribute);
+	void updateById(LitemallGoodsAttributeDTO attribute);
 
 }

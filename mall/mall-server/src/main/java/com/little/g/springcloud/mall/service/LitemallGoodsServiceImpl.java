@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallGoodsService;
 import com.little.g.springcloud.mall.dto.LitemallGoodsDTO;
@@ -8,7 +9,7 @@ import com.little.g.springcloud.mall.mapper.LitemallGoodsMapper;
 import com.little.g.springcloud.mall.model.LitemallGoods;
 import com.little.g.springcloud.mall.model.LitemallGoods.Column;
 import com.little.g.springcloud.mall.model.LitemallGoodsExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallGoodsServiceImpl implements LitemallGoodsService {
 
     Column[] columns = new Column[]{Column.id, Column.name, Column.brief, Column.picUrl,
@@ -154,8 +155,8 @@ public class LitemallGoodsServiceImpl implements LitemallGoodsService {
     }
 
     @Override
-    public List<LitemallGoodsDTO> querySelective(Integer goodsId, String goodsSn,
-                                                 String name, Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallGoodsDTO> querySelective(Integer goodsId, String goodsSn,
+                                                     String name, Integer page, Integer size, String sort, String order) {
         LitemallGoodsExample example = new LitemallGoodsExample();
         LitemallGoodsExample.Criteria criteria = example.createCriteria();
 
@@ -175,7 +176,7 @@ public class LitemallGoodsServiceImpl implements LitemallGoodsService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(goodsMapper.selectByExampleWithBLOBs(example),
+        return DTOUtil.convert2Page(goodsMapper.selectByExampleWithBLOBs(example),
                 LitemallGoodsDTO.class);
     }
 

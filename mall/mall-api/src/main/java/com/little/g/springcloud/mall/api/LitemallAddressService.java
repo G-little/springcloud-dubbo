@@ -1,26 +1,27 @@
 package com.little.g.springcloud.mall.api;
 
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallAddressDTO;
 
 import java.util.List;
 
 public interface LitemallAddressService {
 
-    List<LitemallAddressDTO> queryByUid(Integer uid);
+	List<LitemallAddressDTO> queryByUid(Integer uid);
 
-    LitemallAddressDTO query(Integer userId, Integer id);
+	LitemallAddressDTO query(Integer userId, Integer id);
 
-    int add(LitemallAddressDTO address);
+	int add(LitemallAddressDTO address);
 
-    int update(LitemallAddressDTO address);
+	int update(LitemallAddressDTO address);
 
-    void delete(Integer id);
+	void delete(Integer id);
 
-    LitemallAddressDTO findDefault(Integer userId);
+	LitemallAddressDTO findDefault(Integer userId);
 
-    void resetDefault(Integer userId);
+	void resetDefault(Integer userId);
 
-    List<LitemallAddressDTO> querySelective(Integer userId, String name, Integer page,
-                                            Integer limit, String sort, String order);
+	PageInfo<LitemallAddressDTO> querySelective(Integer userId, String name, Integer page,
+                                                Integer limit, String sort, String order);
 
 }

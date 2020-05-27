@@ -8,18 +8,21 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+public class LoginUserHandlerMethodArgumentResolver
+		implements HandlerMethodArgumentResolver {
 
-public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+	@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		return parameter.getParameterType().isAssignableFrom(Integer.class)
+				&& parameter.hasParameterAnnotation(LoginUser.class);
+	}
 
-    @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType().isAssignableFrom(Integer.class) && parameter.hasParameterAnnotation(LoginUser.class);
-    }
+	@Override
+	public Object resolveArgument(MethodParameter parameter,
+			ModelAndViewContainer container, NativeWebRequest request,
+			WebDataBinderFactory factory) throws Exception {
 
-    @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container,
-                                  NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
+		return HeaderParamsHolder.getHeader().getUid();
+	}
 
-        return HeaderParamsHolder.getHeader().getUid();
-    }
 }

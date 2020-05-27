@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallCommentService;
 import com.little.g.springcloud.mall.dto.LitemallCommentDTO;
@@ -74,8 +75,8 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
     }
 
     @Override
-    public List<LitemallCommentDTO> querySelective(String userId, String valueId,
-                                                   Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallCommentDTO> querySelective(String userId, String valueId,
+                                                       Integer page, Integer size, String sort, String order) {
         LitemallCommentExample example = new LitemallCommentExample();
         LitemallCommentExample.Criteria criteria = example.createCriteria();
 
@@ -95,7 +96,7 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(commentMapper.selectByExample(example),
+        return DTOUtil.convert2Page(commentMapper.selectByExample(example),
                 LitemallCommentDTO.class);
     }
 

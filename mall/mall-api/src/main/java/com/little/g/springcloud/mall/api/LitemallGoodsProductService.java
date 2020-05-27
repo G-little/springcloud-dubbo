@@ -6,22 +6,22 @@ import java.util.List;
 
 public interface LitemallGoodsProductService {
 
-    List<LitemallGoodsProductDTO> queryByGid(Integer gid);
+	List<LitemallGoodsProductDTO> queryByGid(Integer gid);
 
-    LitemallGoodsProductDTO findById(Integer id);
+	LitemallGoodsProductDTO findById(Integer id);
 
-    void deleteById(Integer id);
+	void deleteById(Integer id);
 
-    void add(LitemallGoodsProductDTO goodsProduct);
+	void add(LitemallGoodsProductDTO goodsProduct);
 
-    int count();
+	int count();
 
-    void deleteByGid(Integer gid);
+	void deleteByGid(Integer gid);
 
-    int addStock(Integer id, Short num);
+	int addStock(Integer id, Short num);
 
-    int reduceStock(Integer id, Short num);
+	int reduceStock(Integer id, Short num);
 
-    void updateById(LitemallGoodsProductDTO product);
+	void updateById(LitemallGoodsProductDTO product);
 
 }

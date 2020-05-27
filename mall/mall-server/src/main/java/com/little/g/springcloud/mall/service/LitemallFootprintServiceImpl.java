@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallFootprintService;
 import com.little.g.springcloud.mall.dto.LitemallFootprintDTO;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class LitemallFootprintServiceImpl implements LitemallFootprintService {
@@ -21,13 +21,13 @@ public class LitemallFootprintServiceImpl implements LitemallFootprintService {
     private LitemallFootprintMapper footprintMapper;
 
     @Override
-    public List<LitemallFootprintDTO> queryByAddTime(Integer userId, Integer page,
-                                                     Integer size) {
+    public PageInfo<LitemallFootprintDTO> queryByAddTime(Integer userId, Integer page,
+                                                         Integer size) {
         LitemallFootprintExample example = new LitemallFootprintExample();
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
         example.setOrderByClause(LitemallFootprintDTO.Column.addTime.desc());
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(footprintMapper.selectByExample(example),
+        return DTOUtil.convert2Page(footprintMapper.selectByExample(example),
                 LitemallFootprintDTO.class);
     }
 
@@ -59,8 +59,8 @@ public class LitemallFootprintServiceImpl implements LitemallFootprintService {
     }
 
     @Override
-    public List<LitemallFootprintDTO> querySelective(String userId, String goodsId,
-                                                     Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallFootprintDTO> querySelective(String userId, String goodsId,
+                                                         Integer page, Integer size, String sort, String order) {
         LitemallFootprintExample example = new LitemallFootprintExample();
         LitemallFootprintExample.Criteria criteria = example.createCriteria();
 
@@ -77,7 +77,7 @@ public class LitemallFootprintServiceImpl implements LitemallFootprintService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(footprintMapper.selectByExample(example),
+        return DTOUtil.convert2Page(footprintMapper.selectByExample(example),
                 LitemallFootprintDTO.class);
     }
 

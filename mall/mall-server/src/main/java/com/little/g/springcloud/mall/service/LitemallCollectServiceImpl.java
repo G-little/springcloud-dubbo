@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallCollectService;
 import com.little.g.springcloud.mall.dto.LitemallCollectDTO;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class LitemallCollectServiceImpl implements LitemallCollectService {
@@ -29,8 +29,8 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
     }
 
     @Override
-    public List<LitemallCollectDTO> queryByType(Integer userId, Byte type, Integer page,
-                                                Integer limit, String sort, String order) {
+    public PageInfo<LitemallCollectDTO> queryByType(Integer userId, Byte type, Integer page,
+                                                    Integer limit, String sort, String order) {
         LitemallCollectExample example = new LitemallCollectExample();
         LitemallCollectExample.Criteria criteria = example.createCriteria();
 
@@ -45,7 +45,7 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(collectMapper.selectByExample(example),
+        return DTOUtil.convert2Page(collectMapper.selectByExample(example),
                 LitemallCollectDTO.class);
     }
 
@@ -81,8 +81,8 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
     }
 
     @Override
-    public List<LitemallCollectDTO> querySelective(String userId, String valueId,
-                                                   Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId,
+                                                       Integer page, Integer size, String sort, String order) {
         LitemallCollectExample example = new LitemallCollectExample();
         LitemallCollectExample.Criteria criteria = example.createCriteria();
 
@@ -99,7 +99,7 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(collectMapper.selectByExample(example),
+        return DTOUtil.convert2Page(collectMapper.selectByExample(example),
                 LitemallCollectDTO.class);
     }
 

@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallFeedbackService;
 import com.little.g.springcloud.mall.dto.LitemallFeedbackDTO;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Yogeek
@@ -33,8 +33,8 @@ public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
     }
 
     @Override
-    public List<LitemallFeedbackDTO> querySelective(Integer userId, String username,
-                                                    Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallFeedbackDTO> querySelective(Integer userId, String username,
+                                                        Integer page, Integer limit, String sort, String order) {
         LitemallFeedbackExample example = new LitemallFeedbackExample();
         LitemallFeedbackExample.Criteria criteria = example.createCriteria();
 
@@ -51,7 +51,7 @@ public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(feedbackMapper.selectByExample(example),
+        return DTOUtil.convert2Page(feedbackMapper.selectByExample(example),
                 LitemallFeedbackDTO.class);
     }
 

@@ -13,14 +13,16 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DubboSpringCloudProviderBootstrap.class,
-        properties = {"spring.profiles.active=nacos"})
+		properties = { "spring.profiles.active=nacos" })
 public class BaseTest {
 
 	@Resource
 	private LitemallUserService litemallUserService;
+
 	@Test
 	public void testGetConfig() {
-		List<LitemallUserDTO> litemallUserDTOS = litemallUserService.queryByMobile("15201008961");
+		List<LitemallUserDTO> litemallUserDTOS = litemallUserService
+				.queryByMobile("15201008961");
 		System.out.println(litemallUserDTOS);
 	}
 

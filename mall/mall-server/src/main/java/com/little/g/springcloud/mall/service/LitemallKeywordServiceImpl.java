@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallKeywordService;
 import com.little.g.springcloud.mall.dto.LitemallKeywordDTO;
@@ -37,19 +38,19 @@ public class LitemallKeywordServiceImpl implements LitemallKeywordService {
     }
 
     @Override
-    public List<LitemallKeywordDTO> queryByKeyword(String keyword, Integer page,
-                                                   Integer limit) {
+    public PageInfo<LitemallKeywordDTO> queryByKeyword(String keyword, Integer page,
+                                                       Integer limit) {
         LitemallKeywordExample example = new LitemallKeywordExample();
         example.setDistinct(true);
         example.or().andKeywordLike("%" + keyword + "%").andDeletedEqualTo(false);
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(keywordsMapper.selectByExampleSelective(example,
+        return DTOUtil.convert2Page(keywordsMapper.selectByExampleSelective(example,
                 LitemallKeyword.Column.keyword), LitemallKeywordDTO.class);
     }
 
     @Override
-    public List<LitemallKeywordDTO> querySelective(String keyword, String url,
-                                                   Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallKeywordDTO> querySelective(String keyword, String url,
+													   Integer page, Integer limit, String sort, String order) {
         LitemallKeywordExample example = new LitemallKeywordExample();
         LitemallKeywordExample.Criteria criteria = example.createCriteria();
 
@@ -66,7 +67,7 @@ public class LitemallKeywordServiceImpl implements LitemallKeywordService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(keywordsMapper.selectByExample(example),
+        return DTOUtil.convert2Page(keywordsMapper.selectByExample(example),
                 LitemallKeywordDTO.class);
     }
 

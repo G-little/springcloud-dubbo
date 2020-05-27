@@ -1,20 +1,19 @@
 package com.little.g.springcloud.mall.api;
 
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallIssueDTO;
-
-import java.util.List;
 
 public interface LitemallIssueService {
 
-    void deleteById(Integer id);
+	void deleteById(Integer id);
 
-    void add(LitemallIssueDTO issue);
+	void add(LitemallIssueDTO issue);
 
-    List<LitemallIssueDTO> querySelective(String question, Integer page, Integer limit,
-                                          String sort, String order);
+	PageInfo<LitemallIssueDTO> querySelective(String question, Integer page, Integer limit,
+                                              String sort, String order);
 
-    int updateById(LitemallIssueDTO issue);
+	int updateById(LitemallIssueDTO issue);
 
-    LitemallIssueDTO findById(Integer id);
+	LitemallIssueDTO findById(Integer id);
 
 }

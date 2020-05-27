@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallNoticeAdminService;
 import com.little.g.springcloud.mall.dto.LitemallNoticeAdminDTO;
@@ -21,8 +22,8 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
     private LitemallNoticeAdminMapper noticeAdminMapper;
 
     @Override
-    public List<LitemallNoticeAdminDTO> querySelective(String title, String type,
-                                                       Integer adminId, Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallNoticeAdminDTO> querySelective(String title, String type,
+														   Integer adminId, Integer page, Integer limit, String sort, String order) {
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
         LitemallNoticeAdminExample.Criteria criteria = example.createCriteria();
 
@@ -43,7 +44,7 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(noticeAdminMapper.selectByExample(example),
+        return DTOUtil.convert2Page(noticeAdminMapper.selectByExample(example),
                 LitemallNoticeAdminDTO.class);
     }
 

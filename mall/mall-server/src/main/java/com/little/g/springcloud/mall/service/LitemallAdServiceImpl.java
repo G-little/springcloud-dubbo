@@ -1,6 +1,8 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallAdService;
 import com.little.g.springcloud.mall.dto.LitemallAdDTO;
 import com.little.g.springcloud.mall.mapper.LitemallAdMapper;
@@ -38,8 +40,8 @@ public class LitemallAdServiceImpl implements LitemallAdService {
     }
 
     @Override
-    public List<LitemallAdDTO> querySelective(String name, String content, Integer page,
-                                              Integer limit, String sort, String order) {
+    public PageInfo<LitemallAdDTO> querySelective(String name, String content, Integer page,
+                                                  Integer limit, String sort, String order) {
         LitemallAdExample example = new LitemallAdExample();
         LitemallAdExample.Criteria criteria = example.createCriteria();
 
@@ -56,7 +58,8 @@ public class LitemallAdServiceImpl implements LitemallAdService {
         }
 
         PageHelper.startPage(page, limit);
-        return selectListByExample(example);
+        List<LitemallAd> list = adMapper.selectByExample(example);
+        return DTOUtil.convert2Page(list, LitemallAdDTO.class);
     }
 
     @Override

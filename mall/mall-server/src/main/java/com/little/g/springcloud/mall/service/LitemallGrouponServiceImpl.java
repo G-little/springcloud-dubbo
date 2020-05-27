@@ -2,6 +2,7 @@ package com.little.g.springcloud.mall.service;
 
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallGrouponService;
 import com.little.g.springcloud.mall.dto.LitemallGrouponDTO;
@@ -170,8 +171,8 @@ public class LitemallGrouponServiceImpl implements LitemallGrouponService {
      * @return
      */
     @Override
-    public List<LitemallGrouponDTO> querySelective(String rulesId, Integer page,
-                                                   Integer size, String sort, String order) {
+    public PageInfo<LitemallGrouponDTO> querySelective(String rulesId, Integer page,
+													   Integer size, String sort, String order) {
         LitemallGrouponExample example = new LitemallGrouponExample();
         LitemallGrouponExample.Criteria criteria = example.createCriteria();
 
@@ -183,7 +184,7 @@ public class LitemallGrouponServiceImpl implements LitemallGrouponService {
         criteria.andGrouponIdEqualTo(0);
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(mapper.selectByExample(example),
+        return DTOUtil.convert2Page(mapper.selectByExample(example),
                 LitemallGrouponDTO.class);
     }
 

@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallOrderService;
 import com.little.g.springcloud.mall.dto.LitemallOrderDTO;
@@ -92,9 +93,9 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
     }
 
     @Override
-    public List<LitemallOrderDTO> queryByOrderStatus(Integer userId,
-                                                     List<Short> orderStatus, Integer page, Integer limit, String sort,
-                                                     String order) {
+    public PageInfo<LitemallOrderDTO> queryByOrderStatus(Integer userId,
+														 List<Short> orderStatus, Integer page, Integer limit, String sort,
+														 String order) {
         LitemallOrderExample example = new LitemallOrderExample();
         example.setOrderByClause(LitemallOrderDTO.Column.addTime.desc());
         LitemallOrderExample.Criteria criteria = example.or();
@@ -108,7 +109,7 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+        return DTOUtil.convert2Page(litemallOrderMapper.selectByExample(example),
                 LitemallOrderDTO.class);
     }
 

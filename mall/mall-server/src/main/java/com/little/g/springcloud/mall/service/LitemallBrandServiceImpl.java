@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallBrandService;
 import com.little.g.springcloud.mall.dto.LitemallBrandDTO;
@@ -8,14 +9,14 @@ import com.little.g.springcloud.mall.mapper.LitemallBrandMapper;
 import com.little.g.springcloud.mall.model.LitemallBrand;
 import com.little.g.springcloud.mall.model.LitemallBrand.Column;
 import com.little.g.springcloud.mall.model.LitemallBrandExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallBrandServiceImpl implements LitemallBrandService {
 
     @Resource
@@ -25,21 +26,21 @@ public class LitemallBrandServiceImpl implements LitemallBrandService {
             Column.picUrl, Column.floorPrice};
 
     @Override
-    public List<LitemallBrandDTO> query(Integer page, Integer limit, String sort,
-                                        String order) {
+    public PageInfo<LitemallBrandDTO> query(Integer page, Integer limit, String sort,
+                                            String order) {
         LitemallBrandExample example = new LitemallBrandExample();
         example.or().andDeletedEqualTo(false);
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             example.setOrderByClause(sort + " " + order);
         }
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(
+        return DTOUtil.convert2Page(
                 brandMapper.selectByExampleSelective(example, columns),
                 LitemallBrandDTO.class);
     }
 
     @Override
-    public List<LitemallBrandDTO> query(Integer page, Integer limit) {
+    public PageInfo<LitemallBrandDTO> query(Integer page, Integer limit) {
         return query(page, limit, null, null);
     }
 

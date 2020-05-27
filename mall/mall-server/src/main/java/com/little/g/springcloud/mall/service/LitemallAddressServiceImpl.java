@@ -1,6 +1,8 @@
 package com.little.g.springcloud.mall.service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallAddressService;
 import com.little.g.springcloud.mall.dto.LitemallAddressDTO;
 import com.little.g.springcloud.mall.mapper.LitemallAddressMapper;
@@ -95,8 +97,8 @@ public class LitemallAddressServiceImpl implements LitemallAddressService {
     }
 
     @Override
-    public List<LitemallAddressDTO> querySelective(Integer userId, String name,
-                                                   Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallAddressDTO> querySelective(Integer userId, String name,
+                                                       Integer page, Integer limit, String sort, String order) {
         LitemallAddressExample example = new LitemallAddressExample();
         LitemallAddressExample.Criteria criteria = example.createCriteria();
 
@@ -113,7 +115,10 @@ public class LitemallAddressServiceImpl implements LitemallAddressService {
         }
 
         PageHelper.startPage(page, limit);
-        return selectListByExample(example);
+
+        List<LitemallAddress> list = addressMapper.selectByExample(example);
+		return DTOUtil.convert2Page(list, LitemallAddressDTO.class);
+
     }
 
 }

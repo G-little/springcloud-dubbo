@@ -1,5 +1,6 @@
 package com.little.g.springcloud.mall.api;
 
+import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallUserDTO;
 import com.little.g.springcloud.mall.vo.UserVo;
 
@@ -17,8 +18,8 @@ public interface LitemallUserService {
 
 	int updateById(LitemallUserDTO user);
 
-	List<LitemallUserDTO> querySelective(String username, String mobile, Integer page,
-                                         Integer size, String sort, String order);
+	PageInfo<LitemallUserDTO> querySelective(String username, String mobile, Integer page,
+                                             Integer size, String sort, String order);
 
 	int count();
 
