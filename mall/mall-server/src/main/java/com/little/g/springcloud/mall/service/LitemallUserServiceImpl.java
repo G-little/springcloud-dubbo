@@ -8,7 +8,7 @@ import com.little.g.springcloud.mall.mapper.LitemallUserMapper;
 import com.little.g.springcloud.mall.model.LitemallUser;
 import com.little.g.springcloud.mall.model.LitemallUserExample;
 import com.little.g.springcloud.mall.vo.UserVo;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
