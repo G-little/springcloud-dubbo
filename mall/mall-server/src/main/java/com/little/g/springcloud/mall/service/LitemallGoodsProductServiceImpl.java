@@ -15,8 +15,10 @@ import java.util.List;
 
 @Service
 public class LitemallGoodsProductServiceImpl implements LitemallGoodsProductService {
+
     @Resource
     private LitemallGoodsProductMapper litemallGoodsProductMapper;
+
     @Resource
     private GoodsProductMapper goodsProductMapper;
 
@@ -24,12 +26,14 @@ public class LitemallGoodsProductServiceImpl implements LitemallGoodsProductServ
     public List<LitemallGoodsProductDTO> queryByGid(Integer gid) {
         LitemallGoodsProductExample example = new LitemallGoodsProductExample();
         example.or().andGoodsIdEqualTo(gid).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(litemallGoodsProductMapper.selectByExample(example), LitemallGoodsProductDTO.class);
+        return DTOUtil.convert2List(litemallGoodsProductMapper.selectByExample(example),
+                LitemallGoodsProductDTO.class);
     }
 
     @Override
     public LitemallGoodsProductDTO findById(Integer id) {
-        return DTOUtil.convert2T(litemallGoodsProductMapper.selectByPrimaryKey(id), LitemallGoodsProductDTO.class);
+        return DTOUtil.convert2T(litemallGoodsProductMapper.selectByPrimaryKey(id),
+                LitemallGoodsProductDTO.class);
     }
 
     @Override
@@ -41,7 +45,8 @@ public class LitemallGoodsProductServiceImpl implements LitemallGoodsProductServ
     public void add(LitemallGoodsProductDTO goodsProduct) {
         goodsProduct.setAddTime(LocalDateTime.now());
         goodsProduct.setUpdateTime(LocalDateTime.now());
-        litemallGoodsProductMapper.insertSelective(DTOUtil.convert2T(goodsProduct, LitemallGoodsProduct.class));
+        litemallGoodsProductMapper.insertSelective(
+                DTOUtil.convert2T(goodsProduct, LitemallGoodsProduct.class));
     }
 
     @Override
@@ -71,6 +76,8 @@ public class LitemallGoodsProductServiceImpl implements LitemallGoodsProductServ
     @Override
     public void updateById(LitemallGoodsProductDTO product) {
         product.setUpdateTime(LocalDateTime.now());
-        litemallGoodsProductMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(product, LitemallGoodsProduct.class));
+        litemallGoodsProductMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(product, LitemallGoodsProduct.class));
     }
+
 }

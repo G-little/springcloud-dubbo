@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class LitemallIssueServiceImpl implements LitemallIssueService {
+
     @Resource
     private LitemallIssueMapper issueMapper;
 
@@ -32,7 +33,8 @@ public class LitemallIssueServiceImpl implements LitemallIssueService {
     }
 
     @Override
-    public List<LitemallIssueDTO> querySelective(String question, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallIssueDTO> querySelective(String question, Integer page,
+                                                 Integer limit, String sort, String order) {
         LitemallIssueExample example = new LitemallIssueExample();
         LitemallIssueExample.Criteria criteria = example.createCriteria();
 
@@ -46,17 +48,21 @@ public class LitemallIssueServiceImpl implements LitemallIssueService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(issueMapper.selectByExample(example), LitemallIssueDTO.class);
+        return DTOUtil.convert2List(issueMapper.selectByExample(example),
+                LitemallIssueDTO.class);
     }
 
     @Override
     public int updateById(LitemallIssueDTO issue) {
         issue.setUpdateTime(LocalDateTime.now());
-        return issueMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(issue, LitemallIssue.class));
+        return issueMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(issue, LitemallIssue.class));
     }
 
     @Override
     public LitemallIssueDTO findById(Integer id) {
-        return DTOUtil.convert2T(issueMapper.selectByPrimaryKey(id), LitemallIssueDTO.class);
+        return DTOUtil.convert2T(issueMapper.selectByPrimaryKey(id),
+                LitemallIssueDTO.class);
     }
+
 }

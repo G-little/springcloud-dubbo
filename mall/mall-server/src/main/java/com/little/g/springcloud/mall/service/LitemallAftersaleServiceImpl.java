@@ -19,19 +19,21 @@ import java.util.Random;
 
 @Service
 public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
+
     @Resource
     private LitemallAftersaleMapper aftersaleMapper;
-
 
     @Override
     public LitemallAftersaleDTO findById(Integer userId, Integer id) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
         example.or().andIdEqualTo(id).andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(aftersaleMapper.selectOneByExample(example), LitemallAftersaleDTO.class);
+        return DTOUtil.convert2T(aftersaleMapper.selectOneByExample(example),
+                LitemallAftersaleDTO.class);
     }
 
     @Override
-    public List<LitemallAftersaleDTO> queryList(Integer userId, Short status, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallAftersaleDTO> queryList(Integer userId, Short status,
+                                                Integer page, Integer limit, String sort, String order) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
         LitemallAftersaleExample.Criteria criteria = example.or();
         criteria.andUserIdEqualTo(userId);
@@ -46,11 +48,13 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(aftersaleMapper.selectByExample(example), LitemallAftersaleDTO.class);
+        return DTOUtil.convert2List(aftersaleMapper.selectByExample(example),
+                LitemallAftersaleDTO.class);
     }
 
     @Override
-    public List<LitemallAftersaleDTO> querySelective(Integer orderId, String aftersaleSn, Short status, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallAftersaleDTO> querySelective(Integer orderId, String aftersaleSn,
+                                                     Short status, Integer page, Integer limit, String sort, String order) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
         LitemallAftersaleExample.Criteria criteria = example.or();
         if (orderId != null) {
@@ -70,7 +74,8 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(aftersaleMapper.selectByExample(example), LitemallAftersaleDTO.class);
+        return DTOUtil.convert2List(aftersaleMapper.selectByExample(example),
+                LitemallAftersaleDTO.class);
     }
 
     private String getRandomNum(Integer num) {
@@ -87,7 +92,8 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
     @Override
     public int countByAftersaleSn(Integer userId, String aftersaleSn) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
-        example.or().andUserIdEqualTo(userId).andAftersaleSnEqualTo(aftersaleSn).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(userId).andAftersaleSnEqualTo(aftersaleSn)
+                .andDeletedEqualTo(false);
         return (int) aftersaleMapper.countByExample(example);
     }
 
@@ -107,7 +113,8 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
     public void add(LitemallAftersaleDTO aftersale) {
         aftersale.setAddTime(LocalDateTime.now());
         aftersale.setUpdateTime(LocalDateTime.now());
-        aftersaleMapper.insertSelective(DTOUtil.convert2T(aftersale, LitemallAftersale.class));
+        aftersaleMapper
+                .insertSelective(DTOUtil.convert2T(aftersale, LitemallAftersale.class));
     }
 
     @Override
@@ -128,7 +135,8 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
     @Override
     public void deleteByOrderId(Integer userId, Integer orderId) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
-        example.or().andOrderIdEqualTo(orderId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
+        example.or().andOrderIdEqualTo(orderId).andUserIdEqualTo(userId)
+                .andDeletedEqualTo(false);
         LitemallAftersale aftersale = new LitemallAftersale();
         aftersale.setUpdateTime(LocalDateTime.now());
         aftersale.setDeleted(true);
@@ -138,13 +146,17 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
     @Override
     public void updateById(LitemallAftersaleDTO aftersale) {
         aftersale.setUpdateTime(LocalDateTime.now());
-        aftersaleMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(aftersale, LitemallAftersale.class));
+        aftersaleMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(aftersale, LitemallAftersale.class));
     }
 
     @Override
     public LitemallAftersaleDTO findByOrderId(Integer userId, Integer orderId) {
         LitemallAftersaleExample example = new LitemallAftersaleExample();
-        example.or().andOrderIdEqualTo(orderId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(aftersaleMapper.selectOneByExample(example), LitemallAftersaleDTO.class);
+        example.or().andOrderIdEqualTo(orderId).andUserIdEqualTo(userId)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2T(aftersaleMapper.selectOneByExample(example),
+                LitemallAftersaleDTO.class);
     }
+
 }

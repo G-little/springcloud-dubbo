@@ -17,14 +17,18 @@ import java.util.List;
 
 @Service
 public class LitemallCartServiceImpl implements LitemallCartService {
+
     @Resource
     private LitemallCartMapper cartMapper;
 
     @Override
-    public LitemallCartDTO queryExist(Integer goodsId, Integer productId, Integer userId) {
+    public LitemallCartDTO queryExist(Integer goodsId, Integer productId,
+                                      Integer userId) {
         LitemallCartExample example = new LitemallCartExample();
-        example.or().andGoodsIdEqualTo(goodsId).andProductIdEqualTo(productId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(cartMapper.selectOneByExample(example), LitemallCartDTO.class);
+        example.or().andGoodsIdEqualTo(goodsId).andProductIdEqualTo(productId)
+                .andUserIdEqualTo(userId).andDeletedEqualTo(false);
+        return DTOUtil.convert2T(cartMapper.selectOneByExample(example),
+                LitemallCartDTO.class);
     }
 
     @Override
@@ -37,22 +41,25 @@ public class LitemallCartServiceImpl implements LitemallCartService {
     @Override
     public int updateById(LitemallCartDTO cart) {
         cart.setUpdateTime(LocalDateTime.now());
-        return cartMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(cart, LitemallCart.class));
+        return cartMapper
+                .updateByPrimaryKeySelective(DTOUtil.convert2T(cart, LitemallCart.class));
     }
 
     @Override
     public List<LitemallCartDTO> queryByUid(int userId) {
         LitemallCartExample example = new LitemallCartExample();
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(cartMapper.selectByExample(example), LitemallCartDTO.class);
+        return DTOUtil.convert2List(cartMapper.selectByExample(example),
+                LitemallCartDTO.class);
     }
-
 
     @Override
     public List<LitemallCartDTO> queryByUidAndChecked(Integer userId) {
         LitemallCartExample example = new LitemallCartExample();
-        example.or().andUserIdEqualTo(userId).andCheckedEqualTo(true).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(cartMapper.selectByExample(example), LitemallCartDTO.class);
+        example.or().andUserIdEqualTo(userId).andCheckedEqualTo(true)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2List(cartMapper.selectByExample(example),
+                LitemallCartDTO.class);
     }
 
     @Override
@@ -64,20 +71,23 @@ public class LitemallCartServiceImpl implements LitemallCartService {
 
     @Override
     public LitemallCartDTO findById(Integer id) {
-        return DTOUtil.convert2T(cartMapper.selectByPrimaryKey(id), LitemallCartDTO.class);
+        return DTOUtil.convert2T(cartMapper.selectByPrimaryKey(id),
+                LitemallCartDTO.class);
     }
 
     @Override
     public LitemallCartDTO findById(Integer userId, Integer id) {
         LitemallCartExample example = new LitemallCartExample();
         example.or().andUserIdEqualTo(userId).andIdEqualTo(id).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(cartMapper.selectOneByExample(example), LitemallCartDTO.class);
+        return DTOUtil.convert2T(cartMapper.selectOneByExample(example),
+                LitemallCartDTO.class);
     }
 
     @Override
     public int updateCheck(Integer userId, List<Integer> idsList, Boolean checked) {
         LitemallCartExample example = new LitemallCartExample();
-        example.or().andUserIdEqualTo(userId).andProductIdIn(idsList).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(userId).andProductIdIn(idsList)
+                .andDeletedEqualTo(false);
         LitemallCart cart = new LitemallCart();
         cart.setChecked(checked);
         cart.setUpdateTime(LocalDateTime.now());
@@ -94,7 +104,8 @@ public class LitemallCartServiceImpl implements LitemallCartService {
     }
 
     @Override
-    public List<LitemallCartDTO> querySelective(Integer userId, Integer goodsId, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallCartDTO> querySelective(Integer userId, Integer goodsId,
+                                                Integer page, Integer limit, String sort, String order) {
         LitemallCartExample example = new LitemallCartExample();
         LitemallCartExample.Criteria criteria = example.createCriteria();
 
@@ -111,7 +122,8 @@ public class LitemallCartServiceImpl implements LitemallCartService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(cartMapper.selectByExample(example), LitemallCartDTO.class);
+        return DTOUtil.convert2List(cartMapper.selectByExample(example),
+                LitemallCartDTO.class);
     }
 
     @Override
@@ -122,12 +134,14 @@ public class LitemallCartServiceImpl implements LitemallCartService {
     @Override
     public boolean checkExist(Integer goodsId) {
         LitemallCartExample example = new LitemallCartExample();
-        example.or().andGoodsIdEqualTo(goodsId).andCheckedEqualTo(true).andDeletedEqualTo(false);
+        example.or().andGoodsIdEqualTo(goodsId).andCheckedEqualTo(true)
+                .andDeletedEqualTo(false);
         return cartMapper.countByExample(example) != 0;
     }
 
     @Override
-    public void updateProduct(Integer id, String goodsSn, String goodsName, BigDecimal price, String url) {
+    public void updateProduct(Integer id, String goodsSn, String goodsName,
+                              BigDecimal price, String url) {
         LitemallCart cart = new LitemallCart();
         cart.setPrice(price);
         cart.setPicUrl(url);
@@ -137,4 +151,5 @@ public class LitemallCartServiceImpl implements LitemallCartService {
         example.or().andProductIdEqualTo(id);
         cartMapper.updateByExampleSelective(cart, example);
     }
+
 }

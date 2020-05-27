@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 public class LitemallGoodsAttributeServiceImpl implements LitemallGoodsAttributeService {
+
     @Resource
     private LitemallGoodsAttributeMapper goodsAttributeMapper;
 
@@ -21,19 +22,22 @@ public class LitemallGoodsAttributeServiceImpl implements LitemallGoodsAttribute
     public List<LitemallGoodsAttributeDTO> queryByGid(Integer goodsId) {
         LitemallGoodsAttributeExample example = new LitemallGoodsAttributeExample();
         example.or().andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(goodsAttributeMapper.selectByExample(example), LitemallGoodsAttributeDTO.class);
+        return DTOUtil.convert2List(goodsAttributeMapper.selectByExample(example),
+                LitemallGoodsAttributeDTO.class);
     }
 
     @Override
     public void add(LitemallGoodsAttributeDTO goodsAttribute) {
         goodsAttribute.setAddTime(LocalDateTime.now());
         goodsAttribute.setUpdateTime(LocalDateTime.now());
-        goodsAttributeMapper.insertSelective(DTOUtil.convert2T(goodsAttribute, LitemallGoodsAttribute.class));
+        goodsAttributeMapper.insertSelective(
+                DTOUtil.convert2T(goodsAttribute, LitemallGoodsAttribute.class));
     }
 
     @Override
     public LitemallGoodsAttributeDTO findById(Integer id) {
-        return DTOUtil.convert2T(goodsAttributeMapper.selectByPrimaryKey(id), LitemallGoodsAttributeDTO.class);
+        return DTOUtil.convert2T(goodsAttributeMapper.selectByPrimaryKey(id),
+                LitemallGoodsAttributeDTO.class);
     }
 
     @Override
@@ -51,6 +55,8 @@ public class LitemallGoodsAttributeServiceImpl implements LitemallGoodsAttribute
     @Override
     public void updateById(LitemallGoodsAttributeDTO attribute) {
         attribute.setUpdateTime(LocalDateTime.now());
-        goodsAttributeMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(attribute, LitemallGoodsAttribute.class));
+        goodsAttributeMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(attribute, LitemallGoodsAttribute.class));
     }
+
 }

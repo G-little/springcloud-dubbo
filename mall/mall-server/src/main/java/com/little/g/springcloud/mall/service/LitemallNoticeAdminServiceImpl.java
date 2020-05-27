@@ -16,11 +16,13 @@ import java.util.List;
 
 @Service
 public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminService {
+
     @Resource
     private LitemallNoticeAdminMapper noticeAdminMapper;
 
     @Override
-    public List<LitemallNoticeAdminDTO> querySelective(String title, String type, Integer adminId, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallNoticeAdminDTO> querySelective(String title, String type,
+                                                       Integer adminId, Integer page, Integer limit, String sort, String order) {
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
         LitemallNoticeAdminExample.Criteria criteria = example.createCriteria();
 
@@ -41,27 +43,32 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(noticeAdminMapper.selectByExample(example), LitemallNoticeAdminDTO.class);
+        return DTOUtil.convert2List(noticeAdminMapper.selectByExample(example),
+                LitemallNoticeAdminDTO.class);
     }
 
     @Override
     public LitemallNoticeAdminDTO find(Integer noticeId, Integer adminId) {
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
-        example.or().andNoticeIdEqualTo(noticeId).andAdminIdEqualTo(adminId).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(noticeAdminMapper.selectOneByExample(example), LitemallNoticeAdminDTO.class);
+        example.or().andNoticeIdEqualTo(noticeId).andAdminIdEqualTo(adminId)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2T(noticeAdminMapper.selectOneByExample(example),
+                LitemallNoticeAdminDTO.class);
     }
 
     @Override
     public void add(LitemallNoticeAdminDTO noticeAdmin) {
         noticeAdmin.setAddTime(LocalDateTime.now());
         noticeAdmin.setUpdateTime(LocalDateTime.now());
-        noticeAdminMapper.insertSelective(DTOUtil.convert2T(noticeAdmin, LitemallNoticeAdmin.class));
+        noticeAdminMapper.insertSelective(
+                DTOUtil.convert2T(noticeAdmin, LitemallNoticeAdmin.class));
     }
 
     @Override
     public void update(LitemallNoticeAdminDTO noticeAdmin) {
         noticeAdmin.setUpdateTime(LocalDateTime.now());
-        noticeAdminMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(noticeAdmin, LitemallNoticeAdmin.class));
+        noticeAdminMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(noticeAdmin, LitemallNoticeAdmin.class));
     }
 
     @Override
@@ -98,7 +105,8 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
     @Override
     public int countUnread(Integer adminId) {
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
-        example.or().andAdminIdEqualTo(adminId).andReadTimeIsNull().andDeletedEqualTo(false);
+        example.or().andAdminIdEqualTo(adminId).andReadTimeIsNull()
+                .andDeletedEqualTo(false);
         return (int) noticeAdminMapper.countByExample(example);
     }
 
@@ -106,7 +114,8 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
     public List<LitemallNoticeAdminDTO> queryByNoticeId(Integer noticeId) {
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
         example.or().andNoticeIdEqualTo(noticeId).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(noticeAdminMapper.selectByExample(example), LitemallNoticeAdminDTO.class);
+        return DTOUtil.convert2List(noticeAdminMapper.selectByExample(example),
+                LitemallNoticeAdminDTO.class);
     }
 
     @Override
@@ -132,7 +141,8 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
     @Override
     public int countReadByNoticeId(Integer noticeId) {
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
-        example.or().andNoticeIdEqualTo(noticeId).andReadTimeIsNotNull().andDeletedEqualTo(false);
+        example.or().andNoticeIdEqualTo(noticeId).andReadTimeIsNotNull()
+                .andDeletedEqualTo(false);
         return (int) noticeAdminMapper.countByExample(example);
     }
 
@@ -141,6 +151,8 @@ public class LitemallNoticeAdminServiceImpl implements LitemallNoticeAdminServic
         LitemallNoticeAdminExample example = new LitemallNoticeAdminExample();
         example.or().andNoticeIdEqualTo(noticeId).andDeletedEqualTo(false);
         noticeAdmin.setUpdateTime(LocalDateTime.now());
-        noticeAdminMapper.updateByExampleSelective(DTOUtil.convert2T(noticeAdmin, LitemallNoticeAdmin.class), example);
+        noticeAdminMapper.updateByExampleSelective(
+                DTOUtil.convert2T(noticeAdmin, LitemallNoticeAdmin.class), example);
     }
+
 }

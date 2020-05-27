@@ -17,13 +17,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class LitemallAdServiceImpl implements LitemallAdService {
+
     @Resource
     private LitemallAdMapper adMapper;
 
     @Override
     public List<LitemallAdDTO> queryIndex() {
         LitemallAdExample example = new LitemallAdExample();
-        example.or().andPositionEqualTo((byte) 1).andDeletedEqualTo(false).andEnabledEqualTo(true);
+        example.or().andPositionEqualTo((byte) 1).andDeletedEqualTo(false)
+                .andEnabledEqualTo(true);
         return selectListByExample(example);
     }
 
@@ -36,7 +38,8 @@ public class LitemallAdServiceImpl implements LitemallAdService {
     }
 
     @Override
-    public List<LitemallAdDTO> querySelective(String name, String content, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallAdDTO> querySelective(String name, String content, Integer page,
+                                              Integer limit, String sort, String order) {
         LitemallAdExample example = new LitemallAdExample();
         LitemallAdExample.Criteria criteria = example.createCriteria();
 
@@ -102,4 +105,5 @@ public class LitemallAdServiceImpl implements LitemallAdService {
         BeanUtils.copyProperties(add, dto);
         return dto;
     }
+
 }

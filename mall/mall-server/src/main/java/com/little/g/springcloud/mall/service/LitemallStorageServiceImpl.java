@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class LitemallStorageServiceImpl implements LitemallStorageService {
+
     @Autowired
     private LitemallStorageMapper storageMapper;
 
@@ -30,29 +31,34 @@ public class LitemallStorageServiceImpl implements LitemallStorageService {
     public void add(LitemallStorageDTO storageInfo) {
         storageInfo.setAddTime(LocalDateTime.now());
         storageInfo.setUpdateTime(LocalDateTime.now());
-        storageMapper.insertSelective(DTOUtil.convert2T(storageInfo, LitemallStorage.class));
+        storageMapper
+                .insertSelective(DTOUtil.convert2T(storageInfo, LitemallStorage.class));
     }
 
     @Override
     public LitemallStorageDTO findByKey(String key) {
         LitemallStorageExample example = new LitemallStorageExample();
         example.or().andKeyEqualTo(key).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(storageMapper.selectOneByExample(example), LitemallStorageDTO.class);
+        return DTOUtil.convert2T(storageMapper.selectOneByExample(example),
+                LitemallStorageDTO.class);
     }
 
     @Override
     public int update(LitemallStorageDTO storageInfo) {
         storageInfo.setUpdateTime(LocalDateTime.now());
-        return storageMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(storageInfo, LitemallStorage.class));
+        return storageMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(storageInfo, LitemallStorage.class));
     }
 
     @Override
     public LitemallStorageDTO findById(Integer id) {
-        return DTOUtil.convert2T(storageMapper.selectByPrimaryKey(id), LitemallStorageDTO.class);
+        return DTOUtil.convert2T(storageMapper.selectByPrimaryKey(id),
+                LitemallStorageDTO.class);
     }
 
     @Override
-    public List<LitemallStorageDTO> querySelective(String key, String name, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallStorageDTO> querySelective(String key, String name, Integer page,
+                                                   Integer limit, String sort, String order) {
         LitemallStorageExample example = new LitemallStorageExample();
         LitemallStorageExample.Criteria criteria = example.createCriteria();
 
@@ -69,6 +75,8 @@ public class LitemallStorageServiceImpl implements LitemallStorageService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(storageMapper.selectByExample(example), LitemallStorageDTO.class);
+        return DTOUtil.convert2List(storageMapper.selectByExample(example),
+                LitemallStorageDTO.class);
     }
+
 }

@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistoryService {
+
     @Resource
     private LitemallSearchHistoryMapper searchHistoryMapper;
 
@@ -23,7 +24,8 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
     public void save(LitemallSearchHistoryDTO searchHistory) {
         searchHistory.setAddTime(LocalDateTime.now());
         searchHistory.setUpdateTime(LocalDateTime.now());
-        searchHistoryMapper.insertSelective(DTOUtil.convert2T(searchHistory, LitemallSearchHistory.class));
+        searchHistoryMapper.insertSelective(
+                DTOUtil.convert2T(searchHistory, LitemallSearchHistory.class));
     }
 
     @Override
@@ -31,7 +33,10 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
         LitemallSearchHistoryExample example = new LitemallSearchHistoryExample();
         example.or().andUserIdEqualTo(uid).andDeletedEqualTo(false);
         example.setDistinct(true);
-        return DTOUtil.convert2List(searchHistoryMapper.selectByExampleSelective(example, LitemallSearchHistory.Column.keyword), LitemallSearchHistoryDTO.class);
+        return DTOUtil.convert2List(
+                searchHistoryMapper.selectByExampleSelective(example,
+                        LitemallSearchHistory.Column.keyword),
+                LitemallSearchHistoryDTO.class);
     }
 
     @Override
@@ -42,7 +47,8 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
     }
 
     @Override
-    public List<LitemallSearchHistoryDTO> querySelective(String userId, String keyword, Integer page, Integer size, String sort, String order) {
+    public List<LitemallSearchHistoryDTO> querySelective(String userId, String keyword,
+                                                         Integer page, Integer size, String sort, String order) {
         LitemallSearchHistoryExample example = new LitemallSearchHistoryExample();
         LitemallSearchHistoryExample.Criteria criteria = example.createCriteria();
 
@@ -59,6 +65,8 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(searchHistoryMapper.selectByExample(example), LitemallSearchHistoryDTO.class);
+        return DTOUtil.convert2List(searchHistoryMapper.selectByExample(example),
+                LitemallSearchHistoryDTO.class);
     }
+
 }

@@ -23,8 +23,10 @@ import java.util.Random;
 
 @Service
 public class LitemallOrderServiceImpl implements LitemallOrderService {
+
     @Resource
     private LitemallOrderMapper litemallOrderMapper;
+
     @Resource
     private OrderMapper orderMapper;
 
@@ -32,7 +34,8 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
     public int add(LitemallOrderDTO order) {
         order.setAddTime(LocalDateTime.now());
         order.setUpdateTime(LocalDateTime.now());
-        return litemallOrderMapper.insertSelective(DTOUtil.convert2T(order, LitemallOrder.class));
+        return litemallOrderMapper
+                .insertSelective(DTOUtil.convert2T(order, LitemallOrder.class));
     }
 
     @Override
@@ -44,14 +47,17 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
 
     @Override
     public LitemallOrderDTO findById(Integer orderId) {
-        return DTOUtil.convert2T(litemallOrderMapper.selectByPrimaryKey(orderId), LitemallOrderDTO.class);
+        return DTOUtil.convert2T(litemallOrderMapper.selectByPrimaryKey(orderId),
+                LitemallOrderDTO.class);
     }
 
     @Override
     public LitemallOrderDTO findById(Integer userId, Integer orderId) {
         LitemallOrderExample example = new LitemallOrderExample();
-        example.or().andIdEqualTo(orderId).andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(litemallOrderMapper.selectOneByExample(example), LitemallOrderDTO.class);
+        example.or().andIdEqualTo(orderId).andUserIdEqualTo(userId)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2T(litemallOrderMapper.selectOneByExample(example),
+                LitemallOrderDTO.class);
     }
 
     private String getRandomNum(Integer num) {
@@ -68,7 +74,8 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
     @Override
     public int countByOrderSn(Integer userId, String orderSn) {
         LitemallOrderExample example = new LitemallOrderExample();
-        example.or().andUserIdEqualTo(userId).andOrderSnEqualTo(orderSn).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(userId).andOrderSnEqualTo(orderSn)
+                .andDeletedEqualTo(false);
         return (int) litemallOrderMapper.countByExample(example);
     }
 
@@ -85,7 +92,9 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
     }
 
     @Override
-    public List<LitemallOrderDTO> queryByOrderStatus(Integer userId, List<Short> orderStatus, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallOrderDTO> queryByOrderStatus(Integer userId,
+                                                     List<Short> orderStatus, Integer page, Integer limit, String sort,
+                                                     String order) {
         LitemallOrderExample example = new LitemallOrderExample();
         example.setOrderByClause(LitemallOrderDTO.Column.addTime.desc());
         LitemallOrderExample.Criteria criteria = example.or();
@@ -99,11 +108,14 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example), LitemallOrderDTO.class);
+        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+                LitemallOrderDTO.class);
     }
 
     @Override
-    public List<LitemallOrderDTO> querySelective(Integer userId, String orderSn, LocalDateTime start, LocalDateTime end, List<Short> orderStatusArray, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallOrderDTO> querySelective(Integer userId, String orderSn,
+                                                 LocalDateTime start, LocalDateTime end, List<Short> orderStatusArray,
+                                                 Integer page, Integer limit, String sort, String order) {
         LitemallOrderExample example = new LitemallOrderExample();
         LitemallOrderExample.Criteria criteria = example.createCriteria();
 
@@ -129,14 +141,16 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example), LitemallOrderDTO.class);
+        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+                LitemallOrderDTO.class);
     }
 
     @Override
     public int updateWithOptimisticLocker(LitemallOrderDTO order) {
         LocalDateTime preUpdateTime = order.getUpdateTime();
         order.setUpdateTime(LocalDateTime.now());
-        return orderMapper.updateWithOptimisticLocker(preUpdateTime, DTOUtil.convert2T(order, LitemallOrder.class));
+        return orderMapper.updateWithOptimisticLocker(preUpdateTime,
+                DTOUtil.convert2T(order, LitemallOrder.class));
     }
 
     @Override
@@ -154,8 +168,10 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
     @Override
     public List<LitemallOrderDTO> queryUnpaid(int minutes) {
         LitemallOrderExample example = new LitemallOrderExample();
-        example.or().andOrderStatusEqualTo(OrderUtil.STATUS_CREATE).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example), LitemallOrderDTO.class);
+        example.or().andOrderStatusEqualTo(OrderUtil.STATUS_CREATE)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+                LitemallOrderDTO.class);
     }
 
     @Override
@@ -163,22 +179,28 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expired = now.minusDays(days);
         LitemallOrderExample example = new LitemallOrderExample();
-        example.or().andOrderStatusEqualTo(OrderUtil.STATUS_SHIP).andShipTimeLessThan(expired).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example), LitemallOrderDTO.class);
+        example.or().andOrderStatusEqualTo(OrderUtil.STATUS_SHIP)
+                .andShipTimeLessThan(expired).andDeletedEqualTo(false);
+        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+                LitemallOrderDTO.class);
     }
 
     @Override
     public LitemallOrderDTO findBySn(String orderSn) {
         LitemallOrderExample example = new LitemallOrderExample();
         example.or().andOrderSnEqualTo(orderSn).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(litemallOrderMapper.selectOneByExample(example), LitemallOrderDTO.class);
+        return DTOUtil.convert2T(litemallOrderMapper.selectOneByExample(example),
+                LitemallOrderDTO.class);
     }
 
     @Override
     public Map<Object, Object> orderInfo(Integer userId) {
         LitemallOrderExample example = new LitemallOrderExample();
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
-        List<LitemallOrderDTO> orders = DTOUtil.convert2List(litemallOrderMapper.selectByExampleSelective(example, LitemallOrder.Column.orderStatus, LitemallOrder.Column.comments), LitemallOrderDTO.class);
+        List<LitemallOrderDTO> orders = DTOUtil.convert2List(
+                litemallOrderMapper.selectByExampleSelective(example,
+                        LitemallOrder.Column.orderStatus, LitemallOrder.Column.comments),
+                LitemallOrderDTO.class);
 
         int unpaid = 0;
         int unship = 0;
@@ -191,7 +213,8 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
                 unship++;
             } else if (OrderUtil.isShipStatus(order)) {
                 unrecv++;
-            } else if (OrderUtil.isConfirmStatus(order) || OrderUtil.isAutoConfirmStatus(order)) {
+            } else if (OrderUtil.isConfirmStatus(order)
+                    || OrderUtil.isAutoConfirmStatus(order)) {
                 uncomment += order.getComments();
             } else {
                 // do nothing
@@ -212,8 +235,10 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime expired = now.minusDays(days);
         LitemallOrderExample example = new LitemallOrderExample();
-        example.or().andCommentsGreaterThan((short) 0).andConfirmTimeLessThan(expired).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example), LitemallOrderDTO.class);
+        example.or().andCommentsGreaterThan((short) 0).andConfirmTimeLessThan(expired)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+                LitemallOrderDTO.class);
     }
 
     @Override
@@ -224,4 +249,5 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
         order.setUpdateTime(LocalDateTime.now());
         litemallOrderMapper.updateByPrimaryKeySelective(order);
     }
+
 }

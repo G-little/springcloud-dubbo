@@ -17,6 +17,7 @@ public class CouponAssignServiceImpl implements CouponAssignService {
 
     @Autowired
     private LitemallCouponUserService couponUserService;
+
     @Autowired
     private LitemallCouponService couponService;
 

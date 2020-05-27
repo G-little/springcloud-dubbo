@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 public class LitemallOrderGoodsServiceImpl implements LitemallOrderGoodsService {
+
     @Resource
     private LitemallOrderGoodsMapper orderGoodsMapper;
 
@@ -21,32 +22,38 @@ public class LitemallOrderGoodsServiceImpl implements LitemallOrderGoodsService 
     public int add(LitemallOrderGoodsDTO orderGoods) {
         orderGoods.setAddTime(LocalDateTime.now());
         orderGoods.setUpdateTime(LocalDateTime.now());
-        return orderGoodsMapper.insertSelective(DTOUtil.convert2T(orderGoods, LitemallOrderGoods.class));
+        return orderGoodsMapper
+                .insertSelective(DTOUtil.convert2T(orderGoods, LitemallOrderGoods.class));
     }
 
     @Override
     public List<LitemallOrderGoodsDTO> queryByOid(Integer orderId) {
         LitemallOrderGoodsExample example = new LitemallOrderGoodsExample();
         example.or().andOrderIdEqualTo(orderId).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(orderGoodsMapper.selectByExample(example), LitemallOrderGoodsDTO.class);
+        return DTOUtil.convert2List(orderGoodsMapper.selectByExample(example),
+                LitemallOrderGoodsDTO.class);
     }
 
     @Override
     public List<LitemallOrderGoodsDTO> findByOidAndGid(Integer orderId, Integer goodsId) {
         LitemallOrderGoodsExample example = new LitemallOrderGoodsExample();
-        example.or().andOrderIdEqualTo(orderId).andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(orderGoodsMapper.selectByExample(example), LitemallOrderGoodsDTO.class);
+        example.or().andOrderIdEqualTo(orderId).andGoodsIdEqualTo(goodsId)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2List(orderGoodsMapper.selectByExample(example),
+                LitemallOrderGoodsDTO.class);
     }
 
     @Override
     public LitemallOrderGoodsDTO findById(Integer id) {
-        return DTOUtil.convert2T(orderGoodsMapper.selectByPrimaryKey(id), LitemallOrderGoodsDTO.class);
+        return DTOUtil.convert2T(orderGoodsMapper.selectByPrimaryKey(id),
+                LitemallOrderGoodsDTO.class);
     }
 
     @Override
     public void updateById(LitemallOrderGoodsDTO orderGoods) {
         orderGoods.setUpdateTime(LocalDateTime.now());
-        orderGoodsMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(orderGoods, LitemallOrderGoods.class));
+        orderGoodsMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(orderGoods, LitemallOrderGoods.class));
     }
 
     @Override
@@ -70,4 +77,5 @@ public class LitemallOrderGoodsServiceImpl implements LitemallOrderGoodsService 
         example.or().andOrderIdEqualTo(orderId).andDeletedEqualTo(false);
         orderGoodsMapper.logicalDeleteByExample(example);
     }
+
 }

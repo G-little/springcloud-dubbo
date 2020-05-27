@@ -17,6 +17,7 @@ import java.util.List;
 
 @Service
 public class LitemallCouponUserServiceImpl implements LitemallCouponUserService {
+
     @Resource
     private LitemallCouponUserMapper couponUserMapper;
 
@@ -30,7 +31,8 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
     @Override
     public Integer countUserAndCoupon(Integer userId, Integer couponId) {
         LitemallCouponUserExample example = new LitemallCouponUserExample();
-        example.or().andUserIdEqualTo(userId).andCouponIdEqualTo(couponId).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(userId).andCouponIdEqualTo(couponId)
+                .andDeletedEqualTo(false);
         return (int) couponUserMapper.countByExample(example);
     }
 
@@ -38,11 +40,13 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
     public void add(LitemallCouponUserDTO couponUser) {
         couponUser.setAddTime(LocalDateTime.now());
         couponUser.setUpdateTime(LocalDateTime.now());
-        couponUserMapper.insertSelective(DTOUtil.convert2T(couponUser, LitemallCouponUser.class));
+        couponUserMapper
+                .insertSelective(DTOUtil.convert2T(couponUser, LitemallCouponUser.class));
     }
 
     @Override
-    public List<LitemallCouponUserDTO> queryList(Integer userId, Integer couponId, Short status, Integer page, Integer size, String sort, String order) {
+    public List<LitemallCouponUserDTO> queryList(Integer userId, Integer couponId,
+                                                 Short status, Integer page, Integer size, String sort, String order) {
         LitemallCouponUserExample example = new LitemallCouponUserExample();
         LitemallCouponUserExample.Criteria criteria = example.createCriteria();
         if (userId != null) {
@@ -64,22 +68,26 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
             PageHelper.startPage(page, size);
         }
 
-        return DTOUtil.convert2List(couponUserMapper.selectByExample(example), LitemallCouponUserDTO.class);
+        return DTOUtil.convert2List(couponUserMapper.selectByExample(example),
+                LitemallCouponUserDTO.class);
     }
 
     @Override
     public List<LitemallCouponUserDTO> queryAll(Integer userId, Integer couponId) {
-        return queryList(userId, couponId, CouponUserConstant.STATUS_USABLE, null, null, "add_time", "desc");
+        return queryList(userId, couponId, CouponUserConstant.STATUS_USABLE, null, null,
+                "add_time", "desc");
     }
 
     @Override
     public List<LitemallCouponUserDTO> queryAll(Integer userId) {
-        return queryList(userId, null, CouponUserConstant.STATUS_USABLE, null, null, "add_time", "desc");
+        return queryList(userId, null, CouponUserConstant.STATUS_USABLE, null, null,
+                "add_time", "desc");
     }
 
     @Override
     public LitemallCouponUserDTO queryOne(Integer userId, Integer couponId) {
-        List<LitemallCouponUserDTO> couponUserList = queryList(userId, couponId, CouponUserConstant.STATUS_USABLE, 1, 1, "add_time", "desc");
+        List<LitemallCouponUserDTO> couponUserList = queryList(userId, couponId,
+                CouponUserConstant.STATUS_USABLE, 1, 1, "add_time", "desc");
         if (couponUserList.size() == 0) {
             return null;
         }
@@ -88,20 +96,24 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
 
     @Override
     public LitemallCouponUserDTO findById(Integer id) {
-        return DTOUtil.convert2T(couponUserMapper.selectByPrimaryKey(id), LitemallCouponUserDTO.class);
+        return DTOUtil.convert2T(couponUserMapper.selectByPrimaryKey(id),
+                LitemallCouponUserDTO.class);
     }
-
 
     @Override
     public int update(LitemallCouponUserDTO couponUser) {
         couponUser.setUpdateTime(LocalDateTime.now());
-        return couponUserMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(couponUser, LitemallCouponUser.class));
+        return couponUserMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(couponUser, LitemallCouponUser.class));
     }
 
     @Override
     public List<LitemallCouponUserDTO> queryExpired() {
         LitemallCouponUserExample example = new LitemallCouponUserExample();
-        example.or().andStatusEqualTo(CouponUserConstant.STATUS_USABLE).andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(couponUserMapper.selectByExample(example), LitemallCouponUserDTO.class);
+        example.or().andStatusEqualTo(CouponUserConstant.STATUS_USABLE)
+                .andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
+        return DTOUtil.convert2List(couponUserMapper.selectByExample(example),
+                LitemallCouponUserDTO.class);
     }
+
 }

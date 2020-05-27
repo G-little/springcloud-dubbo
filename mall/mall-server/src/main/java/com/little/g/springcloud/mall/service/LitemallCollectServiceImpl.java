@@ -16,18 +16,21 @@ import java.util.List;
 
 @Service
 public class LitemallCollectServiceImpl implements LitemallCollectService {
+
     @Resource
     private LitemallCollectMapper collectMapper;
 
     @Override
     public int count(int uid, Integer gid) {
         LitemallCollectExample example = new LitemallCollectExample();
-        example.or().andUserIdEqualTo(uid).andValueIdEqualTo(gid).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(uid).andValueIdEqualTo(gid)
+                .andDeletedEqualTo(false);
         return (int) collectMapper.countByExample(example);
     }
 
     @Override
-    public List<LitemallCollectDTO> queryByType(Integer userId, Byte type, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallCollectDTO> queryByType(Integer userId, Byte type, Integer page,
+                                                Integer limit, String sort, String order) {
         LitemallCollectExample example = new LitemallCollectExample();
         LitemallCollectExample.Criteria criteria = example.createCriteria();
 
@@ -42,21 +45,26 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(collectMapper.selectByExample(example), LitemallCollectDTO.class);
+        return DTOUtil.convert2List(collectMapper.selectByExample(example),
+                LitemallCollectDTO.class);
     }
 
     @Override
     public int countByType(Integer userId, Byte type) {
         LitemallCollectExample example = new LitemallCollectExample();
-        example.or().andUserIdEqualTo(userId).andTypeEqualTo(type).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(userId).andTypeEqualTo(type)
+                .andDeletedEqualTo(false);
         return (int) collectMapper.countByExample(example);
     }
 
     @Override
-    public LitemallCollectDTO queryByTypeAndValue(Integer userId, Byte type, Integer valueId) {
+    public LitemallCollectDTO queryByTypeAndValue(Integer userId, Byte type,
+                                                  Integer valueId) {
         LitemallCollectExample example = new LitemallCollectExample();
-        example.or().andUserIdEqualTo(userId).andValueIdEqualTo(valueId).andTypeEqualTo(type).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(collectMapper.selectOneByExample(example), LitemallCollectDTO.class);
+        example.or().andUserIdEqualTo(userId).andValueIdEqualTo(valueId)
+                .andTypeEqualTo(type).andDeletedEqualTo(false);
+        return DTOUtil.convert2T(collectMapper.selectOneByExample(example),
+                LitemallCollectDTO.class);
     }
 
     @Override
@@ -68,11 +76,13 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
     public int add(LitemallCollectDTO collect) {
         collect.setAddTime(LocalDateTime.now());
         collect.setUpdateTime(LocalDateTime.now());
-        return collectMapper.insertSelective(DTOUtil.convert2T(collect, LitemallCollect.class));
+        return collectMapper
+                .insertSelective(DTOUtil.convert2T(collect, LitemallCollect.class));
     }
 
     @Override
-    public List<LitemallCollectDTO> querySelective(String userId, String valueId, Integer page, Integer size, String sort, String order) {
+    public List<LitemallCollectDTO> querySelective(String userId, String valueId,
+                                                   Integer page, Integer size, String sort, String order) {
         LitemallCollectExample example = new LitemallCollectExample();
         LitemallCollectExample.Criteria criteria = example.createCriteria();
 
@@ -89,6 +99,8 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(collectMapper.selectByExample(example), LitemallCollectDTO.class);
+        return DTOUtil.convert2List(collectMapper.selectByExample(example),
+                LitemallCollectDTO.class);
     }
+
 }

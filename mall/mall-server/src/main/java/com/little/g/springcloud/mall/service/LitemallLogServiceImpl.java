@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class LitemallLogServiceImpl implements LitemallLogService {
+
     @Resource
     private LitemallLogMapper logMapper;
 
@@ -32,7 +33,8 @@ public class LitemallLogServiceImpl implements LitemallLogService {
     }
 
     @Override
-    public List<LitemallLogDTO> querySelective(String name, Integer page, Integer size, String sort, String order) {
+    public List<LitemallLogDTO> querySelective(String name, Integer page, Integer size,
+                                               String sort, String order) {
         LitemallLogExample example = new LitemallLogExample();
         LitemallLogExample.Criteria criteria = example.createCriteria();
 
@@ -46,6 +48,8 @@ public class LitemallLogServiceImpl implements LitemallLogService {
         }
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(logMapper.selectByExample(example), LitemallLogDTO.class);
+        return DTOUtil.convert2List(logMapper.selectByExample(example),
+                LitemallLogDTO.class);
     }
+
 }

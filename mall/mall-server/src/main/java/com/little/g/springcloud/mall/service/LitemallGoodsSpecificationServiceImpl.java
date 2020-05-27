@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class LitemallGoodsSpecificationServiceImpl implements LitemallGoodsSpecificationService {
+public class LitemallGoodsSpecificationServiceImpl
+        implements LitemallGoodsSpecificationService {
+
     @Resource
     private LitemallGoodsSpecificationMapper goodsSpecificationMapper;
 
@@ -24,12 +26,14 @@ public class LitemallGoodsSpecificationServiceImpl implements LitemallGoodsSpeci
     public List<LitemallGoodsSpecificationDTO> queryByGid(Integer id) {
         LitemallGoodsSpecificationExample example = new LitemallGoodsSpecificationExample();
         example.or().andGoodsIdEqualTo(id).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(goodsSpecificationMapper.selectByExample(example), LitemallGoodsSpecificationDTO.class);
+        return DTOUtil.convert2List(goodsSpecificationMapper.selectByExample(example),
+                LitemallGoodsSpecificationDTO.class);
     }
 
     @Override
     public LitemallGoodsSpecificationDTO findById(Integer id) {
-        return DTOUtil.convert2T(goodsSpecificationMapper.selectByPrimaryKey(id), LitemallGoodsSpecificationDTO.class);
+        return DTOUtil.convert2T(goodsSpecificationMapper.selectByPrimaryKey(id),
+                LitemallGoodsSpecificationDTO.class);
     }
 
     @Override
@@ -43,20 +47,12 @@ public class LitemallGoodsSpecificationServiceImpl implements LitemallGoodsSpeci
     public void add(LitemallGoodsSpecificationDTO goodsSpecification) {
         goodsSpecification.setAddTime(LocalDateTime.now());
         goodsSpecification.setUpdateTime(LocalDateTime.now());
-        goodsSpecificationMapper.insertSelective(DTOUtil.convert2T(goodsSpecification, LitemallGoodsSpecification.class));
+        goodsSpecificationMapper.insertSelective(
+                DTOUtil.convert2T(goodsSpecification, LitemallGoodsSpecification.class));
     }
 
     /**
-     * [
-     * {
-     * name: '',
-     * valueList: [ {}, {}]
-     * },
-     * {
-     * name: '',
-     * valueList: [ {}, {}]
-     * }
-     * ]
+     * [ { name: '', valueList: [ {}, {}] }, { name: '', valueList: [ {}, {}] } ]
      *
      * @param id
      * @return
@@ -80,7 +76,8 @@ public class LitemallGoodsSpecificationServiceImpl implements LitemallGoodsSpeci
                 map.put(specification, goodsSpecificationVo);
                 specificationVoList.add(goodsSpecificationVo);
             } else {
-                List<LitemallGoodsSpecificationDTO> valueList = goodsSpecificationVo.getValueList();
+                List<LitemallGoodsSpecificationDTO> valueList = goodsSpecificationVo
+                        .getValueList();
                 valueList.add(goodsSpecification);
             }
         }
@@ -91,11 +88,14 @@ public class LitemallGoodsSpecificationServiceImpl implements LitemallGoodsSpeci
     @Override
     public void updateById(LitemallGoodsSpecificationDTO specification) {
         specification.setUpdateTime(LocalDateTime.now());
-        goodsSpecificationMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(specification, LitemallGoodsSpecification.class));
+        goodsSpecificationMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(specification, LitemallGoodsSpecification.class));
     }
 
     private class VO {
+
         private String name;
+
         private List<LitemallGoodsSpecificationDTO> valueList;
 
         public String getName() {
@@ -113,6 +113,7 @@ public class LitemallGoodsSpecificationServiceImpl implements LitemallGoodsSpeci
         public void setValueList(List<LitemallGoodsSpecificationDTO> valueList) {
             this.valueList = valueList;
         }
+
     }
 
 }

@@ -17,9 +17,12 @@ import java.util.List;
 
 @Service
 public class LitemallTopicServiceImpl implements LitemallTopicService {
+
     @Resource
     private LitemallTopicMapper topicMapper;
-    private Column[] columns = new Column[]{Column.id, Column.title, Column.subtitle, Column.price, Column.picUrl, Column.readCount};
+
+    private Column[] columns = new Column[]{Column.id, Column.title, Column.subtitle,
+            Column.price, Column.picUrl, Column.readCount};
 
     @Override
     public List<LitemallTopicDTO> queryList(int offset, int limit) {
@@ -27,12 +30,15 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
     }
 
     @Override
-    public List<LitemallTopicDTO> queryList(int offset, int limit, String sort, String order) {
+    public List<LitemallTopicDTO> queryList(int offset, int limit, String sort,
+                                            String order) {
         LitemallTopicExample example = new LitemallTopicExample();
         example.or().andDeletedEqualTo(false);
         example.setOrderByClause(sort + " " + order);
         PageHelper.startPage(offset, limit);
-        return DTOUtil.convert2List(topicMapper.selectByExampleSelective(example, columns), LitemallTopicDTO.class);
+        return DTOUtil.convert2List(
+                topicMapper.selectByExampleSelective(example, columns),
+                LitemallTopicDTO.class);
     }
 
     @Override
@@ -46,14 +52,16 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
     public LitemallTopicDTO findById(Integer id) {
         LitemallTopicExample example = new LitemallTopicExample();
         example.or().andIdEqualTo(id).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(topicMapper.selectOneByExampleWithBLOBs(example), LitemallTopicDTO.class);
+        return DTOUtil.convert2T(topicMapper.selectOneByExampleWithBLOBs(example),
+                LitemallTopicDTO.class);
     }
 
     @Override
     public List<LitemallTopicDTO> queryRelatedList(Integer id, int offset, int limit) {
         LitemallTopicExample example = new LitemallTopicExample();
         example.or().andIdEqualTo(id).andDeletedEqualTo(false);
-        List<LitemallTopicDTO> topics = DTOUtil.convert2List(topicMapper.selectByExample(example), LitemallTopicDTO.class);
+        List<LitemallTopicDTO> topics = DTOUtil.convert2List(
+                topicMapper.selectByExample(example), LitemallTopicDTO.class);
         if (topics.size() == 0) {
             return queryList(offset, limit, "add_time", "desc");
         }
@@ -62,7 +70,8 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
         example = new LitemallTopicExample();
         example.or().andIdNotEqualTo(topic.getId()).andDeletedEqualTo(false);
         PageHelper.startPage(offset, limit);
-        List<LitemallTopicDTO> relateds = DTOUtil.convert2List(topicMapper.selectByExampleWithBLOBs(example), LitemallTopicDTO.class);
+        List<LitemallTopicDTO> relateds = DTOUtil.convert2List(
+                topicMapper.selectByExampleWithBLOBs(example), LitemallTopicDTO.class);
         if (relateds.size() != 0) {
             return relateds;
         }
@@ -71,7 +80,8 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
     }
 
     @Override
-    public List<LitemallTopicDTO> querySelective(String title, String subtitle, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallTopicDTO> querySelective(String title, String subtitle,
+                                                 Integer page, Integer limit, String sort, String order) {
         LitemallTopicExample example = new LitemallTopicExample();
         LitemallTopicExample.Criteria criteria = example.createCriteria();
 
@@ -88,7 +98,8 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(topicMapper.selectByExampleWithBLOBs(example), LitemallTopicDTO.class);
+        return DTOUtil.convert2List(topicMapper.selectByExampleWithBLOBs(example),
+                LitemallTopicDTO.class);
     }
 
     @Override
@@ -96,7 +107,8 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
         topic.setUpdateTime(LocalDateTime.now());
         LitemallTopicExample example = new LitemallTopicExample();
         example.or().andIdEqualTo(topic.getId());
-        return topicMapper.updateByExampleSelective(DTOUtil.convert2T(topic, LitemallTopic.class), example);
+        return topicMapper.updateByExampleSelective(
+                DTOUtil.convert2T(topic, LitemallTopic.class), example);
     }
 
     @Override
@@ -111,7 +123,6 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
         topicMapper.insertSelective(DTOUtil.convert2T(topic, LitemallTopic.class));
     }
 
-
     @Override
     public void deleteByIds(List<Integer> ids) {
         LitemallTopicExample example = new LitemallTopicExample();
@@ -121,4 +132,5 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
         topic.setDeleted(true);
         topicMapper.updateByExampleSelective(topic, example);
     }
+
 }

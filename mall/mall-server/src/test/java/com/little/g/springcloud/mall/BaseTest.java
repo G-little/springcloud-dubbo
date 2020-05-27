@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DubboSpringCloudProviderBootstrap.class,
-		properties = {"spring.profiles.active=nacos"})
+        properties = {"spring.profiles.active=nacos"})
 public class BaseTest {
 
 	@Resource

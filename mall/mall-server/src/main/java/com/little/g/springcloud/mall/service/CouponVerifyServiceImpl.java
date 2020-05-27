@@ -17,6 +17,7 @@ public class CouponVerifyServiceImpl implements CouponVerifyService {
 
     @Autowired
     private LitemallCouponUserService couponUserService;
+
     @Autowired
     private LitemallCouponService couponService;
 
@@ -29,7 +30,8 @@ public class CouponVerifyServiceImpl implements CouponVerifyService {
      * @return
      */
     @Override
-    public LitemallCouponDTO checkCoupon(Integer userId, Integer couponId, Integer userCouponId, BigDecimal checkedGoodsPrice) {
+    public LitemallCouponDTO checkCoupon(Integer userId, Integer couponId,
+                                         Integer userCouponId, BigDecimal checkedGoodsPrice) {
         LitemallCouponDTO coupon = couponService.findById(couponId);
         if (coupon == null) {
             return null;

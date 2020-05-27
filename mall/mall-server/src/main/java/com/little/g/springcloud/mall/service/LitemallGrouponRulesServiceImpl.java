@@ -19,18 +19,24 @@ import java.util.List;
 
 @Service
 public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesService {
+
     @Resource
     private LitemallGrouponRulesMapper mapper;
+
     @Resource
     private LitemallGoodsMapper goodsMapper;
 
-    private LitemallGoods.Column[] goodsColumns = new LitemallGoods.Column[]{LitemallGoods.Column.id, LitemallGoods.Column.name, LitemallGoods.Column.brief, LitemallGoods.Column.picUrl, LitemallGoods.Column.counterPrice, LitemallGoods.Column.retailPrice};
+    private LitemallGoods.Column[] goodsColumns = new LitemallGoods.Column[]{
+            LitemallGoods.Column.id, LitemallGoods.Column.name,
+            LitemallGoods.Column.brief, LitemallGoods.Column.picUrl,
+            LitemallGoods.Column.counterPrice, LitemallGoods.Column.retailPrice};
 
     @Override
     public int createRules(LitemallGrouponRulesDTO rules) {
         rules.setAddTime(LocalDateTime.now());
         rules.setUpdateTime(LocalDateTime.now());
-        return mapper.insertSelective(DTOUtil.convert2T(rules, LitemallGrouponRules.class));
+        return mapper
+                .insertSelective(DTOUtil.convert2T(rules, LitemallGrouponRules.class));
     }
 
     /**
@@ -41,7 +47,8 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
      */
     @Override
     public LitemallGrouponRulesDTO findById(Integer id) {
-        return DTOUtil.convert2T(mapper.selectByPrimaryKey(id), LitemallGrouponRulesDTO.class);
+        return DTOUtil.convert2T(mapper.selectByPrimaryKey(id),
+                LitemallGrouponRulesDTO.class);
     }
 
     /**
@@ -53,14 +60,19 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
     @Override
     public List<LitemallGrouponRulesDTO> queryByGoodsId(Integer goodsId) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
-        example.or().andGoodsIdEqualTo(goodsId).andStatusEqualTo(GrouponConstant.RULE_STATUS_ON).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(mapper.selectByExample(example), LitemallGrouponRulesDTO.class);
+        example.or().andGoodsIdEqualTo(goodsId)
+                .andStatusEqualTo(GrouponConstant.RULE_STATUS_ON)
+                .andDeletedEqualTo(false);
+        return DTOUtil.convert2List(mapper.selectByExample(example),
+                LitemallGrouponRulesDTO.class);
     }
 
     @Override
     public int countByGoodsId(Integer goodsId) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
-        example.or().andGoodsIdEqualTo(goodsId).andStatusEqualTo(GrouponConstant.RULE_STATUS_ON).andDeletedEqualTo(false);
+        example.or().andGoodsIdEqualTo(goodsId)
+                .andStatusEqualTo(GrouponConstant.RULE_STATUS_ON)
+                .andDeletedEqualTo(false);
         return (int) mapper.countByExample(example);
     }
 
@@ -68,7 +80,8 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
     public List<LitemallGrouponRulesDTO> queryByStatus(Short status) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
         example.or().andStatusEqualTo(status).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(mapper.selectByExample(example), LitemallGrouponRulesDTO.class);
+        return DTOUtil.convert2List(mapper.selectByExample(example),
+                LitemallGrouponRulesDTO.class);
     }
 
     /**
@@ -84,12 +97,15 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
     }
 
     @Override
-    public List<LitemallGrouponRulesDTO> queryList(Integer page, Integer limit, String sort, String order) {
+    public List<LitemallGrouponRulesDTO> queryList(Integer page, Integer limit,
+                                                   String sort, String order) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
-        example.or().andStatusEqualTo(GrouponConstant.RULE_STATUS_ON).andDeletedEqualTo(false);
+        example.or().andStatusEqualTo(GrouponConstant.RULE_STATUS_ON)
+                .andDeletedEqualTo(false);
         example.setOrderByClause(sort + " " + order);
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(mapper.selectByExample(example), LitemallGrouponRulesDTO.class);
+        return DTOUtil.convert2List(mapper.selectByExample(example),
+                LitemallGrouponRulesDTO.class);
     }
 
     /**
@@ -113,7 +129,8 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
      * @return
      */
     @Override
-    public List<LitemallGrouponRulesDTO> querySelective(String goodsId, Integer page, Integer size, String sort, String order) {
+    public List<LitemallGrouponRulesDTO> querySelective(String goodsId, Integer page,
+                                                        Integer size, String sort, String order) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
         example.setOrderByClause(sort + " " + order);
 
@@ -125,7 +142,8 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
         criteria.andDeletedEqualTo(false);
 
         PageHelper.startPage(page, size);
-        return DTOUtil.convert2List(mapper.selectByExample(example), LitemallGrouponRulesDTO.class);
+        return DTOUtil.convert2List(mapper.selectByExample(example),
+                LitemallGrouponRulesDTO.class);
     }
 
     @Override
@@ -136,6 +154,8 @@ public class LitemallGrouponRulesServiceImpl implements LitemallGrouponRulesServ
     @Override
     public int updateById(LitemallGrouponRulesDTO grouponRules) {
         grouponRules.setUpdateTime(LocalDateTime.now());
-        return mapper.updateByPrimaryKeySelective(DTOUtil.convert2T(grouponRules, LitemallGrouponRules.class));
+        return mapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(grouponRules, LitemallGrouponRules.class));
     }
+
 }

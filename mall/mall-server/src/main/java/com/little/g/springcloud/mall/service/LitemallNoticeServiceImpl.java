@@ -16,12 +16,13 @@ import java.util.List;
 
 @Service
 public class LitemallNoticeServiceImpl implements LitemallNoticeService {
+
     @Resource
     private LitemallNoticeMapper noticeMapper;
 
-
     @Override
-    public List<LitemallNoticeDTO> querySelective(String title, String content, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallNoticeDTO> querySelective(String title, String content,
+                                                  Integer page, Integer limit, String sort, String order) {
         LitemallNoticeExample example = new LitemallNoticeExample();
         LitemallNoticeExample.Criteria criteria = example.createCriteria();
 
@@ -38,13 +39,15 @@ public class LitemallNoticeServiceImpl implements LitemallNoticeService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(noticeMapper.selectByExample(example), LitemallNoticeDTO.class);
+        return DTOUtil.convert2List(noticeMapper.selectByExample(example),
+                LitemallNoticeDTO.class);
     }
 
     @Override
     public int updateById(LitemallNoticeDTO notice) {
         notice.setUpdateTime(LocalDateTime.now());
-        return noticeMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(notice, LitemallNotice.class));
+        return noticeMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(notice, LitemallNotice.class));
     }
 
     @Override
@@ -61,7 +64,8 @@ public class LitemallNoticeServiceImpl implements LitemallNoticeService {
 
     @Override
     public LitemallNoticeDTO findById(Integer id) {
-        return DTOUtil.convert2T(noticeMapper.selectByPrimaryKey(id), LitemallNoticeDTO.class);
+        return DTOUtil.convert2T(noticeMapper.selectByPrimaryKey(id),
+                LitemallNoticeDTO.class);
     }
 
     @Override
@@ -73,4 +77,5 @@ public class LitemallNoticeServiceImpl implements LitemallNoticeService {
         notice.setDeleted(true);
         noticeMapper.updateByExampleSelective(notice, example);
     }
+
 }

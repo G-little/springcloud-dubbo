@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Service
 public class LitemallSystemConfigServiceImpl implements LitemallSystemConfigService {
+
     @Resource
     private LitemallSystemMapper systemMapper;
 
@@ -27,8 +28,10 @@ public class LitemallSystemConfigServiceImpl implements LitemallSystemConfigServ
         return getSystemConfigMapByExample(example);
     }
 
-    private Map<String, String> getSystemConfigMapByExample(LitemallSystemExample example) {
-        List<LitemallSystemDTO> systemList = DTOUtil.convert2List(systemMapper.selectByExample(example), LitemallSystemDTO.class);
+    private Map<String, String> getSystemConfigMapByExample(
+            LitemallSystemExample example) {
+        List<LitemallSystemDTO> systemList = DTOUtil.convert2List(
+                systemMapper.selectByExample(example), LitemallSystemDTO.class);
         Map<String, String> systemConfigs = new HashMap<>();
         for (LitemallSystemDTO item : systemList) {
             systemConfigs.put(item.getKeyName(), item.getKeyValue());
@@ -89,4 +92,5 @@ public class LitemallSystemConfigServiceImpl implements LitemallSystemConfigServ
         system.setUpdateTime(LocalDateTime.now());
         systemMapper.insertSelective(system);
     }
+
 }

@@ -23,14 +23,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class LitemallCouponServiceImpl implements LitemallCouponService {
+
     @Resource
     private LitemallCouponMapper couponMapper;
+
     @Resource
     private LitemallCouponUserMapper couponUserMapper;
 
-    private Column[] result = new Column[]{Column.id, Column.name, Column.desc, Column.tag,
-            Column.days, Column.startTime, Column.endTime,
-            Column.discount, Column.min};
+    private Column[] result = new Column[]{Column.id, Column.name, Column.desc,
+            Column.tag, Column.days, Column.startTime, Column.endTime, Column.discount,
+            Column.min};
 
     /**
      * 查询，空参数
@@ -42,8 +44,10 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
      * @return
      */
     @Override
-    public List<LitemallCouponDTO> queryList(int offset, int limit, String sort, String order) {
-        return queryList(LitemallCouponExample.newAndCreateCriteria(), offset, limit, sort, order);
+    public List<LitemallCouponDTO> queryList(int offset, int limit, String sort,
+                                             String order) {
+        return queryList(LitemallCouponExample.newAndCreateCriteria(), offset, limit,
+                sort, order);
     }
 
     /**
@@ -56,23 +60,29 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
      * @param order
      * @return
      */
-    public List<LitemallCouponDTO> queryList(LitemallCouponExample.Criteria criteria, int offset, int limit, String sort, String order) {
-        criteria.andTypeEqualTo(CouponConstant.TYPE_COMMON).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
+    public List<LitemallCouponDTO> queryList(LitemallCouponExample.Criteria criteria,
+                                             int offset, int limit, String sort, String order) {
+        criteria.andTypeEqualTo(CouponConstant.TYPE_COMMON)
+                .andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
         criteria.example().setOrderByClause(sort + " " + order);
         PageHelper.startPage(offset, limit);
-        return DTOUtil.convert2List(couponMapper.selectByExampleSelective(criteria.example(), result), LitemallCouponDTO.class);
+        return DTOUtil.convert2List(
+                couponMapper.selectByExampleSelective(criteria.example(), result),
+                LitemallCouponDTO.class);
     }
 
     @Override
-    public List<LitemallCouponDTO> queryAvailableList(Integer userId, int offset, int limit) {
+    public List<LitemallCouponDTO> queryAvailableList(Integer userId, int offset,
+                                                      int limit) {
         assert userId != null;
         // 过滤掉登录账号已经领取过的coupon
         LitemallCouponExample.Criteria c = LitemallCouponExample.newAndCreateCriteria();
-        List<LitemallCouponUser> used = couponUserMapper.selectByExample(
-                LitemallCouponUserExample.newAndCreateCriteria().andUserIdEqualTo(userId).example()
-        );
+        List<LitemallCouponUser> used = couponUserMapper
+                .selectByExample(LitemallCouponUserExample.newAndCreateCriteria()
+                        .andUserIdEqualTo(userId).example());
         if (used != null && !used.isEmpty()) {
-            c.andIdNotIn(used.stream().map(LitemallCouponUser::getCouponId).collect(Collectors.toList()));
+            c.andIdNotIn(used.stream().map(LitemallCouponUser::getCouponId)
+                    .collect(Collectors.toList()));
         }
         return queryList(c, offset, limit, "add_time", "desc");
     }
@@ -84,15 +94,17 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
 
     @Override
     public LitemallCouponDTO findById(Integer id) {
-        return DTOUtil.convert2T(couponMapper.selectByPrimaryKey(id), LitemallCouponDTO.class);
+        return DTOUtil.convert2T(couponMapper.selectByPrimaryKey(id),
+                LitemallCouponDTO.class);
     }
-
 
     @Override
     public LitemallCouponDTO findByCode(String code) {
         LitemallCouponExample example = new LitemallCouponExample();
-        example.or().andCodeEqualTo(code).andTypeEqualTo(CouponConstant.TYPE_CODE).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
-        List<LitemallCouponDTO> couponList = DTOUtil.convert2List(couponMapper.selectByExample(example), LitemallCouponDTO.class);
+        example.or().andCodeEqualTo(code).andTypeEqualTo(CouponConstant.TYPE_CODE)
+                .andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
+        List<LitemallCouponDTO> couponList = DTOUtil.convert2List(
+                couponMapper.selectByExample(example), LitemallCouponDTO.class);
         if (couponList.size() > 1) {
             throw new RuntimeException("");
         } else if (couponList.size() == 0) {
@@ -110,12 +122,15 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
     @Override
     public List<LitemallCouponDTO> queryRegister() {
         LitemallCouponExample example = new LitemallCouponExample();
-        example.or().andTypeEqualTo(CouponConstant.TYPE_REGISTER).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(couponMapper.selectByExample(example), LitemallCouponDTO.class);
+        example.or().andTypeEqualTo(CouponConstant.TYPE_REGISTER)
+                .andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
+        return DTOUtil.convert2List(couponMapper.selectByExample(example),
+                LitemallCouponDTO.class);
     }
 
     @Override
-    public List<LitemallCouponDTO> querySelective(String name, Short type, Short status, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallCouponDTO> querySelective(String name, Short type, Short status,
+                                                  Integer page, Integer limit, String sort, String order) {
         LitemallCouponExample example = new LitemallCouponExample();
         LitemallCouponExample.Criteria criteria = example.createCriteria();
 
@@ -135,7 +150,8 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(couponMapper.selectByExample(example), LitemallCouponDTO.class);
+        return DTOUtil.convert2List(couponMapper.selectByExample(example),
+                LitemallCouponDTO.class);
     }
 
     @Override
@@ -148,7 +164,8 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
     @Override
     public int updateById(LitemallCouponDTO coupon) {
         coupon.setUpdateTime(LocalDateTime.now());
-        return couponMapper.updateByPrimaryKeySelective(DTOUtil.convert2T(coupon, LitemallCoupon.class));
+        return couponMapper.updateByPrimaryKeySelective(
+                DTOUtil.convert2T(coupon, LitemallCoupon.class));
     }
 
     @Override
@@ -184,14 +201,17 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
     }
 
     /**
-     * 查询过期的优惠券:
-     * 注意：如果timeType=0, 即基于领取时间有效期的优惠券，则优惠券不会过期
+     * 查询过期的优惠券: 注意：如果timeType=0, 即基于领取时间有效期的优惠券，则优惠券不会过期
      *
      * @return
      */
     public List<LitemallCouponDTO> queryExpired() {
         LitemallCouponExample example = new LitemallCouponExample();
-        example.or().andStatusEqualTo(CouponConstant.STATUS_NORMAL).andTimeTypeEqualTo(CouponConstant.TIME_TYPE_TIME).andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(couponMapper.selectByExample(example), LitemallCouponDTO.class);
+        example.or().andStatusEqualTo(CouponConstant.STATUS_NORMAL)
+                .andTimeTypeEqualTo(CouponConstant.TIME_TYPE_TIME)
+                .andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
+        return DTOUtil.convert2List(couponMapper.selectByExample(example),
+                LitemallCouponDTO.class);
     }
+
 }

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class LitemallAddressServiceImpl implements LitemallAddressService {
+
     @Resource
     private LitemallAddressMapper addressMapper;
 
@@ -78,7 +79,8 @@ public class LitemallAddressServiceImpl implements LitemallAddressService {
     @Override
     public LitemallAddressDTO findDefault(Integer userId) {
         LitemallAddressExample example = new LitemallAddressExample();
-        example.or().andUserIdEqualTo(userId).andIsDefaultEqualTo(true).andDeletedEqualTo(false);
+        example.or().andUserIdEqualTo(userId).andIsDefaultEqualTo(true)
+                .andDeletedEqualTo(false);
         return selectOneByExample(example);
     }
 
@@ -92,9 +94,9 @@ public class LitemallAddressServiceImpl implements LitemallAddressService {
         addressMapper.updateByExampleSelective(address, example);
     }
 
-
     @Override
-    public List<LitemallAddressDTO> querySelective(Integer userId, String name, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallAddressDTO> querySelective(Integer userId, String name,
+                                                   Integer page, Integer limit, String sort, String order) {
         LitemallAddressExample example = new LitemallAddressExample();
         LitemallAddressExample.Criteria criteria = example.createCriteria();
 
@@ -113,4 +115,5 @@ public class LitemallAddressServiceImpl implements LitemallAddressService {
         PageHelper.startPage(page, limit);
         return selectListByExample(example);
     }
+
 }

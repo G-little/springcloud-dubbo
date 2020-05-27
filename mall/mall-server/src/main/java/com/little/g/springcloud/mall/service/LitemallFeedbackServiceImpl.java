@@ -20,6 +20,7 @@ import java.util.List;
  */
 @Service
 public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
+
     @Autowired
     private LitemallFeedbackMapper feedbackMapper;
 
@@ -27,11 +28,13 @@ public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
     public Integer add(LitemallFeedbackDTO feedback) {
         feedback.setAddTime(LocalDateTime.now());
         feedback.setUpdateTime(LocalDateTime.now());
-        return feedbackMapper.insertSelective(DTOUtil.convert2T(feedback, LitemallFeedback.class));
+        return feedbackMapper
+                .insertSelective(DTOUtil.convert2T(feedback, LitemallFeedback.class));
     }
 
     @Override
-    public List<LitemallFeedbackDTO> querySelective(Integer userId, String username, Integer page, Integer limit, String sort, String order) {
+    public List<LitemallFeedbackDTO> querySelective(Integer userId, String username,
+                                                    Integer page, Integer limit, String sort, String order) {
         LitemallFeedbackExample example = new LitemallFeedbackExample();
         LitemallFeedbackExample.Criteria criteria = example.createCriteria();
 
@@ -48,6 +51,8 @@ public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
         }
 
         PageHelper.startPage(page, limit);
-        return DTOUtil.convert2List(feedbackMapper.selectByExample(example), LitemallFeedbackDTO.class);
+        return DTOUtil.convert2List(feedbackMapper.selectByExample(example),
+                LitemallFeedbackDTO.class);
     }
+
 }
