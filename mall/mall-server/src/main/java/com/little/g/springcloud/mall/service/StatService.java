@@ -1,6 +1,6 @@
 package com.little.g.springcloud.mall.service;
 
-import org.linlinjava.litemall.db.dao.StatMapper;
+import com.little.g.springcloud.mall.mapper.StatMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
