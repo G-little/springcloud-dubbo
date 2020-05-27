@@ -348,7 +348,7 @@ public class LitemallBrandDTO implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        LitemallBrand other = (LitemallBrand) that;
+		LitemallBrandDTO other = (LitemallBrandDTO) that;
         return (this.getId() == null ? other.getId() == null
                 : this.getId().equals(other.getId()))
                 && (this.getName() == null ? other.getName() == null

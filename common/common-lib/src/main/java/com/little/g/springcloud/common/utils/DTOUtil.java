@@ -17,7 +17,7 @@ public class DTOUtil {
 			T target = t.getDeclaredConstructor().newInstance();
 			BeanUtils.copyProperties(source, target);
 			return target;
-		} catch (Exception e) {
+        } catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
