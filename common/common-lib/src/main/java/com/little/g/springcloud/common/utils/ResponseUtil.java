@@ -62,7 +62,6 @@ public class ResponseUtil {
         return r;
     }
 
-
     public static ResultJson okList(List list) {
         ResultJson r = new ResultJson();
         r.putD("list", list);
@@ -90,16 +89,13 @@ public class ResponseUtil {
         ResultJson r = new ResultJson();
         r.putD("list", list);
 
-
         r.putD("total", page.getTotal());
         r.putD("page", page.getPageNum());
         r.putD("limit", page.getPageSize());
         r.putD("pages", page.getPages());
 
-
         return r;
     }
-
 
     public static ResultJson badArgument() {
         return fail(CommonErrorCodes.INVALID_PARAM, "参数不对");

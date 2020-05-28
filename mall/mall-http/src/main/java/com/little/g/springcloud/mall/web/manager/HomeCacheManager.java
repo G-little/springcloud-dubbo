@@ -9,9 +9,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * 简单缓存的数据
  */
 public class HomeCacheManager {
+
     public static final boolean ENABLE = false;
+
     public static final String INDEX = "index";
+
     public static final String CATALOG = "catalog";
+
     public static final String GOODS = "goods";
 
     private static ConcurrentHashMap<String, Map<String, Object>> cacheDataList = new ConcurrentHashMap<>();
@@ -23,16 +27,16 @@ public class HomeCacheManager {
      */
     public static void loadData(String cacheKey, Map<String, Object> data) {
         Map<String, Object> cacheData = cacheDataList.get(cacheKey);
-        //有记录，则先丢弃
+        // 有记录，则先丢弃
         if (cacheData != null) {
             cacheData.remove(cacheKey);
         }
 
         cacheData = new HashMap<>();
-        //深拷贝
+        // 深拷贝
         cacheData.putAll(data);
         cacheData.put("isCache", "true");
-        //设置缓存有效期为10分钟
+        // 设置缓存有效期为10分钟
         cacheData.put("expireTime", LocalDateTime.now().plusMinutes(10));
         cacheDataList.put(cacheKey, cacheData);
     }
@@ -79,4 +83,5 @@ public class HomeCacheManager {
             cacheDataList.remove(cacheKey);
         }
     }
+
 }

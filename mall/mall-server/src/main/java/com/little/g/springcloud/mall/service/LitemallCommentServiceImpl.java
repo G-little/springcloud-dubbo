@@ -8,14 +8,14 @@ import com.little.g.springcloud.mall.dto.LitemallCommentDTO;
 import com.little.g.springcloud.mall.mapper.LitemallCommentMapper;
 import com.little.g.springcloud.mall.model.LitemallComment;
 import com.little.g.springcloud.mall.model.LitemallCommentExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallCommentServiceImpl implements LitemallCommentService {
 
     @Resource
@@ -33,8 +33,8 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
     }
 
     @Override
-    public List<LitemallCommentDTO> query(Byte type, Integer valueId, Integer showType,
-                                          Integer offset, Integer limit) {
+    public PageInfo<LitemallCommentDTO> query(Byte type, Integer valueId,
+                                              Integer showType, Integer offset, Integer limit) {
         LitemallCommentExample example = new LitemallCommentExample();
         example.setOrderByClause(LitemallCommentDTO.Column.addTime.desc());
         if (showType == 0) {
@@ -47,7 +47,7 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
             throw new RuntimeException("showType不支持");
         }
         PageHelper.startPage(offset, limit);
-        return DTOUtil.convert2List(commentMapper.selectByExample(example),
+        return DTOUtil.convert2Page(commentMapper.selectByExample(example),
                 LitemallCommentDTO.class);
     }
 

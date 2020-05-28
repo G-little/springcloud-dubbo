@@ -7,6 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
 public class OrderValidator implements ConstraintValidator<Order, String> {
+
     private List<String> valueList;
 
     @Override
@@ -18,10 +19,12 @@ public class OrderValidator implements ConstraintValidator<Order, String> {
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(String s,
+                           ConstraintValidatorContext constraintValidatorContext) {
         if (!valueList.contains(s.toUpperCase())) {
             return false;
         }
         return true;
     }
+
 }

@@ -76,8 +76,8 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
 
     @Override
     public List<LitemallCouponUserDTO> queryAll(Integer userId, Integer couponId) {
-        PageInfo<LitemallCouponUserDTO> p = queryList(userId, couponId, CouponUserConstant.STATUS_USABLE, null, null,
-                "add_time", "desc");
+        PageInfo<LitemallCouponUserDTO> p = queryList(userId, couponId,
+                CouponUserConstant.STATUS_USABLE, null, null, "add_time", "desc");
         if (p != null) {
             return p.getList();
         }
@@ -86,8 +86,8 @@ public class LitemallCouponUserServiceImpl implements LitemallCouponUserService 
 
     @Override
     public List<LitemallCouponUserDTO> queryAll(Integer userId) {
-        PageInfo<LitemallCouponUserDTO> p = queryList(userId, null, CouponUserConstant.STATUS_USABLE, null, null,
-                "add_time", "desc");
+        PageInfo<LitemallCouponUserDTO> p = queryList(userId, null,
+                CouponUserConstant.STATUS_USABLE, null, null, "add_time", "desc");
         if (p != null) {
             return p.getList();
         }

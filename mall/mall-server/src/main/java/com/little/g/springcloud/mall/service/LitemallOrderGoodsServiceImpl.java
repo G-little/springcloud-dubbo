@@ -6,13 +6,13 @@ import com.little.g.springcloud.mall.dto.LitemallOrderGoodsDTO;
 import com.little.g.springcloud.mall.mapper.LitemallOrderGoodsMapper;
 import com.little.g.springcloud.mall.model.LitemallOrderGoods;
 import com.little.g.springcloud.mall.model.LitemallOrderGoodsExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallOrderGoodsServiceImpl implements LitemallOrderGoodsService {
 
 	@Resource

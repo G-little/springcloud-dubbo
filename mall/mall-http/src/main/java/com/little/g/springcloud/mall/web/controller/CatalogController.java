@@ -45,9 +45,7 @@ public class CatalogController {
     /**
      * 分类详情
      *
-     * @param id 分类类目ID。
-     *           如果分类类目ID是空，则选择第一个分类类目。
-     *           需要注意，这里分类类目是一级类目
+     * @param id 分类类目ID。 如果分类类目ID是空，则选择第一个分类类目。 需要注意，这里分类类目是一级类目
      * @return 分类详情
      */
     @GetMapping("index")
@@ -86,16 +84,16 @@ public class CatalogController {
      */
     @GetMapping("all")
     public Object queryAll() {
-        //优先从缓存中读取
+        // 优先从缓存中读取
         if (HomeCacheManager.hasData(HomeCacheManager.CATALOG)) {
-            return ResponseUtil.ok(HomeCacheManager.getCacheData(HomeCacheManager.CATALOG));
+            return ResponseUtil
+                    .ok(HomeCacheManager.getCacheData(HomeCacheManager.CATALOG));
         }
-
 
         // 所有一级分类目录
         List<LitemallCategoryDTO> l1CatList = categoryService.queryL1();
 
-        //所有子分类列表
+        // 所有子分类列表
         Map<Integer, List<LitemallCategoryDTO>> allList = new HashMap<>();
         List<LitemallCategoryDTO> sub;
         for (LitemallCategoryDTO category : l1CatList) {
@@ -118,7 +116,7 @@ public class CatalogController {
         data.put("currentCategory", currentCategory);
         data.put("currentSubCategory", currentSubCategory);
 
-        //缓存数据
+        // 缓存数据
         HomeCacheManager.loadData(HomeCacheManager.CATALOG, data);
         return ResponseUtil.ok(data);
     }
@@ -136,11 +134,13 @@ public class CatalogController {
         if (currentCategory == null) {
             return ResponseUtil.badArgumentValue();
         }
-        List<LitemallCategoryDTO> currentSubCategory = categoryService.queryByPid(currentCategory.getId());
+        List<LitemallCategoryDTO> currentSubCategory = categoryService
+                .queryByPid(currentCategory.getId());
 
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("currentCategory", currentCategory);
         data.put("currentSubCategory", currentSubCategory);
         return ResponseUtil.ok(data);
     }
+
 }

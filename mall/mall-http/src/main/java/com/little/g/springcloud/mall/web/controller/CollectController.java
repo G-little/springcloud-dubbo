@@ -31,9 +31,9 @@ import java.util.Map;
 @Slf4j
 public class CollectController {
 
-
     @Autowired
     private LitemallCollectService collectService;
+
     @Autowired
     private LitemallGoodsService goodsService;
 
@@ -47,8 +47,7 @@ public class CollectController {
      * @return 用户收藏列表
      */
     @GetMapping("list")
-    public Object list(@LoginUser Integer userId,
-                       @NotNull Byte type,
+    public Object list(@LoginUser Integer userId, @NotNull Byte type,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
@@ -57,7 +56,8 @@ public class CollectController {
             return ResponseUtil.unlogin();
         }
 
-        PageInfo<LitemallCollectDTO> pageInfo = collectService.queryByType(userId, type, page, limit, sort, order);
+        PageInfo<LitemallCollectDTO> pageInfo = collectService.queryByType(userId, type,
+                page, limit, sort, order);
         if (pageInfo == null) {
             return ResponseUtil.ok();
         }
@@ -103,7 +103,8 @@ public class CollectController {
             return ResponseUtil.badArgument();
         }
 
-        LitemallCollectDTO collect = collectService.queryByTypeAndValue(userId, type, valueId);
+        LitemallCollectDTO collect = collectService.queryByTypeAndValue(userId, type,
+                valueId);
 
         if (collect != null) {
             collectService.deleteById(collect.getId());
@@ -117,4 +118,5 @@ public class CollectController {
 
         return ResponseUtil.ok();
     }
+
 }

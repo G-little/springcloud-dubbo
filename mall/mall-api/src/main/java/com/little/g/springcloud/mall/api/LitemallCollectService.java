@@ -18,7 +18,7 @@ public interface LitemallCollectService {
 
 	int add(LitemallCollectDTO collect);
 
-	PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId, Integer page,
-												Integer size, String sort, String order);
+    PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId,
+                                                Integer page, Integer size, String sort, String order);
 
 }

@@ -11,7 +11,7 @@ dubbo:
     subscribed-services: ${provider.application.name}
 
   consumer:
-    check: false
+    check: true
     timeout: 10000
 
 
@@ -26,4 +26,4 @@ management:
 
 provider:
   application:
-    name: mall-server
+    name: mall-server,user-server,pay-server

@@ -70,8 +70,8 @@ public class AftersaleController {
             return ResponseUtil.unlogin();
         }
 
-        PageInfo<LitemallAftersaleDTO> aftersalePage = aftersaleService.queryList(userId, status,
-                page, limit, sort, order);
+        PageInfo<LitemallAftersaleDTO> aftersalePage = aftersaleService.queryList(userId,
+                status, page, limit, sort, order);
 
         if (aftersalePage == null) {
             return ResponseUtil.ok();
@@ -110,7 +110,8 @@ public class AftersaleController {
         if (order == null) {
             return ResponseUtil.badArgumentValue();
         }
-        List<LitemallOrderGoodsDTO> orderGoodsList = orderGoodsService.queryByOid(orderId);
+        List<LitemallOrderGoodsDTO> orderGoodsList = orderGoodsService
+                .queryByOid(orderId);
         LitemallAftersaleDTO aftersale = aftersaleService.findByOrderId(userId, orderId);
 
         Map<String, Object> data = new HashMap<String, Object>();

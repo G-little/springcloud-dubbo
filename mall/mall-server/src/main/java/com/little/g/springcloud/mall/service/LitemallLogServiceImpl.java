@@ -33,8 +33,8 @@ public class LitemallLogServiceImpl implements LitemallLogService {
     }
 
     @Override
-    public PageInfo<LitemallLogDTO> querySelective(String name, Integer page, Integer size,
-												   String sort, String order) {
+    public PageInfo<LitemallLogDTO> querySelective(String name, Integer page,
+                                                   Integer size, String sort, String order) {
         LitemallLogExample example = new LitemallLogExample();
         LitemallLogExample.Criteria criteria = example.createCriteria();
 

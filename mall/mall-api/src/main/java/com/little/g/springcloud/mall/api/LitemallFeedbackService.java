@@ -8,6 +8,6 @@ public interface LitemallFeedbackService {
 	Integer add(LitemallFeedbackDTO feedback);
 
 	PageInfo<LitemallFeedbackDTO> querySelective(Integer userId, String username,
-												 Integer page, Integer limit, String sort, String order);
+                                                 Integer page, Integer limit, String sort, String order);
 
 }

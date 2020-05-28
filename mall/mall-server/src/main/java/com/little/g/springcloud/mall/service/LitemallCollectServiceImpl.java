@@ -8,13 +8,13 @@ import com.little.g.springcloud.mall.dto.LitemallCollectDTO;
 import com.little.g.springcloud.mall.mapper.LitemallCollectMapper;
 import com.little.g.springcloud.mall.model.LitemallCollect;
 import com.little.g.springcloud.mall.model.LitemallCollectExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallCollectServiceImpl implements LitemallCollectService {
 
     @Resource
@@ -29,8 +29,8 @@ public class LitemallCollectServiceImpl implements LitemallCollectService {
     }
 
     @Override
-    public PageInfo<LitemallCollectDTO> queryByType(Integer userId, Byte type, Integer page,
-                                                    Integer limit, String sort, String order) {
+    public PageInfo<LitemallCollectDTO> queryByType(Integer userId, Byte type,
+                                                    Integer page, Integer limit, String sort, String order) {
         LitemallCollectExample example = new LitemallCollectExample();
         LitemallCollectExample.Criteria criteria = example.createCriteria();
 

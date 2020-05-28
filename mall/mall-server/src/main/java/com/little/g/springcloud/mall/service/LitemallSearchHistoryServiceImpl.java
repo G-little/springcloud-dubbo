@@ -8,14 +8,14 @@ import com.little.g.springcloud.mall.dto.LitemallSearchHistoryDTO;
 import com.little.g.springcloud.mall.mapper.LitemallSearchHistoryMapper;
 import com.little.g.springcloud.mall.model.LitemallSearchHistory;
 import com.little.g.springcloud.mall.model.LitemallSearchHistoryExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistoryService {
 
     @Resource
@@ -48,8 +48,8 @@ public class LitemallSearchHistoryServiceImpl implements LitemallSearchHistorySe
     }
 
     @Override
-    public PageInfo<LitemallSearchHistoryDTO> querySelective(String userId, String keyword,
-                                                             Integer page, Integer size, String sort, String order) {
+    public PageInfo<LitemallSearchHistoryDTO> querySelective(String userId,
+                                                             String keyword, Integer page, Integer size, String sort, String order) {
         LitemallSearchHistoryExample example = new LitemallSearchHistoryExample();
         LitemallSearchHistoryExample.Criteria criteria = example.createCriteria();
 

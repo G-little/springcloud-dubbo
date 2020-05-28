@@ -8,13 +8,13 @@ import com.little.g.springcloud.mall.dto.LitemallFootprintDTO;
 import com.little.g.springcloud.mall.mapper.LitemallFootprintMapper;
 import com.little.g.springcloud.mall.model.LitemallFootprint;
 import com.little.g.springcloud.mall.model.LitemallFootprintExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallFootprintServiceImpl implements LitemallFootprintService {
 
     @Resource

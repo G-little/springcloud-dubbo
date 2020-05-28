@@ -10,7 +10,7 @@ import com.little.g.springcloud.mall.mapper.OrderMapper;
 import com.little.g.springcloud.mall.model.LitemallOrder;
 import com.little.g.springcloud.mall.model.LitemallOrderExample;
 import com.little.g.springcloud.mall.util.OrderUtil;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallOrderServiceImpl implements LitemallOrderService {
 
     @Resource
@@ -94,8 +94,8 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
 
     @Override
     public PageInfo<LitemallOrderDTO> queryByOrderStatus(Integer userId,
-														 List<Short> orderStatus, Integer page, Integer limit, String sort,
-														 String order) {
+                                                         List<Short> orderStatus, Integer page, Integer limit, String sort,
+                                                         String order) {
         LitemallOrderExample example = new LitemallOrderExample();
         example.setOrderByClause(LitemallOrderDTO.Column.addTime.desc());
         LitemallOrderExample.Criteria criteria = example.or();

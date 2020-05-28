@@ -50,7 +50,7 @@ public class LitemallKeywordServiceImpl implements LitemallKeywordService {
 
     @Override
     public PageInfo<LitemallKeywordDTO> querySelective(String keyword, String url,
-													   Integer page, Integer limit, String sort, String order) {
+                                                       Integer page, Integer limit, String sort, String order) {
         LitemallKeywordExample example = new LitemallKeywordExample();
         LitemallKeywordExample.Criteria criteria = example.createCriteria();
 

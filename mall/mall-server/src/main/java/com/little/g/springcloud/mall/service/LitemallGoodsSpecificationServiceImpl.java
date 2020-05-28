@@ -6,7 +6,7 @@ import com.little.g.springcloud.mall.dto.LitemallGoodsSpecificationDTO;
 import com.little.g.springcloud.mall.mapper.LitemallGoodsSpecificationMapper;
 import com.little.g.springcloud.mall.model.LitemallGoodsSpecification;
 import com.little.g.springcloud.mall.model.LitemallGoodsSpecificationExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallGoodsSpecificationServiceImpl
 		implements LitemallGoodsSpecificationService {
 

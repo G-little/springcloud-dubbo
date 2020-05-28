@@ -14,6 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = OrderValidator.class)
 public @interface Order {
+
     String message() default "排序类型不支持";
 
     String[] accepts() default {"desc", "asc"};
@@ -21,4 +22,5 @@ public @interface Order {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

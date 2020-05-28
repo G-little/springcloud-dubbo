@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallUserServiceImpl implements LitemallUserService {
 
 	@Resource
@@ -61,7 +61,7 @@ public class LitemallUserServiceImpl implements LitemallUserService {
 
 	@Override
 	public PageInfo<LitemallUserDTO> querySelective(String username, String mobile,
-													Integer page, Integer size, String sort, String order) {
+                                                    Integer page, Integer size, String sort, String order) {
 		LitemallUserExample example = new LitemallUserExample();
 		LitemallUserExample.Criteria criteria = example.createCriteria();
 

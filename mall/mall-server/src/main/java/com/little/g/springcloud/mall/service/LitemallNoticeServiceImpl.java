@@ -23,7 +23,7 @@ public class LitemallNoticeServiceImpl implements LitemallNoticeService {
 
     @Override
     public PageInfo<LitemallNoticeDTO> querySelective(String title, String content,
-													  Integer page, Integer limit, String sort, String order) {
+                                                      Integer page, Integer limit, String sort, String order) {
         LitemallNoticeExample example = new LitemallNoticeExample();
         LitemallNoticeExample.Criteria criteria = example.createCriteria();
 

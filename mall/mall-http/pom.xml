@@ -20,6 +20,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+        </dependency>
+
         <!-- Production Ready features -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -31,6 +36,19 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.little.g</groupId>
+            <artifactId>pay-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+
+        <!-- Sample API -->
+        <dependency>
+            <groupId>com.little.g</groupId>
+            <artifactId>user-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 
         <!-- Sample API -->

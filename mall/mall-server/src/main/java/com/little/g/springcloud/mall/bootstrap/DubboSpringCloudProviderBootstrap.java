@@ -33,9 +33,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @EnableApolloConfig("application.yaml")
 @EnableDiscoveryClient
 @EnableAutoConfiguration
-@ComponentScan({ "com.little.g.springcloud.pay.service.impl",
-		"com.little.g.springcloud.thirdpay.service.impl",
-		"com.little.g.springcloud.common.cache" })
+@ComponentScan({"com.little.g.springcloud.mall.service",
+		"com.little.g.springcloud.mall.config", "com.little.g.springcloud.common.cache"})
 @MapperScan({ "com.little.g.**.mapper" })
 public class DubboSpringCloudProviderBootstrap {
 

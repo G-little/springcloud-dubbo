@@ -130,8 +130,8 @@ public class LitemallCouponServiceImpl implements LitemallCouponService {
     }
 
     @Override
-    public PageInfo<LitemallCouponDTO> querySelective(String name, Short type, Short status,
-                                                      Integer page, Integer limit, String sort, String order) {
+    public PageInfo<LitemallCouponDTO> querySelective(String name, Short type,
+                                                      Short status, Integer page, Integer limit, String sort, String order) {
         LitemallCouponExample example = new LitemallCouponExample();
         LitemallCouponExample.Criteria criteria = example.createCriteria();
 

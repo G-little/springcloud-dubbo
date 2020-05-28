@@ -21,8 +21,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(tokenVerifyInterceptor()).addPathPatterns("/**")
-				.excludePathPatterns("/favicon.ico", "/static/**")
-				.excludePathPatterns("/user/sendsms").excludePathPatterns("/user/joinin");
+				.excludePathPatterns("/favicon.ico", "/static/**");
 		registry.addInterceptor(headerInterceptor()).addPathPatterns("/**");
 	}
 

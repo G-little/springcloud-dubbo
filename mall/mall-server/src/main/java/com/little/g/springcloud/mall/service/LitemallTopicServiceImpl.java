@@ -9,14 +9,14 @@ import com.little.g.springcloud.mall.mapper.LitemallTopicMapper;
 import com.little.g.springcloud.mall.model.LitemallTopic;
 import com.little.g.springcloud.mall.model.LitemallTopic.Column;
 import com.little.g.springcloud.mall.model.LitemallTopicExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallTopicServiceImpl implements LitemallTopicService {
 
 	@Resource
@@ -82,7 +82,7 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
 
 	@Override
 	public PageInfo<LitemallTopicDTO> querySelective(String title, String subtitle,
-													 Integer page, Integer limit, String sort, String order) {
+                                                     Integer page, Integer limit, String sort, String order) {
 		LitemallTopicExample example = new LitemallTopicExample();
 		LitemallTopicExample.Criteria criteria = example.createCriteria();
 

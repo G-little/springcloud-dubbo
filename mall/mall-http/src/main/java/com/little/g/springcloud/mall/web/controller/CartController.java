@@ -33,18 +33,25 @@ public class CartController {
 
     @Reference
     private LitemallCartService cartService;
+
     @Reference
     private LitemallGoodsService goodsService;
+
     @Reference
     private LitemallGoodsProductService productService;
+
     @Reference
     private LitemallAddressService addressService;
+
     @Reference
     private LitemallGrouponRulesService grouponRulesService;
+
     @Reference
     private LitemallCouponService couponService;
+
     @Reference
     private LitemallCouponUserService couponUserService;
+
     @Reference
     private CouponVerifyService couponVerifyService;
 
@@ -69,7 +76,8 @@ public class CartController {
             LitemallGoodsDTO goods = goodsService.findById(cart.getGoodsId());
             if (goods == null || !goods.getIsOnSale()) {
                 cartService.deleteById(cart.getId());
-                log.debug("系统自动删除失效购物车商品 goodsId=" + cart.getGoodsId() + " productId=" + cart.getProductId());
+                log.debug("系统自动删除失效购物车商品 goodsId=" + cart.getGoodsId() + " productId="
+                        + cart.getProductId());
             } else {
                 cartList.add(cart);
             }
@@ -81,10 +89,12 @@ public class CartController {
         BigDecimal checkedGoodsAmount = new BigDecimal(0.00);
         for (LitemallCartDTO cart : cartList) {
             goodsCount += cart.getNumber();
-            goodsAmount = goodsAmount.add(cart.getPrice().multiply(new BigDecimal(cart.getNumber())));
+            goodsAmount = goodsAmount
+                    .add(cart.getPrice().multiply(new BigDecimal(cart.getNumber())));
             if (cart.getChecked()) {
                 checkedGoodsCount += cart.getNumber();
-                checkedGoodsAmount = checkedGoodsAmount.add(cart.getPrice().multiply(new BigDecimal(cart.getNumber())));
+                checkedGoodsAmount = checkedGoodsAmount
+                        .add(cart.getPrice().multiply(new BigDecimal(cart.getNumber())));
             }
         }
         Map<String, Object> cartTotal = new HashMap<>();
@@ -103,8 +113,7 @@ public class CartController {
     /**
      * 加入商品到购物车
      * <p>
-     * 如果已经存在购物车货品，则增加数量；
-     * 否则添加新的购物车货品项。
+     * 如果已经存在购物车货品，则增加数量； 否则添加新的购物车货品项。
      *
      * @param userId 用户ID
      * @param cart   购物车商品信息， { goodsId: xxx, productId: xxx, number: xxx }
@@ -129,17 +138,17 @@ public class CartController {
             return ResponseUtil.badArgument();
         }
 
-        //判断商品是否可以购买
+        // 判断商品是否可以购买
         LitemallGoodsDTO goods = goodsService.findById(goodsId);
         if (goods == null || !goods.getIsOnSale()) {
             return ResponseUtil.fail(GOODS_UNSHELVE, "商品已下架");
         }
 
         LitemallGoodsProductDTO product = productService.findById(productId);
-        //判断购物车中是否存在此规格商品
+        // 判断购物车中是否存在此规格商品
         LitemallCartDTO existCart = cartService.queryExist(goodsId, productId, userId);
         if (existCart == null) {
-            //取得规格的信息,判断规格库存
+            // 取得规格的信息,判断规格库存
             if (product == null || number > product.getNumber()) {
                 return ResponseUtil.fail(GOODS_NO_STOCK, "库存不足");
             }
@@ -158,7 +167,7 @@ public class CartController {
             cart.setChecked(true);
             cartService.add(cart);
         } else {
-            //取得规格的信息,判断规格库存
+            // 取得规格的信息,判断规格库存
             int num = existCart.getNumber() + number;
             if (num > product.getNumber()) {
                 return ResponseUtil.fail(GOODS_NO_STOCK, "库存不足");
@@ -175,9 +184,8 @@ public class CartController {
     /**
      * 立即购买
      * <p>
-     * 和add方法的区别在于：
-     * 1. 如果购物车内已经存在购物车货品，前者的逻辑是数量添加，这里的逻辑是数量覆盖
-     * 2. 添加成功以后，前者的逻辑是返回当前购物车商品数量，这里的逻辑是返回对应购物车项的ID
+     * 和add方法的区别在于： 1. 如果购物车内已经存在购物车货品，前者的逻辑是数量添加，这里的逻辑是数量覆盖 2.
+     * 添加成功以后，前者的逻辑是返回当前购物车商品数量，这里的逻辑是返回对应购物车项的ID
      *
      * @param userId 用户ID
      * @param cart   购物车商品信息， { goodsId: xxx, productId: xxx, number: xxx }
@@ -202,17 +210,17 @@ public class CartController {
             return ResponseUtil.badArgument();
         }
 
-        //判断商品是否可以购买
+        // 判断商品是否可以购买
         LitemallGoodsDTO goods = goodsService.findById(goodsId);
         if (goods == null || !goods.getIsOnSale()) {
             return ResponseUtil.fail(GOODS_UNSHELVE, "商品已下架");
         }
 
         LitemallGoodsProductDTO product = productService.findById(productId);
-        //判断购物车中是否存在此规格商品
+        // 判断购物车中是否存在此规格商品
         LitemallCartDTO existCart = cartService.queryExist(goodsId, productId, userId);
         if (existCart == null) {
-            //取得规格的信息,判断规格库存
+            // 取得规格的信息,判断规格库存
             if (product == null || number > product.getNumber()) {
                 return ResponseUtil.fail(GOODS_NO_STOCK, "库存不足");
             }
@@ -231,7 +239,7 @@ public class CartController {
             cart.setChecked(true);
             cartService.add(cart);
         } else {
-            //取得规格的信息,判断规格库存
+            // 取得规格的信息,判断规格库存
             int num = number;
             if (num > product.getNumber()) {
                 return ResponseUtil.fail(GOODS_NO_STOCK, "库存不足");
@@ -268,7 +276,7 @@ public class CartController {
             return ResponseUtil.badArgument();
         }
 
-        //判断是否存在该订单
+        // 判断是否存在该订单
         // 如果不存在，直接返回错误
         LitemallCartDTO existCart = cartService.findById(userId, id);
         if (existCart == null) {
@@ -283,13 +291,13 @@ public class CartController {
             return ResponseUtil.badArgumentValue();
         }
 
-        //判断商品是否可以购买
+        // 判断商品是否可以购买
         LitemallGoodsDTO goods = goodsService.findById(goodsId);
         if (goods == null || !goods.getIsOnSale()) {
             return ResponseUtil.fail(GOODS_UNSHELVE, "商品已下架");
         }
 
-        //取得规格的信息,判断规格库存
+        // 取得规格的信息,判断规格库存
         LitemallGoodsProductDTO product = productService.findById(productId);
         if (product == null || product.getNumber() < number) {
             return ResponseUtil.fail(GOODS_UNSHELVE, "库存不足");
@@ -340,14 +348,8 @@ public class CartController {
      *
      * @param userId 用户ID
      * @param body   购物车商品信息， { productIds: xxx }
-     * @return 购物车信息
-     * 成功则
-     * {
-     * errno: 0,
-     * errmsg: '成功',
-     * data: xxx
-     * }
-     * 失败则 { errno: XXX, errmsg: XXX }
+     * @return 购物车信息 成功则 { errno: 0, errmsg: '成功', data: xxx } 失败则 { errno: XXX, errmsg:
+     * XXX }
      */
     @PostMapping("delete")
     public Object delete(@LoginUser Integer userId, @RequestBody String body) {
@@ -395,17 +397,14 @@ public class CartController {
      * 购物车下单
      *
      * @param userId    用户ID
-     * @param cartId    购物车商品ID：
-     *                  如果购物车商品ID是空，则下单当前用户所有购物车商品；
-     *                  如果购物车商品ID非空，则只下单当前购物车商品。
-     * @param addressId 收货地址ID：
-     *                  如果收货地址ID是空，则查询当前用户的默认地址。
-     * @param couponId  优惠券ID：
-     *                  如果优惠券ID是空，则自动选择合适的优惠券。
+     * @param cartId    购物车商品ID： 如果购物车商品ID是空，则下单当前用户所有购物车商品； 如果购物车商品ID非空，则只下单当前购物车商品。
+     * @param addressId 收货地址ID： 如果收货地址ID是空，则查询当前用户的默认地址。
+     * @param couponId  优惠券ID： 如果优惠券ID是空，则自动选择合适的优惠券。
      * @return 购物车操作结果
      */
     @GetMapping("checkout")
-    public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId, Integer couponId, Integer userCouponId, Integer grouponRulesId) {
+    public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId,
+                           Integer couponId, Integer userCouponId, Integer grouponRulesId) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -434,7 +433,8 @@ public class CartController {
 
         // 团购优惠
         BigDecimal grouponPrice = new BigDecimal(0.00);
-        LitemallGrouponRulesDTO grouponRules = grouponRulesService.findById(grouponRulesId);
+        LitemallGrouponRulesDTO grouponRules = grouponRulesService
+                .findById(grouponRulesId);
         if (grouponRules != null) {
             grouponPrice = grouponRules.getDiscount();
         }
@@ -453,11 +453,15 @@ public class CartController {
         }
         BigDecimal checkedGoodsPrice = new BigDecimal(0.00);
         for (LitemallCartDTO cart : checkedGoodsList) {
-            //  只有当团购规格商品ID符合才进行团购优惠
-            if (grouponRules != null && grouponRules.getGoodsId().equals(cart.getGoodsId())) {
-                checkedGoodsPrice = checkedGoodsPrice.add(cart.getPrice().subtract(grouponPrice).multiply(new BigDecimal(cart.getNumber())));
+            // 只有当团购规格商品ID符合才进行团购优惠
+            if (grouponRules != null
+                    && grouponRules.getGoodsId().equals(cart.getGoodsId())) {
+                checkedGoodsPrice = checkedGoodsPrice
+                        .add(cart.getPrice().subtract(grouponPrice)
+                                .multiply(new BigDecimal(cart.getNumber())));
             } else {
-                checkedGoodsPrice = checkedGoodsPrice.add(cart.getPrice().multiply(new BigDecimal(cart.getNumber())));
+                checkedGoodsPrice = checkedGoodsPrice
+                        .add(cart.getPrice().multiply(new BigDecimal(cart.getNumber())));
             }
         }
 
@@ -468,7 +472,8 @@ public class CartController {
         int tmpCouponLength = 0;
         List<LitemallCouponUserDTO> couponUserList = couponUserService.queryAll(userId);
         for (LitemallCouponUserDTO couponUser : couponUserList) {
-            LitemallCouponDTO coupon = couponVerifyService.checkCoupon(userId, couponUser.getCouponId(), couponUser.getId(), checkedGoodsPrice);
+            LitemallCouponDTO coupon = couponVerifyService.checkCoupon(userId,
+                    couponUser.getCouponId(), couponUser.getId(), checkedGoodsPrice);
             if (coupon == null) {
                 continue;
             }
@@ -495,7 +500,8 @@ public class CartController {
             couponId = tmpCouponId;
             userCouponId = tmpUserCouponId;
         } else {
-            LitemallCouponDTO coupon = couponVerifyService.checkCoupon(userId, couponId, userCouponId, checkedGoodsPrice);
+            LitemallCouponDTO coupon = couponVerifyService.checkCoupon(userId, couponId,
+                    userCouponId, checkedGoodsPrice);
             // 用户选择的优惠券有问题，则选择合适优惠券，否则使用用户选择的优惠券
             if (coupon == null) {
                 couponPrice = tmpCouponPrice;
@@ -516,7 +522,8 @@ public class CartController {
         BigDecimal integralPrice = new BigDecimal(0.00);
 
         // 订单费用
-        BigDecimal orderTotalPrice = checkedGoodsPrice.add(freightPrice).subtract(couponPrice).max(new BigDecimal(0.00));
+        BigDecimal orderTotalPrice = checkedGoodsPrice.add(freightPrice)
+                .subtract(couponPrice).max(new BigDecimal(0.00));
 
         BigDecimal actualPrice = orderTotalPrice.subtract(integralPrice);
 
@@ -537,4 +544,5 @@ public class CartController {
         data.put("checkedGoodsList", checkedGoodsList);
         return ResponseUtil.ok(data);
     }
+
 }

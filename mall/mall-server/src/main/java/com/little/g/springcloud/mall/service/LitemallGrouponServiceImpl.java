@@ -10,13 +10,13 @@ import com.little.g.springcloud.mall.mapper.LitemallGrouponMapper;
 import com.little.g.springcloud.mall.model.LitemallGroupon;
 import com.little.g.springcloud.mall.model.LitemallGrouponExample;
 import com.little.g.springcloud.mall.util.GrouponConstant;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallGrouponServiceImpl implements LitemallGrouponService {
 
     @Resource
@@ -172,7 +172,7 @@ public class LitemallGrouponServiceImpl implements LitemallGrouponService {
      */
     @Override
     public PageInfo<LitemallGrouponDTO> querySelective(String rulesId, Integer page,
-													   Integer size, String sort, String order) {
+                                                       Integer size, String sort, String order) {
         LitemallGrouponExample example = new LitemallGrouponExample();
         LitemallGrouponExample.Criteria criteria = example.createCriteria();
 

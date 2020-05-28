@@ -8,8 +8,8 @@ import com.little.g.springcloud.mall.dto.LitemallAdDTO;
 import com.little.g.springcloud.mall.mapper.LitemallAdMapper;
 import com.little.g.springcloud.mall.model.LitemallAd;
 import com.little.g.springcloud.mall.model.LitemallAdExample;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallAdServiceImpl implements LitemallAdService {
 
     @Resource
@@ -40,8 +40,8 @@ public class LitemallAdServiceImpl implements LitemallAdService {
     }
 
     @Override
-    public PageInfo<LitemallAdDTO> querySelective(String name, String content, Integer page,
-                                                  Integer limit, String sort, String order) {
+    public PageInfo<LitemallAdDTO> querySelective(String name, String content,
+                                                  Integer page, Integer limit, String sort, String order) {
         LitemallAdExample example = new LitemallAdExample();
         LitemallAdExample.Criteria criteria = example.createCriteria();
 

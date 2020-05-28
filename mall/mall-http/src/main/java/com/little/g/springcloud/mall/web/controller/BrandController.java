@@ -40,7 +40,8 @@ public class BrandController {
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallBrandDTO> brandPage = brandService.query(page, limit, sort, order);
+        PageInfo<LitemallBrandDTO> brandPage = brandService.query(page, limit, sort,
+                order);
         return ResponseUtil.okPage(brandPage);
     }
 
@@ -59,4 +60,5 @@ public class BrandController {
 
         return ResponseUtil.ok(entity);
     }
+
 }

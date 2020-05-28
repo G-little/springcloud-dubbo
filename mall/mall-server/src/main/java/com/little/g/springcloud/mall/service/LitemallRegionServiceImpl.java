@@ -43,8 +43,8 @@ public class LitemallRegionServiceImpl implements LitemallRegionService {
     }
 
     @Override
-    public PageInfo<LitemallRegionDTO> querySelective(String name, Integer code, Integer page,
-													  Integer size, String sort, String order) {
+    public PageInfo<LitemallRegionDTO> querySelective(String name, Integer code,
+                                                      Integer page, Integer size, String sort, String order) {
         LitemallRegionExample example = new LitemallRegionExample();
         LitemallRegionExample.Criteria criteria = example.createCriteria();
 

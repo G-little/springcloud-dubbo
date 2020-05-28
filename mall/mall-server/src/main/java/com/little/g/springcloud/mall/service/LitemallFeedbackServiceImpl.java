@@ -8,8 +8,8 @@ import com.little.g.springcloud.mall.dto.LitemallFeedbackDTO;
 import com.little.g.springcloud.mall.mapper.LitemallFeedbackMapper;
 import com.little.g.springcloud.mall.model.LitemallFeedback;
 import com.little.g.springcloud.mall.model.LitemallFeedbackExample;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * @author Yogeek
  * @date 2018/8/27 11:39
  */
-@Service
+@Service(protocol = "dubbo")
 public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
 
     @Autowired
