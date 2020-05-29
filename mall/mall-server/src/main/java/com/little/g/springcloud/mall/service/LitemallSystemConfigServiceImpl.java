@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallSystemConfigServiceImpl implements LitemallSystemConfigService {
 
 	@Resource
