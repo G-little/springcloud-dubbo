@@ -7,7 +7,7 @@ import com.little.g.springcloud.mall.api.StorageService;
 import com.little.g.springcloud.mall.dto.LitemallStorageDTO;
 import com.little.g.springcloud.mall.util.MyByteArrayInputStream;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,10 +27,10 @@ import java.io.IOException;
 @Slf4j
 public class StorageColntroller {
 
-    @Autowired
+    @Reference
     private StorageService storageService;
 
-    @Autowired
+    @Reference
     private LitemallStorageService litemallStorageService;
 
     private String generateKey(String originalFilename) {

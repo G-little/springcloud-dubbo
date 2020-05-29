@@ -1,4 +1,4 @@
-package com.little.g.springcloud.admin.web.controller;
+package com.little.g.springcloud.admin.web.controller.admin;
 
 import com.little.g.springcloud.admin.api.AdminUserService;
 import com.little.g.springcloud.admin.params.AdminUserParams;

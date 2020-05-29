@@ -100,7 +100,7 @@ public class OrderManager {
     @Autowired
     private LitemallGrouponService grouponService;
 
-    @Autowired
+    @Reference
     private QCodeService qCodeService;
 
     @Autowired

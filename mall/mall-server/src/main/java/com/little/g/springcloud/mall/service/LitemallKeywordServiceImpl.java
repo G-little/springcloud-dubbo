@@ -8,14 +8,14 @@ import com.little.g.springcloud.mall.dto.LitemallKeywordDTO;
 import com.little.g.springcloud.mall.mapper.LitemallKeywordMapper;
 import com.little.g.springcloud.mall.model.LitemallKeyword;
 import com.little.g.springcloud.mall.model.LitemallKeywordExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallKeywordServiceImpl implements LitemallKeywordService {
 
     @Resource

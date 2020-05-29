@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -19,7 +20,7 @@ public class TaskStartupRunner implements ApplicationRunner {
     @Reference
     private LitemallOrderService orderService;
 
-    @Reference
+    @Resource
     private TaskService taskService;
 
     @Override

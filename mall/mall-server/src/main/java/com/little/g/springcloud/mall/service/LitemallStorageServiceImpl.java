@@ -8,13 +8,13 @@ import com.little.g.springcloud.mall.dto.LitemallStorageDTO;
 import com.little.g.springcloud.mall.mapper.LitemallStorageMapper;
 import com.little.g.springcloud.mall.model.LitemallStorage;
 import com.little.g.springcloud.mall.model.LitemallStorageExample;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallStorageServiceImpl implements LitemallStorageService {
 
 	@Autowired

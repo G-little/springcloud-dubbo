@@ -6,7 +6,7 @@ import com.little.g.springcloud.mall.dto.LitemallSystemDTO;
 import com.little.g.springcloud.mall.mapper.LitemallSystemMapper;
 import com.little.g.springcloud.mall.model.LitemallSystem;
 import com.little.g.springcloud.mall.model.LitemallSystemExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
