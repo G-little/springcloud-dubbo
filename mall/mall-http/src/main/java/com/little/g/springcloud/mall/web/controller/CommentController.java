@@ -12,7 +12,6 @@ import com.little.g.springcloud.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +39,7 @@ public class CommentController {
     @Reference
     private LitemallGoodsService goodsService;
 
-    @Autowired
+    @Reference
     private LitemallTopicService topicService;
 
     private Object validate(LitemallCommentDTO comment) {

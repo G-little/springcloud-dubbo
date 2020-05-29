@@ -22,8 +22,8 @@ import com.little.g.springcloud.user.api.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.common.utils.CollectionUtils;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -33,7 +33,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
-@Service("preOrderService")
+@Service(protocol = "dubbo")
 public class PreOrderServiceImpl implements PreOrderService {
 
 	@Resource
@@ -123,7 +123,7 @@ public class PreOrderServiceImpl implements PreOrderService {
 	@Transactional
 	@Override
 	public boolean updateStatus(@NotNull Long uid, @NotEmpty String preorderNo,
-			Byte status, @NotEmpty String payType, String thirdyPayNo) {
+								Byte status, @NotEmpty String payType, String thirdyPayNo) {
 
 		PreorderExample example = new PreorderExample();
 		example.or().andAccountIdEqualTo(uid).andPreOrderNoEqualTo(preorderNo)

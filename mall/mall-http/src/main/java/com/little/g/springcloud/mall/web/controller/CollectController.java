@@ -12,7 +12,7 @@ import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +31,10 @@ import java.util.Map;
 @Slf4j
 public class CollectController {
 
-    @Autowired
+    @Reference
     private LitemallCollectService collectService;
 
-    @Autowired
+    @Reference
     private LitemallGoodsService goodsService;
 
     /**

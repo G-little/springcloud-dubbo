@@ -8,7 +8,7 @@ import com.little.g.springcloud.mall.dto.LitemallAftersaleDTO;
 import com.little.g.springcloud.mall.mapper.LitemallAftersaleMapper;
 import com.little.g.springcloud.mall.model.LitemallAftersale;
 import com.little.g.springcloud.mall.model.LitemallAftersaleExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 
     @Resource

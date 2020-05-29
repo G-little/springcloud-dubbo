@@ -2,19 +2,15 @@ package com.little.g.springcloud.mall.web.manager;
 
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
-import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
-import com.github.binarywang.wxpay.bean.order.WxPayMwebOrderResult;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
-import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.enums.PayType;
 import com.little.g.springcloud.common.utils.DateTimeUtil;
 import com.little.g.springcloud.common.utils.JacksonUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
-import com.little.g.springcloud.common.web.utils.IpUtil;
 import com.little.g.springcloud.mall.MallErrorCodes;
 import com.little.g.springcloud.mall.api.*;
 import com.little.g.springcloud.mall.dto.*;
@@ -26,6 +22,11 @@ import com.little.g.springcloud.mall.util.OrderHandleOption;
 import com.little.g.springcloud.mall.util.OrderUtil;
 import com.little.g.springcloud.mall.web.task.OrderUnpaidTask;
 import com.little.g.springcloud.pay.api.LittlePayService;
+import com.little.g.springcloud.pay.api.PreOrderService;
+import com.little.g.springcloud.pay.dto.PreorderDTO;
+import com.little.g.springcloud.pay.enums.FixAccount;
+import com.little.g.springcloud.pay.enums.MerchantId;
+import com.little.g.springcloud.pay.params.PreOrderParams;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.dubbo.config.annotation.Reference;
@@ -88,7 +89,7 @@ public class OrderManager {
     private LittlePayService littlePayService;
 
     @Reference
-    private WxPayService wxPayService;
+    private PreOrderService preOrderService;
 
     @Reference
     private NotifyService notifyService;
@@ -588,30 +589,30 @@ public class OrderManager {
         if (openid == null) {
             return ResponseUtil.fail(AUTH_OPENID_UNACCESS, "订单不能支付");
         }
-        WxPayMpOrderResult result = null;
-        try {
-
-            WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
-            orderRequest.setOutTradeNo(order.getOrderSn());
-            orderRequest.setOpenid(openid);
-            orderRequest.setBody("订单：" + order.getOrderSn());
-            // 元转成分
-            int fee = 0;
-            BigDecimal actualPrice = order.getActualPrice();
-            fee = actualPrice.multiply(new BigDecimal(100)).intValue();
-            orderRequest.setTotalFee(fee);
-            orderRequest.setSpbillCreateIp(IpUtil.getIpAddr(request));
-
-            result = wxPayService.createOrder(orderRequest);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseUtil.fail(ORDER_PAY_FAIL, "订单不能支付");
-        }
+        ResultJson result = createPayParams(userId, order);
 
         if (orderService.updateWithOptimisticLocker(order) == 0) {
             return ResponseUtil.updatedDateExpired();
         }
-        return ResponseUtil.ok(result);
+
+        return result;
+    }
+
+    private ResultJson createPayParams(Integer userId, LitemallOrderDTO order) {
+        PreOrderParams params = new PreOrderParams();
+        params.setAccountId(Long.valueOf(userId));
+        params.setMchId(MerchantId.LittelG.getValue());
+        params.setComment("支付订单");
+        params.setOppositAccount(FixAccount.LITTLE_G.getValue());
+
+        long fee = 0;
+        BigDecimal actualPrice = order.getActualPrice();
+        fee = actualPrice.multiply(new BigDecimal(100)).longValue();
+        params.setTotalFee(fee);
+        params.setOutTradeNo(order.getOrderSn());
+        PreorderDTO preorderDTO = preOrderService.create(params);
+
+        return littlePayService.prePay(Long.valueOf(userId), PayType.WEXINPAY, preorderDTO.getPreOrderNo());
     }
 
     /**
@@ -646,26 +647,9 @@ public class OrderManager {
             return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能支付");
         }
 
-        WxPayMwebOrderResult result = null;
-        try {
-            WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
-            orderRequest.setOutTradeNo(order.getOrderSn());
-            orderRequest.setTradeType("MWEB");
-            orderRequest.setBody("订单：" + order.getOrderSn());
-            // 元转成分
-            int fee = 0;
-            BigDecimal actualPrice = order.getActualPrice();
-            fee = actualPrice.multiply(new BigDecimal(100)).intValue();
-            orderRequest.setTotalFee(fee);
-            orderRequest.setSpbillCreateIp(IpUtil.getIpAddr(request));
+        ResultJson result = createPayParams(userId, order);
 
-            result = wxPayService.createOrder(orderRequest);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return ResponseUtil.ok(result);
+        return result;
     }
 
     /**
@@ -690,7 +674,8 @@ public class OrderManager {
 
         WxPayOrderNotifyResult result = null;
         try {
-            result = wxPayService.parseOrderNotifyResult(xmlResult);
+            //TODO: 支付参数
+            //result = wxPayService.parseOrderNotifyResult(xmlResult);
 
             if (!WxPayConstants.ResultCode.SUCCESS.equals(result.getResultCode())) {
                 log.error(xmlResult);

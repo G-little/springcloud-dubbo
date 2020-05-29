@@ -37,7 +37,7 @@ public class HomeController {
 
     private final Log logger = LogFactory.getLog(HomeController.class);
 
-    @Autowired
+    @Reference
     private LitemallAdService adService;
 
     @Reference
@@ -55,7 +55,7 @@ public class HomeController {
     @Autowired
     private GrouponRuleManager grouponRuleManager;
 
-    @Autowired
+    @Reference
     private LitemallCouponService couponService;
 
     private final static ArrayBlockingQueue<Runnable> WORK_QUEUE = new ArrayBlockingQueue<>(

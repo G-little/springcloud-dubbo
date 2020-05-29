@@ -16,7 +16,7 @@ import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,13 +40,13 @@ import java.util.Map;
 @Slf4j
 public class AftersaleController {
 
-    @Autowired
+    @Reference
     private LitemallAftersaleService aftersaleService;
 
-    @Autowired
+    @Reference
     private LitemallOrderService orderService;
 
-    @Autowired
+    @Reference
     private LitemallOrderGoodsService orderGoodsService;
 
     /**
