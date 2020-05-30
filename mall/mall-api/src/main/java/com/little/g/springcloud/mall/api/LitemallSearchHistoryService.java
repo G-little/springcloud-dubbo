@@ -14,6 +14,6 @@ public interface LitemallSearchHistoryService {
 	void deleteByUid(int uid);
 
 	PageInfo<LitemallSearchHistoryDTO> querySelective(String userId, String keyword,
-                                                      Integer page, Integer size, String sort, String order);
+			Integer page, Integer size, String sort, String order);
 
 }

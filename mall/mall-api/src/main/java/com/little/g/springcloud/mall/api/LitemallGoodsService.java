@@ -20,8 +20,8 @@ public interface LitemallGoodsService {
 			Boolean isHot, Boolean isNew, Integer offset, Integer limit, String sort,
 			String order);
 
-    PageInfo<LitemallGoodsDTO> querySelective(Integer goodsId, String goodsSn,
-                                              String name, Integer page, Integer size, String sort, String order);
+	PageInfo<LitemallGoodsDTO> querySelective(Integer goodsId, String goodsSn,
+			String name, Integer page, Integer size, String sort, String order);
 
 	LitemallGoodsDTO findById(Integer id);
 

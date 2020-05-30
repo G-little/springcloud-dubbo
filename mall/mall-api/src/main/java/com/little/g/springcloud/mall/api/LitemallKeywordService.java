@@ -11,11 +11,11 @@ public interface LitemallKeywordService {
 
 	List<LitemallKeywordDTO> queryHots();
 
-    PageInfo<LitemallKeywordDTO> queryByKeyword(String keyword, Integer page,
-                                                Integer limit);
+	PageInfo<LitemallKeywordDTO> queryByKeyword(String keyword, Integer page,
+			Integer limit);
 
 	PageInfo<LitemallKeywordDTO> querySelective(String keyword, String url, Integer page,
-                                                Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 	void add(LitemallKeywordDTO keywords);
 

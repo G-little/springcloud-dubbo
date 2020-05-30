@@ -61,7 +61,7 @@ public class LitemallUserServiceImpl implements LitemallUserService {
 
 	@Override
 	public PageInfo<LitemallUserDTO> querySelective(String username, String mobile,
-                                                    Integer page, Integer size, String sort, String order) {
+			Integer page, Integer size, String sort, String order) {
 		LitemallUserExample example = new LitemallUserExample();
 		LitemallUserExample.Criteria criteria = example.createCriteria();
 

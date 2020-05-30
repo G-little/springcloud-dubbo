@@ -8,7 +8,7 @@ import java.util.List;
 public interface LitemallNoticeAdminService {
 
 	PageInfo<LitemallNoticeAdminDTO> querySelective(String title, String type,
-                                                    Integer adminId, Integer page, Integer limit, String sort, String order);
+			Integer adminId, Integer page, Integer limit, String sort, String order);
 
 	LitemallNoticeAdminDTO find(Integer noticeId, Integer adminId);
 

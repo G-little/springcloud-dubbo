@@ -84,9 +84,9 @@ public class HttpUtils {
 
 	}
 
-    public static String post(String url, Map<String, Object> params) {
-        return post(url, params, null, String.class);
-    }
+	public static String post(String url, Map<String, Object> params) {
+		return post(url, params, null, String.class);
+	}
 
 	public static <T> T post(String url, Map<String, Object> params, String json,
 			Class<T> clazz) {

@@ -74,8 +74,8 @@ public class LitemallCategoryServiceImpl implements LitemallCategoryService {
 	}
 
 	@Override
-    public PageInfo<LitemallCategoryDTO> querySelective(String id, String name,
-                                                        Integer page, Integer size, String sort, String order) {
+	public PageInfo<LitemallCategoryDTO> querySelective(String id, String name,
+			Integer page, Integer size, String sort, String order) {
 		LitemallCategoryExample example = new LitemallCategoryExample();
 		LitemallCategoryExample.Criteria criteria = example.createCriteria();
 

@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class IssueController {
 
-    @Autowired
-    private LitemallIssueService issueService;
+	@Autowired
+	private LitemallIssueService issueService;
 
-    /**
-     * 帮助中心
-     */
-    @RequestMapping("/list")
-    public Object list(String question, @RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer size,
-                       @Sort @RequestParam(defaultValue = "add_time") String sort,
-                       @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallIssueDTO> pageInfo = issueService.querySelective(question, page,
-                size, sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+	/**
+	 * 帮助中心
+	 */
+	@RequestMapping("/list")
+	public Object list(String question, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer size,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
+		PageInfo<LitemallIssueDTO> pageInfo = issueService.querySelective(question, page,
+				size, sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
 }

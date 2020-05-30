@@ -23,7 +23,7 @@ public interface LitemallOrderService {
 	String generateOrderSn(Integer userId);
 
 	PageInfo<LitemallOrderDTO> queryByOrderStatus(Integer userId, List<Short> orderStatus,
-                                                  Integer page, Integer limit, String sort, String order);
+			Integer page, Integer limit, String sort, String order);
 
 	List<LitemallOrderDTO> querySelective(Integer userId, String orderSn,
 			LocalDateTime start, LocalDateTime end, List<Short> orderStatusArray,

@@ -20,7 +20,7 @@ public interface LitemallCouponService {
 	List<LitemallCouponDTO> queryRegister();
 
 	PageInfo<LitemallCouponDTO> querySelective(String name, Short type, Short status,
-                                               Integer page, Integer limit, String sort, String order);
+			Integer page, Integer limit, String sort, String order);
 
 	void add(LitemallCouponDTO coupon);
 

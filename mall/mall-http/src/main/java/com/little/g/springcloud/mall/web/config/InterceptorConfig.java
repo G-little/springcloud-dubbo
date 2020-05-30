@@ -18,32 +18,33 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Import(WebMvcConfiguration.class)
 public class InterceptorConfig implements WebMvcConfigurer {
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(tokenVerifyInterceptor()).addPathPatterns("/**")
-				.excludePathPatterns("/favicon.ico", "/static/**");
-		registry.addInterceptor(headerInterceptor()).addPathPatterns("/**");
-	}
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(tokenVerifyInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/favicon.ico", "/static/**");
+        registry.addInterceptor(headerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/favicon.ico", "/static/**");
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/favicon.ico", "/static/**")
-				.addResourceLocations("/static/**");
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/favicon.ico", "/static/**")
+                .addResourceLocations("/static/**");
+    }
 
-	@Bean
-	public HeaderInterceptor headerInterceptor() {
-		return new HeaderInterceptor();
-	}
+    @Bean
+    public HeaderInterceptor headerInterceptor() {
+        return new HeaderInterceptor();
+    }
 
-	@Bean
-	public TokenVerifyInterceptor tokenVerifyInterceptor() {
-		return new TokenVerifyInterceptor();
-	}
+    @Bean
+    public TokenVerifyInterceptor tokenVerifyInterceptor() {
+        return new TokenVerifyInterceptor();
+    }
 
-	@Bean
-	ResultCodeI18NAspect i18NAspect() {
-		return new ResultCodeI18NAspect();
-	}
+    @Bean
+    ResultCodeI18NAspect i18NAspect() {
+        return new ResultCodeI18NAspect();
+    }
 
 }

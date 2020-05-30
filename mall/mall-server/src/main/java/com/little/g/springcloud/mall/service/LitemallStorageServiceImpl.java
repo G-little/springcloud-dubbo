@@ -57,8 +57,8 @@ public class LitemallStorageServiceImpl implements LitemallStorageService {
 	}
 
 	@Override
-    public PageInfo<LitemallStorageDTO> querySelective(String key, String name,
-                                                       Integer page, Integer limit, String sort, String order) {
+	public PageInfo<LitemallStorageDTO> querySelective(String key, String name,
+			Integer page, Integer limit, String sort, String order) {
 		LitemallStorageExample example = new LitemallStorageExample();
 		LitemallStorageExample.Criteria criteria = example.createCriteria();
 

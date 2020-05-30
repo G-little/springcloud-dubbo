@@ -14,6 +14,6 @@ public interface LitemallRegionService {
 	LitemallRegionDTO findById(Integer id);
 
 	PageInfo<LitemallRegionDTO> querySelective(String name, Integer code, Integer page,
-                                               Integer size, String sort, String order);
+			Integer size, String sort, String order);
 
 }

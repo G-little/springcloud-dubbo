@@ -8,7 +8,7 @@ public interface LitemallCollectService {
 	int count(int uid, Integer gid);
 
 	PageInfo<LitemallCollectDTO> queryByType(Integer userId, Byte type, Integer page,
-                                             Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 	int countByType(Integer userId, Byte type);
 
@@ -18,7 +18,7 @@ public interface LitemallCollectService {
 
 	int add(LitemallCollectDTO collect);
 
-    PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId,
-                                                Integer page, Integer size, String sort, String order);
+	PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId,
+			Integer page, Integer size, String sort, String order);
 
 }

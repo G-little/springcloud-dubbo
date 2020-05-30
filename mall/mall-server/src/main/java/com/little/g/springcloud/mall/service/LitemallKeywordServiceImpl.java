@@ -18,83 +18,83 @@ import java.util.List;
 @Service(protocol = "dubbo")
 public class LitemallKeywordServiceImpl implements LitemallKeywordService {
 
-    @Resource
-    private LitemallKeywordMapper keywordsMapper;
+	@Resource
+	private LitemallKeywordMapper keywordsMapper;
 
-    @Override
-    public LitemallKeywordDTO queryDefault() {
-        LitemallKeywordExample example = new LitemallKeywordExample();
-        example.or().andIsDefaultEqualTo(true).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(keywordsMapper.selectOneByExample(example),
-                LitemallKeywordDTO.class);
-    }
+	@Override
+	public LitemallKeywordDTO queryDefault() {
+		LitemallKeywordExample example = new LitemallKeywordExample();
+		example.or().andIsDefaultEqualTo(true).andDeletedEqualTo(false);
+		return DTOUtil.convert2T(keywordsMapper.selectOneByExample(example),
+				LitemallKeywordDTO.class);
+	}
 
-    @Override
-    public List<LitemallKeywordDTO> queryHots() {
-        LitemallKeywordExample example = new LitemallKeywordExample();
-        example.or().andIsHotEqualTo(true).andDeletedEqualTo(false);
-        return DTOUtil.convert2List(keywordsMapper.selectByExample(example),
-                LitemallKeywordDTO.class);
-    }
+	@Override
+	public List<LitemallKeywordDTO> queryHots() {
+		LitemallKeywordExample example = new LitemallKeywordExample();
+		example.or().andIsHotEqualTo(true).andDeletedEqualTo(false);
+		return DTOUtil.convert2List(keywordsMapper.selectByExample(example),
+				LitemallKeywordDTO.class);
+	}
 
-    @Override
-    public PageInfo<LitemallKeywordDTO> queryByKeyword(String keyword, Integer page,
-                                                       Integer limit) {
-        LitemallKeywordExample example = new LitemallKeywordExample();
-        example.setDistinct(true);
-        example.or().andKeywordLike("%" + keyword + "%").andDeletedEqualTo(false);
-        PageHelper.startPage(page, limit);
-        return DTOUtil.convert2Page(keywordsMapper.selectByExampleSelective(example,
-                LitemallKeyword.Column.keyword), LitemallKeywordDTO.class);
-    }
+	@Override
+	public PageInfo<LitemallKeywordDTO> queryByKeyword(String keyword, Integer page,
+			Integer limit) {
+		LitemallKeywordExample example = new LitemallKeywordExample();
+		example.setDistinct(true);
+		example.or().andKeywordLike("%" + keyword + "%").andDeletedEqualTo(false);
+		PageHelper.startPage(page, limit);
+		return DTOUtil.convert2Page(keywordsMapper.selectByExampleSelective(example,
+				LitemallKeyword.Column.keyword), LitemallKeywordDTO.class);
+	}
 
-    @Override
-    public PageInfo<LitemallKeywordDTO> querySelective(String keyword, String url,
-                                                       Integer page, Integer limit, String sort, String order) {
-        LitemallKeywordExample example = new LitemallKeywordExample();
-        LitemallKeywordExample.Criteria criteria = example.createCriteria();
+	@Override
+	public PageInfo<LitemallKeywordDTO> querySelective(String keyword, String url,
+			Integer page, Integer limit, String sort, String order) {
+		LitemallKeywordExample example = new LitemallKeywordExample();
+		LitemallKeywordExample.Criteria criteria = example.createCriteria();
 
-        if (!StringUtils.isEmpty(keyword)) {
-            criteria.andKeywordLike("%" + keyword + "%");
-        }
-        if (!StringUtils.isEmpty(url)) {
-            criteria.andUrlLike("%" + url + "%");
-        }
-        criteria.andDeletedEqualTo(false);
+		if (!StringUtils.isEmpty(keyword)) {
+			criteria.andKeywordLike("%" + keyword + "%");
+		}
+		if (!StringUtils.isEmpty(url)) {
+			criteria.andUrlLike("%" + url + "%");
+		}
+		criteria.andDeletedEqualTo(false);
 
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
+		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+			example.setOrderByClause(sort + " " + order);
+		}
 
-        PageHelper.startPage(page, limit);
-        return DTOUtil.convert2Page(keywordsMapper.selectByExample(example),
-                LitemallKeywordDTO.class);
-    }
+		PageHelper.startPage(page, limit);
+		return DTOUtil.convert2Page(keywordsMapper.selectByExample(example),
+				LitemallKeywordDTO.class);
+	}
 
-    @Override
-    public void add(LitemallKeywordDTO keywords) {
-        keywords.setAddTime(LocalDateTime.now());
-        keywords.setUpdateTime(LocalDateTime.now());
-        keywordsMapper
-                .insertSelective(DTOUtil.convert2T(keywords, LitemallKeyword.class));
-    }
+	@Override
+	public void add(LitemallKeywordDTO keywords) {
+		keywords.setAddTime(LocalDateTime.now());
+		keywords.setUpdateTime(LocalDateTime.now());
+		keywordsMapper
+				.insertSelective(DTOUtil.convert2T(keywords, LitemallKeyword.class));
+	}
 
-    @Override
-    public LitemallKeywordDTO findById(Integer id) {
-        return DTOUtil.convert2T(keywordsMapper.selectByPrimaryKey(id),
-                LitemallKeywordDTO.class);
-    }
+	@Override
+	public LitemallKeywordDTO findById(Integer id) {
+		return DTOUtil.convert2T(keywordsMapper.selectByPrimaryKey(id),
+				LitemallKeywordDTO.class);
+	}
 
-    @Override
-    public int updateById(LitemallKeywordDTO keywords) {
-        keywords.setUpdateTime(LocalDateTime.now());
-        return keywordsMapper.updateByPrimaryKeySelective(
-                DTOUtil.convert2T(keywords, LitemallKeyword.class));
-    }
+	@Override
+	public int updateById(LitemallKeywordDTO keywords) {
+		keywords.setUpdateTime(LocalDateTime.now());
+		return keywordsMapper.updateByPrimaryKeySelective(
+				DTOUtil.convert2T(keywords, LitemallKeyword.class));
+	}
 
-    @Override
-    public void deleteById(Integer id) {
-        keywordsMapper.logicalDeleteByPrimaryKey(id);
-    }
+	@Override
+	public void deleteById(Integer id) {
+		keywordsMapper.logicalDeleteByPrimaryKey(id);
+	}
 
 }

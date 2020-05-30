@@ -14,62 +14,64 @@ import java.io.IOException;
  */
 public class TencentSmsSender implements SmsSender {
 
-    private final Log logger = LogFactory.getLog(TencentSmsSender.class);
+	private final Log logger = LogFactory.getLog(TencentSmsSender.class);
 
-    private SmsSingleSender sender;
+	private SmsSingleSender sender;
 
-    private String sign;
+	private String sign;
 
-    public SmsSingleSender getSender() {
-        return sender;
-    }
+	public SmsSingleSender getSender() {
+		return sender;
+	}
 
-    public void setSender(SmsSingleSender sender) {
-        this.sender = sender;
-    }
+	public void setSender(SmsSingleSender sender) {
+		this.sender = sender;
+	}
 
-    @Override
-    public SmsResultDTO send(String phone, String content) {
-        try {
-            SmsSingleSenderResult result = sender.send(0, "86", phone, content, "", "");
-            logger.debug(result);
+	@Override
+	public SmsResultDTO send(String phone, String content) {
+		try {
+			SmsSingleSenderResult result = sender.send(0, "86", phone, content, "", "");
+			logger.debug(result);
 
-            SmsResultDTO smsResult = new SmsResultDTO();
-            smsResult.setSuccessful(true);
-            smsResult.setResult(result);
-            return smsResult;
-        } catch (HTTPException | IOException e) {
-            logger.error(e.getMessage(), e);
-        }
+			SmsResultDTO smsResult = new SmsResultDTO();
+			smsResult.setSuccessful(true);
+			smsResult.setResult(result);
+			return smsResult;
+		}
+		catch (HTTPException | IOException e) {
+			logger.error(e.getMessage(), e);
+		}
 
-        SmsResultDTO smsResult = new SmsResultDTO();
-        smsResult.setSuccessful(false);
-        return smsResult;
-    }
+		SmsResultDTO smsResult = new SmsResultDTO();
+		smsResult.setSuccessful(false);
+		return smsResult;
+	}
 
-    @Override
-    public SmsResultDTO sendWithTemplate(String phone, String templateId,
-                                         String[] params) {
-        try {
-            SmsSingleSenderResult result = sender.sendWithParam("86", phone,
-                    Integer.parseInt(templateId), params, this.sign, "", "");
-            logger.debug(result);
+	@Override
+	public SmsResultDTO sendWithTemplate(String phone, String templateId,
+			String[] params) {
+		try {
+			SmsSingleSenderResult result = sender.sendWithParam("86", phone,
+					Integer.parseInt(templateId), params, this.sign, "", "");
+			logger.debug(result);
 
-            SmsResultDTO smsResult = new SmsResultDTO();
-            smsResult.setSuccessful(true);
-            smsResult.setResult(result);
-            return smsResult;
-        } catch (HTTPException | IOException e) {
-            logger.error(e.getMessage(), e);
-        }
+			SmsResultDTO smsResult = new SmsResultDTO();
+			smsResult.setSuccessful(true);
+			smsResult.setResult(result);
+			return smsResult;
+		}
+		catch (HTTPException | IOException e) {
+			logger.error(e.getMessage(), e);
+		}
 
-        SmsResultDTO smsResult = new SmsResultDTO();
-        smsResult.setSuccessful(false);
-        return smsResult;
-    }
+		SmsResultDTO smsResult = new SmsResultDTO();
+		smsResult.setSuccessful(false);
+		return smsResult;
+	}
 
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
 
 }

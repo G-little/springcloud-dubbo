@@ -82,7 +82,7 @@ public class LitemallTopicServiceImpl implements LitemallTopicService {
 
 	@Override
 	public PageInfo<LitemallTopicDTO> querySelective(String title, String subtitle,
-                                                     Integer page, Integer limit, String sort, String order) {
+			Integer page, Integer limit, String sort, String order) {
 		LitemallTopicExample example = new LitemallTopicExample();
 		LitemallTopicExample.Criteria criteria = example.createCriteria();
 

@@ -16,6 +16,6 @@ public interface LitemallStorageService {
 	LitemallStorageDTO findById(Integer id);
 
 	PageInfo<LitemallStorageDTO> querySelective(String key, String name, Integer page,
-                                                Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 }

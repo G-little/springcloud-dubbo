@@ -27,8 +27,8 @@ public interface LitemallGrouponService {
 
 	int createGroupon(LitemallGrouponDTO groupon);
 
-    PageInfo<LitemallGrouponDTO> querySelective(String rulesId, Integer page,
-                                                Integer size, String sort, String order);
+	PageInfo<LitemallGrouponDTO> querySelective(String rulesId, Integer page,
+			Integer size, String sort, String order);
 
 	List<LitemallGrouponDTO> queryByRuleId(int grouponRuleId);
 

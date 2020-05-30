@@ -9,8 +9,8 @@ public interface LitemallIssueService {
 
 	void add(LitemallIssueDTO issue);
 
-    PageInfo<LitemallIssueDTO> querySelective(String question, Integer page,
-                                              Integer limit, String sort, String order);
+	PageInfo<LitemallIssueDTO> querySelective(String question, Integer page,
+			Integer limit, String sort, String order);
 
 	int updateById(LitemallIssueDTO issue);
 

@@ -9,44 +9,44 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "litemall.express")
 public class ExpressProperties {
 
-    private boolean enable;
+	private boolean enable;
 
-    private String appId;
+	private String appId;
 
-    private String appKey;
+	private String appKey;
 
-    private List<Map<String, String>> vendors = new ArrayList<>();
+	private List<Map<String, String>> vendors = new ArrayList<>();
 
-    public boolean isEnable() {
-        return enable;
-    }
+	public boolean isEnable() {
+		return enable;
+	}
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
 
-    public List<Map<String, String>> getVendors() {
-        return vendors;
-    }
+	public List<Map<String, String>> getVendors() {
+		return vendors;
+	}
 
-    public void setVendors(List<Map<String, String>> vendors) {
-        this.vendors = vendors;
-    }
+	public void setVendors(List<Map<String, String>> vendors) {
+		this.vendors = vendors;
+	}
 
-    public String getAppKey() {
-        return appKey;
-    }
+	public String getAppKey() {
+		return appKey;
+	}
 
-    public void setAppKey(String appKey) {
-        this.appKey = appKey;
-    }
+	public void setAppKey(String appKey) {
+		this.appKey = appKey;
+	}
 
-    public String getAppId() {
-        return appId;
-    }
+	public String getAppId() {
+		return appId;
+	}
 
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
 
 }

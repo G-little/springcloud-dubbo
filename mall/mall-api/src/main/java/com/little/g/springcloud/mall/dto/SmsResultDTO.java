@@ -7,29 +7,28 @@ import java.io.Serializable;
  */
 public class SmsResultDTO implements Serializable {
 
-    private boolean successful;
+	private boolean successful;
 
-    private Object result;
+	private Object result;
 
-    /**
-     * 短信是否发送成功
-     *
-     * @return
-     */
-    public boolean isSuccessful() {
-        return successful;
-    }
+	/**
+	 * 短信是否发送成功
+	 * @return
+	 */
+	public boolean isSuccessful() {
+		return successful;
+	}
 
-    public void setSuccessful(boolean successful) {
-        this.successful = successful;
-    }
+	public void setSuccessful(boolean successful) {
+		this.successful = successful;
+	}
 
-    public Object getResult() {
-        return result;
-    }
+	public Object getResult() {
+		return result;
+	}
 
-    public void setResult(Object result) {
-        this.result = result;
-    }
+	public void setResult(Object result) {
+		this.result = result;
+	}
 
 }

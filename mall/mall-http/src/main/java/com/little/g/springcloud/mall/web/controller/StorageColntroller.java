@@ -27,90 +27,88 @@ import java.io.IOException;
 @Slf4j
 public class StorageColntroller {
 
-    @Reference
-    private StorageService storageService;
+	@Reference
+	private StorageService storageService;
 
-    @Reference
-    private LitemallStorageService litemallStorageService;
+	@Reference
+	private LitemallStorageService litemallStorageService;
 
-    private String generateKey(String originalFilename) {
-        int index = originalFilename.lastIndexOf('.');
-        String suffix = originalFilename.substring(index);
+	private String generateKey(String originalFilename) {
+		int index = originalFilename.lastIndexOf('.');
+		String suffix = originalFilename.substring(index);
 
-        String key = null;
-        LitemallStorageDTO storageInfo = null;
+		String key = null;
+		LitemallStorageDTO storageInfo = null;
 
-        do {
-            key = CharUtil.getRandomString(20) + suffix;
-            storageInfo = litemallStorageService.findByKey(key);
-        }
-        while (storageInfo != null);
+		do {
+			key = CharUtil.getRandomString(20) + suffix;
+			storageInfo = litemallStorageService.findByKey(key);
+		}
+		while (storageInfo != null);
 
-        return key;
-    }
+		return key;
+	}
 
-    @PostMapping("/upload")
-    public Object upload(@RequestParam("file") MultipartFile file) throws IOException {
-        String originalFilename = file.getOriginalFilename();
+	@PostMapping("/upload")
+	public Object upload(@RequestParam("file") MultipartFile file) throws IOException {
+		String originalFilename = file.getOriginalFilename();
 
-        LitemallStorageDTO litemallStorage = storageService.store(
-                new MyByteArrayInputStream(file.getBytes()), file.getSize(),
-                file.getContentType(), originalFilename);
-        return ResponseUtil.ok(litemallStorage);
-    }
+		LitemallStorageDTO litemallStorage = storageService.store(
+				new MyByteArrayInputStream(file.getBytes()), file.getSize(),
+				file.getContentType(), originalFilename);
+		return ResponseUtil.ok(litemallStorage);
+	}
 
-    /**
-     * 访问存储对象
-     *
-     * @param key 存储对象key
-     * @return
-     */
-    @GetMapping("/fetch/{key:.+}")
-    public ResponseEntity<Resource> fetch(@PathVariable String key) {
-        LitemallStorageDTO litemallStorage = litemallStorageService.findByKey(key);
-        if (key == null) {
-            return ResponseEntity.notFound().build();
-        }
-        if (key.contains("../")) {
-            return ResponseEntity.badRequest().build();
-        }
-        String type = litemallStorage.getType();
-        MediaType mediaType = MediaType.parseMediaType(type);
+	/**
+	 * 访问存储对象
+	 * @param key 存储对象key
+	 * @return
+	 */
+	@GetMapping("/fetch/{key:.+}")
+	public ResponseEntity<Resource> fetch(@PathVariable String key) {
+		LitemallStorageDTO litemallStorage = litemallStorageService.findByKey(key);
+		if (key == null) {
+			return ResponseEntity.notFound().build();
+		}
+		if (key.contains("../")) {
+			return ResponseEntity.badRequest().build();
+		}
+		String type = litemallStorage.getType();
+		MediaType mediaType = MediaType.parseMediaType(type);
 
-        Resource file = storageService.loadAsResource(key);
-        if (file == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().contentType(mediaType).body(file);
-    }
+		Resource file = storageService.loadAsResource(key);
+		if (file == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().contentType(mediaType).body(file);
+	}
 
-    /**
-     * 访问存储对象
-     *
-     * @param key 存储对象key
-     * @return
-     */
-    @GetMapping("/download/{key:.+}")
-    public ResponseEntity<Resource> download(@PathVariable String key) {
-        LitemallStorageDTO litemallStorage = litemallStorageService.findByKey(key);
-        if (key == null) {
-            return ResponseEntity.notFound().build();
-        }
-        if (key.contains("../")) {
-            return ResponseEntity.badRequest().build();
-        }
+	/**
+	 * 访问存储对象
+	 * @param key 存储对象key
+	 * @return
+	 */
+	@GetMapping("/download/{key:.+}")
+	public ResponseEntity<Resource> download(@PathVariable String key) {
+		LitemallStorageDTO litemallStorage = litemallStorageService.findByKey(key);
+		if (key == null) {
+			return ResponseEntity.notFound().build();
+		}
+		if (key.contains("../")) {
+			return ResponseEntity.badRequest().build();
+		}
 
-        String type = litemallStorage.getType();
-        MediaType mediaType = MediaType.parseMediaType(type);
+		String type = litemallStorage.getType();
+		MediaType mediaType = MediaType.parseMediaType(type);
 
-        Resource file = storageService.loadAsResource(key);
-        if (file == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().contentType(mediaType)
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
+		Resource file = storageService.loadAsResource(key);
+		if (file == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().contentType(mediaType)
+				.header(HttpHeaders.CONTENT_DISPOSITION,
+						"attachment; filename=\"" + file.getFilename() + "\"")
+				.body(file);
+	}
 
 }

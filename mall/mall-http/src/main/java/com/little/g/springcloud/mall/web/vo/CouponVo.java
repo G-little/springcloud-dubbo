@@ -5,104 +5,104 @@ import java.time.LocalDateTime;
 
 public class CouponVo {
 
-    private Integer id;
+	private Integer id;
 
-    private Integer cid;
+	private Integer cid;
 
-    private String name;
+	private String name;
 
-    private String desc;
+	private String desc;
 
-    private String tag;
+	private String tag;
 
-    private BigDecimal min;
+	private BigDecimal min;
 
-    private BigDecimal discount;
+	private BigDecimal discount;
 
-    private LocalDateTime startTime;
+	private LocalDateTime startTime;
 
-    private LocalDateTime endTime;
+	private LocalDateTime endTime;
 
-    private boolean available;
+	private boolean available;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getCid() {
-        return cid;
-    }
+	public Integer getCid() {
+		return cid;
+	}
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
-    }
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDesc() {
-        return desc;
-    }
+	public String getDesc() {
+		return desc;
+	}
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
-    public String getTag() {
-        return tag;
-    }
+	public String getTag() {
+		return tag;
+	}
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
-    public BigDecimal getMin() {
-        return min;
-    }
+	public BigDecimal getMin() {
+		return min;
+	}
 
-    public void setMin(BigDecimal min) {
-        this.min = min;
-    }
+	public void setMin(BigDecimal min) {
+		this.min = min;
+	}
 
-    public BigDecimal getDiscount() {
-        return discount;
-    }
+	public BigDecimal getDiscount() {
+		return discount;
+	}
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
-    }
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
 
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
+	public LocalDateTime getStartTime() {
+		return startTime;
+	}
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
+	}
 
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
+	public LocalDateTime getEndTime() {
+		return endTime;
+	}
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
 
-    public boolean isAvailable() {
-        return available;
-    }
+	public boolean isAvailable() {
+		return available;
+	}
 
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
 
 }

@@ -17,39 +17,39 @@ import java.time.LocalDateTime;
 @Service
 public class LitemallLogServiceImpl implements LitemallLogService {
 
-    @Resource
-    private LitemallLogMapper logMapper;
+	@Resource
+	private LitemallLogMapper logMapper;
 
-    @Override
-    public void deleteById(Integer id) {
-        logMapper.logicalDeleteByPrimaryKey(id);
-    }
+	@Override
+	public void deleteById(Integer id) {
+		logMapper.logicalDeleteByPrimaryKey(id);
+	}
 
-    @Override
-    public void add(LitemallLogDTO log) {
-        log.setAddTime(LocalDateTime.now());
-        log.setUpdateTime(LocalDateTime.now());
-        logMapper.insertSelective(DTOUtil.convert2T(log, LitemallLog.class));
-    }
+	@Override
+	public void add(LitemallLogDTO log) {
+		log.setAddTime(LocalDateTime.now());
+		log.setUpdateTime(LocalDateTime.now());
+		logMapper.insertSelective(DTOUtil.convert2T(log, LitemallLog.class));
+	}
 
-    @Override
-    public PageInfo<LitemallLogDTO> querySelective(String name, Integer page,
-                                                   Integer size, String sort, String order) {
-        LitemallLogExample example = new LitemallLogExample();
-        LitemallLogExample.Criteria criteria = example.createCriteria();
+	@Override
+	public PageInfo<LitemallLogDTO> querySelective(String name, Integer page,
+			Integer size, String sort, String order) {
+		LitemallLogExample example = new LitemallLogExample();
+		LitemallLogExample.Criteria criteria = example.createCriteria();
 
-        if (!StringUtils.isEmpty(name)) {
-            criteria.andAdminLike("%" + name + "%");
-        }
-        criteria.andDeletedEqualTo(false);
+		if (!StringUtils.isEmpty(name)) {
+			criteria.andAdminLike("%" + name + "%");
+		}
+		criteria.andDeletedEqualTo(false);
 
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
+		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+			example.setOrderByClause(sort + " " + order);
+		}
 
-        PageHelper.startPage(page, size);
-        return DTOUtil.convert2Page(logMapper.selectByExample(example),
-                LitemallLogDTO.class);
-    }
+		PageHelper.startPage(page, size);
+		return DTOUtil.convert2Page(logMapper.selectByExample(example),
+				LitemallLogDTO.class);
+	}
 
 }

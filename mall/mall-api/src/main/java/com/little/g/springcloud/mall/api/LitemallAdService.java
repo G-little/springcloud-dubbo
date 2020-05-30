@@ -10,7 +10,7 @@ public interface LitemallAdService {
 	List<LitemallAdDTO> queryIndex();
 
 	PageInfo<LitemallAdDTO> querySelective(String name, String content, Integer page,
-                                           Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 	int updateById(LitemallAdDTO ad);
 

@@ -21,38 +21,38 @@ import java.time.LocalDateTime;
 @Service(protocol = "dubbo")
 public class LitemallFeedbackServiceImpl implements LitemallFeedbackService {
 
-    @Autowired
-    private LitemallFeedbackMapper feedbackMapper;
+	@Autowired
+	private LitemallFeedbackMapper feedbackMapper;
 
-    @Override
-    public Integer add(LitemallFeedbackDTO feedback) {
-        feedback.setAddTime(LocalDateTime.now());
-        feedback.setUpdateTime(LocalDateTime.now());
-        return feedbackMapper
-                .insertSelective(DTOUtil.convert2T(feedback, LitemallFeedback.class));
-    }
+	@Override
+	public Integer add(LitemallFeedbackDTO feedback) {
+		feedback.setAddTime(LocalDateTime.now());
+		feedback.setUpdateTime(LocalDateTime.now());
+		return feedbackMapper
+				.insertSelective(DTOUtil.convert2T(feedback, LitemallFeedback.class));
+	}
 
-    @Override
-    public PageInfo<LitemallFeedbackDTO> querySelective(Integer userId, String username,
-                                                        Integer page, Integer limit, String sort, String order) {
-        LitemallFeedbackExample example = new LitemallFeedbackExample();
-        LitemallFeedbackExample.Criteria criteria = example.createCriteria();
+	@Override
+	public PageInfo<LitemallFeedbackDTO> querySelective(Integer userId, String username,
+			Integer page, Integer limit, String sort, String order) {
+		LitemallFeedbackExample example = new LitemallFeedbackExample();
+		LitemallFeedbackExample.Criteria criteria = example.createCriteria();
 
-        if (userId != null) {
-            criteria.andUserIdEqualTo(userId);
-        }
-        if (!StringUtils.isEmpty(username)) {
-            criteria.andUsernameLike("%" + username + "%");
-        }
-        criteria.andDeletedEqualTo(false);
+		if (userId != null) {
+			criteria.andUserIdEqualTo(userId);
+		}
+		if (!StringUtils.isEmpty(username)) {
+			criteria.andUsernameLike("%" + username + "%");
+		}
+		criteria.andDeletedEqualTo(false);
 
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
+		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+			example.setOrderByClause(sort + " " + order);
+		}
 
-        PageHelper.startPage(page, limit);
-        return DTOUtil.convert2Page(feedbackMapper.selectByExample(example),
-                LitemallFeedbackDTO.class);
-    }
+		PageHelper.startPage(page, limit);
+		return DTOUtil.convert2Page(feedbackMapper.selectByExample(example),
+				LitemallFeedbackDTO.class);
+	}
 
 }

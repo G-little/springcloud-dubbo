@@ -28,8 +28,8 @@ public interface LitemallCartService {
 
 	void clearGoods(Integer userId);
 
-    PageInfo<LitemallCartDTO> querySelective(Integer userId, Integer goodsId,
-                                             Integer page, Integer limit, String sort, String order);
+	PageInfo<LitemallCartDTO> querySelective(Integer userId, Integer goodsId,
+			Integer page, Integer limit, String sort, String order);
 
 	void deleteById(Integer id);
 

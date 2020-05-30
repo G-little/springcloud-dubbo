@@ -8,7 +8,7 @@ import java.util.List;
 public interface LitemallNoticeService {
 
 	PageInfo<LitemallNoticeDTO> querySelective(String title, String content, Integer page,
-                                               Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 	int updateById(LitemallNoticeDTO notice);
 

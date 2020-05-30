@@ -22,6 +22,6 @@ public interface LitemallAddressService {
 	void resetDefault(Integer userId);
 
 	PageInfo<LitemallAddressDTO> querySelective(Integer userId, String name, Integer page,
-                                                Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 }

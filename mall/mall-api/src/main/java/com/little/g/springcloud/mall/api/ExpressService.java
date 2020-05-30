@@ -7,10 +7,10 @@ import java.util.Map;
 
 public interface ExpressService {
 
-    String getVendorName(String vendorCode);
+	String getVendorName(String vendorCode);
 
-    List<Map<String, String>> getVendors();
+	List<Map<String, String>> getVendors();
 
-    ExpressInfoDTO getExpressInfo(String expCode, String expNo);
+	ExpressInfoDTO getExpressInfo(String expCode, String expNo);
 
 }

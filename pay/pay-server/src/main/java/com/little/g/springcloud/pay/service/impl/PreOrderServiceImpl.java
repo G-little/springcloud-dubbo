@@ -123,7 +123,7 @@ public class PreOrderServiceImpl implements PreOrderService {
 	@Transactional
 	@Override
 	public boolean updateStatus(@NotNull Long uid, @NotEmpty String preorderNo,
-								Byte status, @NotEmpty String payType, String thirdyPayNo) {
+			Byte status, @NotEmpty String payType, String thirdyPayNo) {
 
 		PreorderExample example = new PreorderExample();
 		example.or().andAccountIdEqualTo(uid).andPreOrderNoEqualTo(preorderNo)

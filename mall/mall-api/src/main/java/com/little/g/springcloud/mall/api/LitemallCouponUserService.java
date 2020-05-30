@@ -13,8 +13,8 @@ public interface LitemallCouponUserService {
 
 	void add(LitemallCouponUserDTO couponUser);
 
-    PageInfo<LitemallCouponUserDTO> queryList(Integer userId, Integer couponId,
-                                              Short status, Integer page, Integer size, String sort, String order);
+	PageInfo<LitemallCouponUserDTO> queryList(Integer userId, Integer couponId,
+			Short status, Integer page, Integer size, String sort, String order);
 
 	List<LitemallCouponUserDTO> queryAll(Integer userId, Integer couponId);
 

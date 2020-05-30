@@ -10,6 +10,6 @@ public interface LitemallLogService {
 	void add(LitemallLogDTO log);
 
 	PageInfo<LitemallLogDTO> querySelective(String name, Integer page, Integer size,
-                                            String sort, String order);
+			String sort, String order);
 
 }

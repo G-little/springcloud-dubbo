@@ -22,26 +22,25 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
-    @Reference
-    private LitemallOrderService orderService;
+	@Reference
+	private LitemallOrderService orderService;
 
-    /**
-     * 用户个人页面数据
-     * <p>
-     * 目前是用户订单统计信息
-     *
-     * @param userId 用户ID
-     * @return 用户个人页面数据
-     */
-    @GetMapping("index")
-    public Object list(@LoginUser Integer userId) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
+	/**
+	 * 用户个人页面数据
+	 * <p>
+	 * 目前是用户订单统计信息
+	 * @param userId 用户ID
+	 * @return 用户个人页面数据
+	 */
+	@GetMapping("index")
+	public Object list(@LoginUser Integer userId) {
+		if (userId == null) {
+			return ResponseUtil.unlogin();
+		}
 
-        Map<Object, Object> data = new HashMap<Object, Object>();
-        data.put("order", orderService.orderInfo(userId));
-        return ResponseUtil.ok(data);
-    }
+		Map<Object, Object> data = new HashMap<Object, Object>();
+		data.put("order", orderService.orderInfo(userId));
+		return ResponseUtil.ok(data);
+	}
 
 }

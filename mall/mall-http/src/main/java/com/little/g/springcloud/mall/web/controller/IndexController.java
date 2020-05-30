@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class IndexController {
 
-    /**
-     * 测试数据
-     *
-     * @return 测试数据
-     */
-    @RequestMapping("/index")
-    public Object index() {
-        return ResponseUtil.ok("hello world, this is wx service");
-    }
+	/**
+	 * 测试数据
+	 * @return 测试数据
+	 */
+	@RequestMapping("/index")
+	public Object index() {
+		return ResponseUtil.ok("hello world, this is wx service");
+	}
 
 }

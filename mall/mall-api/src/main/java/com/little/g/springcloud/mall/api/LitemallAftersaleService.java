@@ -10,7 +10,7 @@ public interface LitemallAftersaleService {
 	LitemallAftersaleDTO findById(Integer userId, Integer id);
 
 	PageInfo<LitemallAftersaleDTO> queryList(Integer userId, Short status, Integer page,
-                                             Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 	List<LitemallAftersaleDTO> querySelective(Integer orderId, String aftersaleSn,
 			Short status, Integer page, Integer limit, String sort, String order);

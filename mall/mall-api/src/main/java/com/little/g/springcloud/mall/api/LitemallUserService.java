@@ -19,7 +19,7 @@ public interface LitemallUserService {
 	int updateById(LitemallUserDTO user);
 
 	PageInfo<LitemallUserDTO> querySelective(String username, String mobile, Integer page,
-                                             Integer size, String sort, String order);
+			Integer size, String sort, String order);
 
 	int count();
 

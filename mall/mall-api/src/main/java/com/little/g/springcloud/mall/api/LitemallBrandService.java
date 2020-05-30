@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface LitemallBrandService {
 
-    PageInfo<LitemallBrandDTO> query(Integer page, Integer limit, String sort,
-                                     String order);
+	PageInfo<LitemallBrandDTO> query(Integer page, Integer limit, String sort,
+			String order);
 
 	PageInfo<LitemallBrandDTO> query(Integer page, Integer limit);
 

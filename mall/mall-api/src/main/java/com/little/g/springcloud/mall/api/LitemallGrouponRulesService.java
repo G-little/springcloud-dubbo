@@ -20,7 +20,7 @@ public interface LitemallGrouponRulesService {
 	PageInfo<LitemallGrouponRulesDTO> queryList(Integer page, Integer limit);
 
 	PageInfo<LitemallGrouponRulesDTO> queryList(Integer page, Integer limit, String sort,
-                                                String order);
+			String order);
 
 	boolean isExpired(LitemallGrouponRulesDTO rules);
 

@@ -17,90 +17,90 @@ import java.time.LocalDateTime;
 @Service(protocol = "dubbo")
 public class LitemallCollectServiceImpl implements LitemallCollectService {
 
-    @Resource
-    private LitemallCollectMapper collectMapper;
+	@Resource
+	private LitemallCollectMapper collectMapper;
 
-    @Override
-    public int count(int uid, Integer gid) {
-        LitemallCollectExample example = new LitemallCollectExample();
-        example.or().andUserIdEqualTo(uid).andValueIdEqualTo(gid)
-                .andDeletedEqualTo(false);
-        return (int) collectMapper.countByExample(example);
-    }
+	@Override
+	public int count(int uid, Integer gid) {
+		LitemallCollectExample example = new LitemallCollectExample();
+		example.or().andUserIdEqualTo(uid).andValueIdEqualTo(gid)
+				.andDeletedEqualTo(false);
+		return (int) collectMapper.countByExample(example);
+	}
 
-    @Override
-    public PageInfo<LitemallCollectDTO> queryByType(Integer userId, Byte type,
-                                                    Integer page, Integer limit, String sort, String order) {
-        LitemallCollectExample example = new LitemallCollectExample();
-        LitemallCollectExample.Criteria criteria = example.createCriteria();
+	@Override
+	public PageInfo<LitemallCollectDTO> queryByType(Integer userId, Byte type,
+			Integer page, Integer limit, String sort, String order) {
+		LitemallCollectExample example = new LitemallCollectExample();
+		LitemallCollectExample.Criteria criteria = example.createCriteria();
 
-        if (type != null) {
-            criteria.andTypeEqualTo(type);
-        }
-        criteria.andUserIdEqualTo(userId);
-        criteria.andDeletedEqualTo(false);
+		if (type != null) {
+			criteria.andTypeEqualTo(type);
+		}
+		criteria.andUserIdEqualTo(userId);
+		criteria.andDeletedEqualTo(false);
 
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
+		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+			example.setOrderByClause(sort + " " + order);
+		}
 
-        PageHelper.startPage(page, limit);
-        return DTOUtil.convert2Page(collectMapper.selectByExample(example),
-                LitemallCollectDTO.class);
-    }
+		PageHelper.startPage(page, limit);
+		return DTOUtil.convert2Page(collectMapper.selectByExample(example),
+				LitemallCollectDTO.class);
+	}
 
-    @Override
-    public int countByType(Integer userId, Byte type) {
-        LitemallCollectExample example = new LitemallCollectExample();
-        example.or().andUserIdEqualTo(userId).andTypeEqualTo(type)
-                .andDeletedEqualTo(false);
-        return (int) collectMapper.countByExample(example);
-    }
+	@Override
+	public int countByType(Integer userId, Byte type) {
+		LitemallCollectExample example = new LitemallCollectExample();
+		example.or().andUserIdEqualTo(userId).andTypeEqualTo(type)
+				.andDeletedEqualTo(false);
+		return (int) collectMapper.countByExample(example);
+	}
 
-    @Override
-    public LitemallCollectDTO queryByTypeAndValue(Integer userId, Byte type,
-                                                  Integer valueId) {
-        LitemallCollectExample example = new LitemallCollectExample();
-        example.or().andUserIdEqualTo(userId).andValueIdEqualTo(valueId)
-                .andTypeEqualTo(type).andDeletedEqualTo(false);
-        return DTOUtil.convert2T(collectMapper.selectOneByExample(example),
-                LitemallCollectDTO.class);
-    }
+	@Override
+	public LitemallCollectDTO queryByTypeAndValue(Integer userId, Byte type,
+			Integer valueId) {
+		LitemallCollectExample example = new LitemallCollectExample();
+		example.or().andUserIdEqualTo(userId).andValueIdEqualTo(valueId)
+				.andTypeEqualTo(type).andDeletedEqualTo(false);
+		return DTOUtil.convert2T(collectMapper.selectOneByExample(example),
+				LitemallCollectDTO.class);
+	}
 
-    @Override
-    public void deleteById(Integer id) {
-        collectMapper.logicalDeleteByPrimaryKey(id);
-    }
+	@Override
+	public void deleteById(Integer id) {
+		collectMapper.logicalDeleteByPrimaryKey(id);
+	}
 
-    @Override
-    public int add(LitemallCollectDTO collect) {
-        collect.setAddTime(LocalDateTime.now());
-        collect.setUpdateTime(LocalDateTime.now());
-        return collectMapper
-                .insertSelective(DTOUtil.convert2T(collect, LitemallCollect.class));
-    }
+	@Override
+	public int add(LitemallCollectDTO collect) {
+		collect.setAddTime(LocalDateTime.now());
+		collect.setUpdateTime(LocalDateTime.now());
+		return collectMapper
+				.insertSelective(DTOUtil.convert2T(collect, LitemallCollect.class));
+	}
 
-    @Override
-    public PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId,
-                                                       Integer page, Integer size, String sort, String order) {
-        LitemallCollectExample example = new LitemallCollectExample();
-        LitemallCollectExample.Criteria criteria = example.createCriteria();
+	@Override
+	public PageInfo<LitemallCollectDTO> querySelective(String userId, String valueId,
+			Integer page, Integer size, String sort, String order) {
+		LitemallCollectExample example = new LitemallCollectExample();
+		LitemallCollectExample.Criteria criteria = example.createCriteria();
 
-        if (!StringUtils.isEmpty(userId)) {
-            criteria.andUserIdEqualTo(Integer.valueOf(userId));
-        }
-        if (!StringUtils.isEmpty(valueId)) {
-            criteria.andValueIdEqualTo(Integer.valueOf(valueId));
-        }
-        criteria.andDeletedEqualTo(false);
+		if (!StringUtils.isEmpty(userId)) {
+			criteria.andUserIdEqualTo(Integer.valueOf(userId));
+		}
+		if (!StringUtils.isEmpty(valueId)) {
+			criteria.andValueIdEqualTo(Integer.valueOf(valueId));
+		}
+		criteria.andDeletedEqualTo(false);
 
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
+		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+			example.setOrderByClause(sort + " " + order);
+		}
 
-        PageHelper.startPage(page, size);
-        return DTOUtil.convert2Page(collectMapper.selectByExample(example),
-                LitemallCollectDTO.class);
-    }
+		PageHelper.startPage(page, size);
+		return DTOUtil.convert2Page(collectMapper.selectByExample(example),
+				LitemallCollectDTO.class);
+	}
 
 }

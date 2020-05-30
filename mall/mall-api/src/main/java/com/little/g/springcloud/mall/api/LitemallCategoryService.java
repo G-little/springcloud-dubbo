@@ -20,7 +20,7 @@ public interface LitemallCategoryService {
 	LitemallCategoryDTO findById(Integer id);
 
 	PageInfo<LitemallCategoryDTO> querySelective(String id, String name, Integer page,
-                                                 Integer size, String sort, String order);
+			Integer size, String sort, String order);
 
 	int updateById(LitemallCategoryDTO category);
 

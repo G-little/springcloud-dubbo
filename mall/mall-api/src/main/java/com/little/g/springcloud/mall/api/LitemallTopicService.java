@@ -18,7 +18,7 @@ public interface LitemallTopicService {
 	List<LitemallTopicDTO> queryRelatedList(Integer id, int offset, int limit);
 
 	PageInfo<LitemallTopicDTO> querySelective(String title, String subtitle, Integer page,
-                                              Integer limit, String sort, String order);
+			Integer limit, String sort, String order);
 
 	int updateById(LitemallTopicDTO topic);
 

@@ -7,9 +7,9 @@ import java.io.InputStream;
 
 public interface StorageService {
 
-    Resource loadAsResource(String keyName);
+	Resource loadAsResource(String keyName);
 
-    LitemallStorageDTO store(InputStream inputStream, long contentLength,
-                             String contentType, String fileName);
+	LitemallStorageDTO store(InputStream inputStream, long contentLength,
+			String contentType, String fileName);
 
 }
