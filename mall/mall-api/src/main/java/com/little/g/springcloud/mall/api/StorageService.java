@@ -12,4 +12,6 @@ public interface StorageService {
 	LitemallStorageDTO store(InputStream inputStream, long contentLength,
 			String contentType, String fileName);
 
+	void delete(String keyName);
+
 }

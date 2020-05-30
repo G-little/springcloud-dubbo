@@ -1,6 +1,6 @@
 package com.little.g.springcloud.mall.web.task;
 
-import com.little.g.springcloud.common.web.utils.BeanUtil;
+import com.little.g.springcloud.common.utils.BeanUtil;
 import com.little.g.springcloud.mall.api.LitemallGoodsProductService;
 import com.little.g.springcloud.mall.api.LitemallOrderGoodsService;
 import com.little.g.springcloud.mall.api.LitemallOrderService;

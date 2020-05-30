@@ -4,6 +4,7 @@ import com.little.g.springcloud.common.ResultJson;
 import com.little.g.springcloud.common.validate.annatations.PayType;
 import com.little.g.springcloud.pay.dto.PayTypeDTO;
 import com.little.g.springcloud.thirdpay.dto.PayCallbackInfo;
+import com.little.g.springcloud.thirdpay.dto.PreRefundResult;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -51,5 +52,16 @@ public interface LittlePayService {
 	 * @param callbackInfo
 	 */
 	void thirdpayCallback(@PayType String payType, @NotNull PayCallbackInfo callbackInfo);
+
+	/**
+	 * 退款
+	 * @param uid 用户
+	 * @param payType 支付类型
+	 * @param orderNo 订单号
+	 * @param money 金额
+	 * @return 退款结果
+	 */
+	PreRefundResult refund(Long uid, @NotEmpty String payType, @NotEmpty String orderNo,
+			Long total, Long money);
 
 }

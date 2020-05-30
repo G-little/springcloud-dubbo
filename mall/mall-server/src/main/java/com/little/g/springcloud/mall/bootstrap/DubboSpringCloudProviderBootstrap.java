@@ -34,7 +34,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @EnableDiscoveryClient
 @EnableAutoConfiguration
 @ComponentScan({ "com.little.g.springcloud.mall.service",
-		"com.little.g.springcloud.mall.config", "com.little.g.springcloud.common.cache" })
+		"com.little.g.springcloud.mall.config", "com.little.g.springcloud.common.task",
+		"com.little.g.springcloud.common.cache" })
 @MapperScan({ "com.little.g.**.mapper" })
 public class DubboSpringCloudProviderBootstrap {
 

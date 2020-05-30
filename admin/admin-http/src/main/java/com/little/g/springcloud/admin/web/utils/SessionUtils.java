@@ -2,6 +2,7 @@ package com.little.g.springcloud.admin.web.utils;
 
 import com.little.g.springcloud.admin.dto.AdminUserDTO;
 import com.little.g.springcloud.admin.web.vo.LoginSession;
+import org.springframework.core.NamedThreadLocal;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 public class SessionUtils {
 
 	private static final String LOGIN_SESSION_KEY = "_ADMIN_SESSION";
+
+	private static ThreadLocal<AdminUserDTO> context = new NamedThreadLocal<>(
+			"session context");
+
+	public static void set(AdminUserDTO user) {
+		context.set(user);
+	}
+
+	public static AdminUserDTO get() {
+		return context.get();
+	}
 
 	public static LoginSession getLoginSession(HttpServletRequest request) {
 		Object loginObject = request.getSession().getAttribute(LOGIN_SESSION_KEY);

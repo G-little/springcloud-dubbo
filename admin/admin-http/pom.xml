@@ -31,8 +31,20 @@
         </dependency>
 
 
-
         <!-- Sample API -->
+
+        <dependency>
+            <groupId>com.little.g</groupId>
+            <artifactId>mall-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.little.g</groupId>
+            <artifactId>pay-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.little.g</groupId>
             <artifactId>admin-api</artifactId>

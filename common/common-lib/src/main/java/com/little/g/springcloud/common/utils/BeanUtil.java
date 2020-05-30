@@ -1,4 +1,4 @@
-package com.little.g.springcloud.common.web.utils;
+package com.little.g.springcloud.common.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

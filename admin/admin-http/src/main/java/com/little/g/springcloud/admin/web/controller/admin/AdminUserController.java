@@ -3,6 +3,8 @@ package com.little.g.springcloud.admin.web.controller.admin;
 import com.little.g.springcloud.admin.api.AdminUserService;
 import com.little.g.springcloud.admin.params.AdminUserParams;
 import com.little.g.springcloud.admin.params.AdminUserSearchParam;
+import com.little.g.springcloud.admin.web.annotation.RequiresPermissions;
+import com.little.g.springcloud.admin.web.annotation.RequiresPermissionsDesc;
 import com.little.g.springcloud.admin.web.form.AdminUserForm;
 import com.little.g.springcloud.common.ResultJson;
 import org.apache.commons.lang.StringUtils;
@@ -27,6 +29,8 @@ public class AdminUserController {
 	@Reference
 	private AdminUserService adminUserService;
 
+	@RequiresPermissions("admin:admin:list")
+	@RequiresPermissionsDesc(menu = { "系统管理", "管理员管理" }, button = "查询")
 	@RequestMapping("/list")
 	public ResultJson list(@Valid AdminUserSearchParam param) {
 		ResultJson r = new ResultJson();
@@ -34,6 +38,8 @@ public class AdminUserController {
 		return r;
 	}
 
+	@RequiresPermissions("admin:admin:add")
+	@RequiresPermissionsDesc(menu = { "系统管理", "管理员管理" }, button = "添加")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ResultJson add(@Valid AdminUserForm adminUser) throws ParseException {
 		ResultJson r = new ResultJson();
@@ -58,6 +64,8 @@ public class AdminUserController {
 		return r;
 	}
 
+	@RequiresPermissions("admin:admin:get")
+	@RequiresPermissionsDesc(menu = { "系统管理", "管理员管理" }, button = "详情")
 	@RequestMapping(value = "/get")
 	public ResultJson get(@RequestParam Integer id) {
 		ResultJson r = new ResultJson();
@@ -65,6 +73,8 @@ public class AdminUserController {
 		return r;
 	}
 
+	@RequiresPermissions("admin:admin:update")
+	@RequiresPermissionsDesc(menu = { "系统管理", "管理员管理" }, button = "编辑")
 	@RequestMapping(value = "/status")
 	public ResultJson status(@RequestParam Integer id, @RequestParam Byte status) {
 		ResultJson r = new ResultJson();
@@ -77,6 +87,8 @@ public class AdminUserController {
 		return r;
 	}
 
+	@RequiresPermissions("admin:admin:del")
+	@RequiresPermissionsDesc(menu = { "系统管理", "管理员管理" }, button = "删除")
 	@RequestMapping("/del")
 	public ResultJson del(@RequestParam Integer id) {
 		ResultJson r = new ResultJson();

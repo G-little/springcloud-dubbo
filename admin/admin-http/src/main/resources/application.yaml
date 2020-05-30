@@ -26,4 +26,4 @@ management:
 
 provider:
   application:
-    name: admin-server
+    name: admin-server,mall-server,user-server,pay-server

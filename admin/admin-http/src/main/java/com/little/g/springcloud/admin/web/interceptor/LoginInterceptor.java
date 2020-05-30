@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,6 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if (session == null) {
 			throw new ServiceDataException(CommonErrorCodes.NOT_LOGIN);
 		}
+		SessionUtils.set(session.getAdminUser());
 		return resourcesService.hasPrivilege(request.getRequestURI(),
 				session.getAdminUser());
 

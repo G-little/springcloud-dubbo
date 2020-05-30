@@ -24,6 +24,11 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 	@Resource
 	private LitemallAftersaleMapper aftersaleMapper;
 
+	public LitemallAftersaleDTO findById(Integer id) {
+		return DTOUtil.convert2T(aftersaleMapper.selectByPrimaryKey(id),
+				LitemallAftersaleDTO.class);
+	}
+
 	@Override
 	public LitemallAftersaleDTO findById(Integer userId, Integer id) {
 		LitemallAftersaleExample example = new LitemallAftersaleExample();
@@ -55,8 +60,9 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 	}
 
 	@Override
-	public List<LitemallAftersaleDTO> querySelective(Integer orderId, String aftersaleSn,
-			Short status, Integer page, Integer limit, String sort, String order) {
+	public PageInfo<LitemallAftersaleDTO> querySelective(Integer orderId,
+			String aftersaleSn, Short status, Integer page, Integer limit, String sort,
+			String order) {
 		LitemallAftersaleExample example = new LitemallAftersaleExample();
 		LitemallAftersaleExample.Criteria criteria = example.or();
 		if (orderId != null) {
@@ -77,7 +83,7 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 		}
 
 		PageHelper.startPage(page, limit);
-		return DTOUtil.convert2List(aftersaleMapper.selectByExample(example),
+		return DTOUtil.convert2Page(aftersaleMapper.selectByExample(example),
 				LitemallAftersaleDTO.class);
 	}
 

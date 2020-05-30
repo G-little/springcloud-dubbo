@@ -25,7 +25,7 @@ public interface LitemallOrderService {
 	PageInfo<LitemallOrderDTO> queryByOrderStatus(Integer userId, List<Short> orderStatus,
 			Integer page, Integer limit, String sort, String order);
 
-	List<LitemallOrderDTO> querySelective(Integer userId, String orderSn,
+	PageInfo<LitemallOrderDTO> querySelective(Integer userId, String orderSn,
 			LocalDateTime start, LocalDateTime end, List<Short> orderStatusArray,
 			Integer page, Integer limit, String sort, String order);
 

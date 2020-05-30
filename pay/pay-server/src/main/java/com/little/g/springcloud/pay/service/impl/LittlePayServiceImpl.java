@@ -18,9 +18,12 @@ import com.little.g.springcloud.pay.params.ChargeParams;
 import com.little.g.springcloud.thirdpay.api.ThirdpayApi;
 import com.little.g.springcloud.thirdpay.dto.PayCallbackInfo;
 import com.little.g.springcloud.thirdpay.dto.PrePayResult;
+import com.little.g.springcloud.thirdpay.dto.PreRefundResult;
+import com.little.g.springcloud.thirdpay.dto.RefundResult;
 import com.little.g.springcloud.thirdpay.enums.ThirdPayStatus;
 import com.little.g.springcloud.thirdpay.model.PayChannel;
 import com.little.g.springcloud.thirdpay.params.PrepayParams;
+import com.little.g.springcloud.thirdpay.params.RefundParams;
 import com.little.g.springcloud.thirdpay.service.impl.ThirdPayFactory;
 import org.apache.dubbo.common.utils.CollectionUtils;
 import org.apache.dubbo.config.annotation.Service;
@@ -93,6 +96,17 @@ public class LittlePayServiceImpl implements LittlePayService {
 		PrePayResult prePayResult = thirdpayApi.prepay(payType, params);
 		result.setData(prePayResult);
 
+		return result;
+	}
+
+	public PreRefundResult refund(Long uid, @NotEmpty String payType,
+			@NotEmpty String orderNo, Long total, Long money) {
+		RefundParams params = new RefundParams();
+		params.setOutPayOrderId(orderNo);
+		params.setRefundFee(money);
+		params.setPayTotalFee(total);
+		// TODO: 2020/5/30 实现退款逻辑
+		PreRefundResult result = thirdpayApi.refund(payType, params);
 		return result;
 	}
 

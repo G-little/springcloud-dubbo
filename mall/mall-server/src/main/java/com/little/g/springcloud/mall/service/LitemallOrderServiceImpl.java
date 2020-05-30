@@ -114,7 +114,7 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
 	}
 
 	@Override
-	public List<LitemallOrderDTO> querySelective(Integer userId, String orderSn,
+	public PageInfo<LitemallOrderDTO> querySelective(Integer userId, String orderSn,
 			LocalDateTime start, LocalDateTime end, List<Short> orderStatusArray,
 			Integer page, Integer limit, String sort, String order) {
 		LitemallOrderExample example = new LitemallOrderExample();
@@ -142,7 +142,7 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
 		}
 
 		PageHelper.startPage(page, limit);
-		return DTOUtil.convert2List(litemallOrderMapper.selectByExample(example),
+		return DTOUtil.convert2Page(litemallOrderMapper.selectByExample(example),
 				LitemallOrderDTO.class);
 	}
 
