@@ -18,6 +18,7 @@ package com.little.g.springcloud.admin.web.bootstrap;
 
 import com.little.g.springcloud.common.web.annotation.EnableCmdErrorMsg;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,11 +28,11 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @EnableCmdErrorMsg
 @EnableRedisHttpSession
 @ComponentScan(basePackages = { "com.little.g.springcloud.admin",
-		"com.little.g.springcloud.common.cache" })
+		"com.little.g.springcloud.common.cache", "com.little.g.springcloud.common.task" })
 public class SpringCloudAdminHttpBootstrap {
 
 	public static void main(String[] args) {

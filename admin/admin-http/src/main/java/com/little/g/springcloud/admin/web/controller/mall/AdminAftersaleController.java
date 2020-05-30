@@ -24,6 +24,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,7 +50,7 @@ public class AdminAftersaleController {
 	@Reference
 	private LitemallGoodsProductService goodsProductService;
 
-	@Reference
+	@Resource
 	private LogHelper logHelper;
 
 	@Reference

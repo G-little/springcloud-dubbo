@@ -8,13 +8,13 @@ import com.little.g.springcloud.mall.dto.LitemallLogDTO;
 import com.little.g.springcloud.mall.mapper.LitemallLogMapper;
 import com.little.g.springcloud.mall.model.LitemallLog;
 import com.little.g.springcloud.mall.model.LitemallLogExample;
-import org.springframework.stereotype.Service;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
-@Service
+@Service(protocol = "dubbo")
 public class LitemallLogServiceImpl implements LitemallLogService {
 
 	@Resource
