@@ -37,7 +37,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	private UserService userService;
 
 	@Override
-	public boolean createUserAccount(Long uid) {
+    public boolean createUserAccount(Integer uid) {
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUid(uid);
 		userAccount.setUpdateTime(System.currentTimeMillis());
@@ -49,8 +49,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
-	public boolean updateAccountStatus(Long uid, AccountStatus accountStatus,
-			String reason) {
+    public boolean updateAccountStatus(Integer uid, AccountStatus accountStatus,
+                                       String reason) {
 		UserAccountExample example = new UserAccountExample();
 		example.or().andUidEqualTo(uid).andStatusNotEqualTo(accountStatus.getValue());
 		UserAccount userAccount = new UserAccount();
@@ -64,7 +64,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Transactional
 	@Override
-	public UserAccountDTO queryUserAccount(Long uid) {
+    public UserAccountDTO queryUserAccount(Integer uid) {
 
 		UserAccount useraccount = userAccountMapper.selectByPrimaryKey(uid);
 		if (useraccount == null) {
@@ -78,7 +78,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW,
 			isolation = Isolation.READ_COMMITTED)
-	UserAccount initAccount(Long uid) {
+    UserAccount initAccount(Integer uid) {
 		UserDTO user = userService.getUserById(uid);
 		if (user == null) {
 			throw new ServiceDataException(UserErrorCodes.USER_NOT_EXIST,
@@ -87,8 +87,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 		UserAccount useraccount = new UserAccount();
 		useraccount.setUid(uid);
-		useraccount.setMoney(0l);
-		useraccount.setFrozonMoney(0l);
+        useraccount.setMoney(0L);
+        useraccount.setFrozonMoney(0L);
 		useraccount.setUpdateTime(System.currentTimeMillis());
 		useraccount.setCreateTime(System.currentTimeMillis());
 		useraccount.setStatus(AccountStatus.INIT.getValue());

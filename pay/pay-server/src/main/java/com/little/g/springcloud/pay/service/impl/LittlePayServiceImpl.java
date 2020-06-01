@@ -19,7 +19,6 @@ import com.little.g.springcloud.thirdpay.api.ThirdpayApi;
 import com.little.g.springcloud.thirdpay.dto.PayCallbackInfo;
 import com.little.g.springcloud.thirdpay.dto.PrePayResult;
 import com.little.g.springcloud.thirdpay.dto.PreRefundResult;
-import com.little.g.springcloud.thirdpay.dto.RefundResult;
 import com.little.g.springcloud.thirdpay.enums.ThirdPayStatus;
 import com.little.g.springcloud.thirdpay.model.PayChannel;
 import com.little.g.springcloud.thirdpay.params.PrepayParams;
@@ -83,8 +82,8 @@ public class LittlePayServiceImpl implements LittlePayService {
 	}
 
 	@Override
-	public ResultJson prePay(Long uid, @NotEmpty String payType,
-			@NotEmpty String preorderNo) {
+	public ResultJson prePay(Integer uid, @NotEmpty String payType,
+							 @NotEmpty String preorderNo) {
 		ResultJson result = new ResultJson();
 		PreorderDTO preorderDTO = getUserPreorder(uid, preorderNo);
 
@@ -99,7 +98,8 @@ public class LittlePayServiceImpl implements LittlePayService {
 		return result;
 	}
 
-	public PreRefundResult refund(Long uid, @NotEmpty String payType,
+	@Override
+	public PreRefundResult refund(Integer uid, @NotEmpty String payType,
 			@NotEmpty String orderNo, Long total, Long money) {
 		RefundParams params = new RefundParams();
 		params.setOutPayOrderId(orderNo);
@@ -110,7 +110,7 @@ public class LittlePayServiceImpl implements LittlePayService {
 		return result;
 	}
 
-	private PreorderDTO getUserPreorder(Long uid, @NotEmpty String preorderNo) {
+	private PreorderDTO getUserPreorder(Integer uid, @NotEmpty String preorderNo) {
 		PreorderDTO preorderDTO = preOrderService.get(MerchantId.LittelG.getValue(),
 				preorderNo);
 		if (preorderDTO == null) {
@@ -127,7 +127,7 @@ public class LittlePayServiceImpl implements LittlePayService {
 
 	@Transactional
 	@Override
-	public ResultJson thirdpay(Long uid, String payType, String preorderNo) {
+	public ResultJson thirdpay(Integer uid, String payType, String preorderNo) {
 
 		PreorderDTO preorderDTO = getUserPreorder(uid, preorderNo);
 
@@ -154,7 +154,7 @@ public class LittlePayServiceImpl implements LittlePayService {
 
 	@Transactional
 	@Override
-	public ResultJson pay(@NotBlank Long uid, @NotEmpty String preorderNo) {
+	public ResultJson pay(@NotBlank Integer uid, @NotEmpty String preorderNo) {
 
 		ResultJson r = new ResultJson();
 

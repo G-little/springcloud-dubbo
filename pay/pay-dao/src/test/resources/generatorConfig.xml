@@ -55,38 +55,40 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.little.g.springcloud.user.model"
+        <javaModelGenerator targetPackage="com.little.g.springcloud.pay.model"
                             targetProject="${project.basedir}/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.little.g.springcloud.user.mapper"
+        <sqlMapGenerator targetPackage="com.little.g.springcloud.pay.mapper"
                          targetProject="${project.basedir}/src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.little.g.springcloud.user.mapper"
+                             targetPackage="com.little.g.springcloud.pay.mapper"
                              targetProject="${project.basedir}/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
 
         <!--表名-->
+
         <!--
-        <table tableName="user">
-            <generatedKey column="uid" sqlStatement="MySql" identity="true"/>
+        <table tableName="balance_checkpoint">
+            <generatedKey column="id" sqlStatement="MySql"></generatedKey>
         </table>
 
-        <table tableName="user_device_token">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        <table tableName="preorder">
         </table>
+
+        <table tableName="user_account">
+        </table>
+
         -->
 
-
-        <table tableName="oauth_user" domainObjectName="OAuthUser" enableUpdateByPrimaryKey="true">
-
+        <table tableName="charge_record">
         </table>
 
 

@@ -6,7 +6,7 @@ public class ChargeRecordDTO implements Serializable {
 
 	private String tranNum;
 
-	private Long uid;
+    private Integer uid;
 
 	private Long money;
 
@@ -36,11 +36,11 @@ public class ChargeRecordDTO implements Serializable {
 		this.tranNum = tranNum == null ? null : tranNum.trim();
 	}
 
-	public Long getUid() {
+    public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+    public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

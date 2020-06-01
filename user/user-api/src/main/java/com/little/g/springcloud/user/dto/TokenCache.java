@@ -11,7 +11,7 @@ public class TokenCache implements Serializable {
 
 	private boolean login;
 
-	private Long uid;
+    private Integer uid;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -29,11 +29,11 @@ public class TokenCache implements Serializable {
 		this.login = login;
 	}
 
-	public Long getUid() {
+    public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+    public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

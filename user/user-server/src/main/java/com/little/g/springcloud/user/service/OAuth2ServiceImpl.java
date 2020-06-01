@@ -10,7 +10,7 @@ import com.little.g.springcloud.user.api.UserService;
 import com.little.g.springcloud.user.dto.UserDTO;
 import com.little.g.springcloud.user.mapper.OAuthUserMapper;
 import com.little.g.springcloud.user.model.OAuthUser;
-import com.little.g.springcloud.user.model.OAuthUserKey;
+import com.little.g.springcloud.user.model.OAuthUserExample;
 import com.little.g.springcloud.user.oauth.api.OAuthServicesApi;
 import com.little.g.springcloud.user.oauth.service.CustomOAuthService;
 import org.apache.commons.lang3.StringUtils;
@@ -61,9 +61,6 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 			r.setM("msg.oauth2.userinfo.failed");
 		}
 		// 查询用户信息是否已存在
-		OAuthUserKey key = new OAuthUserKey();
-		key.setOauthType(type);
-		key.setOpenid(oAuthUser.getOpenid());
 
 		if (StringUtils.isEmpty(deviceId)) {
 			deviceId = oAuthUser.getOpenid();
@@ -72,8 +69,9 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 		if (deviceType == null || deviceType <= 0) {
 			deviceType = DeviceTypeEnum.MOBILE.getValue();
 		}
-
-		OAuthUser oAuthUserRepo = oAuthUserMapper.selectByPrimaryKey(key);
+        OAuthUserExample example = new OAuthUserExample();
+        example.or().andOauthTypeEqualTo(type).andOpenidEqualTo(oAuthUser.getOpenid());
+        OAuthUser oAuthUserRepo = oAuthUserMapper.selectOneByExample(example);
 
 		OAuthUser mixOAuthUser;
 		if (oAuthUserRepo == null) {
@@ -81,7 +79,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 			mixOAuthUser = oAuthUser;
 			UserDTO user = new UserDTO();
 			BeanUtils.copyProperties(mixOAuthUser, user);
-			Long uid = userService.addUser(user);
+            Integer uid = userService.addUser(user);
 
 			mixOAuthUser.setUid(uid);
 			int row = oAuthUserMapper.insertSelective(mixOAuthUser);

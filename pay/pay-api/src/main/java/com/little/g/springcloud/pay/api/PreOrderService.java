@@ -35,7 +35,7 @@ public interface PreOrderService {
 	 * @param thirdyPayNo 三方支付流水
 	 * @return
 	 */
-	boolean updateStatus(@NotNull Long uid, @NotEmpty String preorderNo, Byte status,
-			@NotEmpty String payType, String thirdyPayNo);
+	boolean updateStatus(@NotNull Integer uid, @NotEmpty String preorderNo, Byte status,
+						 @NotEmpty String payType, String thirdyPayNo);
 
 }

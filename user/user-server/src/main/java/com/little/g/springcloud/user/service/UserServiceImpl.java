@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 	private SmsService smsService;
 
 	@Resource
-	private ValueOperations<String, Long> valueOperations;
+    private ValueOperations<String, Integer> valueOperations;
 
 	@Override
 	public UserDTO getUserInfoByMobile(@NotEmpty String mobile) {
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getUserById(Long uid) {
+    public UserDTO getUserById(Integer uid) {
 		if (uid == null) {
 			return null;
 		}
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Long addUser(UserDTO userDTO) {
+    public Integer addUser(UserDTO userDTO) {
 		User user = new User();
 		user.setMobile(userDTO.getMobile());
 		user.setUid(maxUid());
@@ -151,21 +151,21 @@ public class UserServiceImpl implements UserService {
 		return user.getUid();
 	}
 
-	private Long maxUid() {
-		Long uid;
+    private Integer maxUid() {
+        Integer uid;
 		String key = "uid_max";
 
 		// if exist , get and incr
 		Number r = valueOperations.get(key);
 		if (r != null) {
 			Number incr = valueOperations.increment(key);
-			return incr.longValue();
+            return incr.intValue();
 		}
 		else {
 			// if not exist , get max uid from db
 			uid = userMapperExt.maxUid();
 			if (uid == null || uid <= 0) {
-				uid = 10000l;
+                uid = 10000;
 			}
 			uid = uid + 1;
 			valueOperations.set(key, (uid));

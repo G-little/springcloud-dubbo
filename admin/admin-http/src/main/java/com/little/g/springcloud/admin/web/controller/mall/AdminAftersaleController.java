@@ -194,7 +194,7 @@ public class AdminAftersaleController {
 
 		// 微信退款
 
-		PreRefundResult refund = littlePayService.refund(Long.valueOf(order.getUserId()),
+		PreRefundResult refund = littlePayService.refund(order.getUserId(),
 				PayType.WEXINPAY, order.getOrderSn(), totalFee, totalFee);
 		if (!refund.getErrorCode().equals("SUCCESS")) {
 			logger.warn("refund fail: " + refund.getErrorMsg());

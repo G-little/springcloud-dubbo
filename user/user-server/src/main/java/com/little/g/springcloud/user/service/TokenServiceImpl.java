@@ -41,15 +41,15 @@ public class TokenServiceImpl implements TokenService {
 	private RedisTemplate<String, UserDeviceTokenDTO> redisTemplate;
 
 	@Override
-	public UserDeviceTokenDTO createToken(@NotBlank @Min(1) Long uid,
-			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-			@Size(min = 1, max = 100) String os) {
+    public UserDeviceTokenDTO createToken(@NotBlank @Min(1) Integer uid,
+                                          @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+                                          @Size(min = 1, max = 100) String os) {
 		return createToken(uid, deviceId, deviceType, os, false);
 	}
 
-	private UserDeviceTokenDTO createToken(@NotBlank @Min(1) Long uid,
-			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-			@Size(min = 1, max = 100) String os, boolean refresh) {
+    private UserDeviceTokenDTO createToken(@NotBlank @Min(1) Integer uid,
+                                           @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+                                           @Size(min = 1, max = 100) String os, boolean refresh) {
 
 		long curTime = System.currentTimeMillis();
 		int time = (int) (curTime / 1000);
@@ -161,9 +161,9 @@ public class TokenServiceImpl implements TokenService {
 	}
 
 	@Override
-	public UserDeviceTokenDTO refreshToken(@NotBlank @Min(1) Long uid,
-			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-			@Size(min = 1, max = 100) String os, String refreshToken) {
+    public UserDeviceTokenDTO refreshToken(@NotBlank @Min(1) Integer uid,
+                                           @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+                                           @Size(min = 1, max = 100) String os, String refreshToken) {
 
 		UserDeviceTokenExample example = new UserDeviceTokenExample();
 		example.or().andUidEqualTo(uid).andDeviceIdEqualTo(deviceId)
@@ -188,9 +188,9 @@ public class TokenServiceImpl implements TokenService {
 	}
 
 	@Override
-	public boolean logout(@NotBlank @Min(1) Long uid,
-			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-			@Size(min = 1, max = 100) String os) {
+    public boolean logout(@NotBlank @Min(1) Integer uid,
+                          @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+                          @Size(min = 1, max = 100) String os) {
 		UserDeviceTokenExample example = new UserDeviceTokenExample();
 		example.or().andUidEqualTo(uid).andDeviceIdEqualTo(deviceId)
 				.andDeviceTypeEqualTo(deviceType);

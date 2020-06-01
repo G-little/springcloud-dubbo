@@ -16,9 +16,9 @@ public class PreorderDTO implements Serializable {
 
 	private Long totalFee;
 
-	private Long accountId;
+    private Integer accountId;
 
-	private Long oppositAccount;
+    private Integer oppositAccount;
 
 	private String tradeType;
 
@@ -60,19 +60,19 @@ public class PreorderDTO implements Serializable {
 		this.totalFee = totalFee;
 	}
 
-	public Long getAccountId() {
+    public Integer getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(Long accountId) {
+    public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}
 
-	public Long getOppositAccount() {
+    public Integer getOppositAccount() {
 		return oppositAccount;
 	}
 
-	public void setOppositAccount(Long oppositAccount) {
+    public void setOppositAccount(Integer oppositAccount) {
 		this.oppositAccount = oppositAccount;
 	}
 

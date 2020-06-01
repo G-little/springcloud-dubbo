@@ -16,7 +16,9 @@ import org.apache.commons.logging.LogFactory;
 import java.util.List;
 
 public class GrouponRuleExpiredTask extends Task {
+
     private final Log logger = LogFactory.getLog(GrouponRuleExpiredTask.class);
+
     private int grouponRuleId = -1;
 
     public GrouponRuleExpiredTask(Integer grouponRuleId, long delayInMilliseconds) {
@@ -29,10 +31,13 @@ public class GrouponRuleExpiredTask extends Task {
         logger.info("系统开始处理延时任务---团购规则过期---" + this.grouponRuleId);
 
         LitemallOrderService orderService = BeanUtil.getBean(LitemallOrderService.class);
-        LitemallGrouponService grouponService = BeanUtil.getBean(LitemallGrouponService.class);
-        LitemallGrouponRulesService grouponRulesService = BeanUtil.getBean(LitemallGrouponRulesService.class);
+        LitemallGrouponService grouponService = BeanUtil
+                .getBean(LitemallGrouponService.class);
+        LitemallGrouponRulesService grouponRulesService = BeanUtil
+                .getBean(LitemallGrouponRulesService.class);
 
-        LitemallGrouponRulesDTO grouponRules = grouponRulesService.findById(grouponRuleId);
+        LitemallGrouponRulesDTO grouponRules = grouponRulesService
+                .findById(grouponRuleId);
         if (grouponRules == null) {
             return;
         }
@@ -44,7 +49,8 @@ public class GrouponRuleExpiredTask extends Task {
         grouponRules.setStatus(GrouponConstant.RULE_STATUS_DOWN_EXPIRE);
         grouponRulesService.updateById(grouponRules);
 
-        List<LitemallGrouponDTO> grouponList = grouponService.queryByRuleId(grouponRuleId);
+        List<LitemallGrouponDTO> grouponList = grouponService
+                .queryByRuleId(grouponRuleId);
         // 用户团购处理
         for (LitemallGrouponDTO groupon : grouponList) {
             Short status = groupon.getStatus();
@@ -66,4 +72,5 @@ public class GrouponRuleExpiredTask extends Task {
         }
         logger.info("系统结束处理延时任务---团购规则过期---" + this.grouponRuleId);
     }
+
 }

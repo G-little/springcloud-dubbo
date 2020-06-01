@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class FrozenRecordDTO implements Serializable {
 
-	private Long uid;
+    private Integer uid;
 
 	private String tradeNum;
 
@@ -68,11 +68,11 @@ public class FrozenRecordDTO implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Long getUid() {
+    public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+    public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

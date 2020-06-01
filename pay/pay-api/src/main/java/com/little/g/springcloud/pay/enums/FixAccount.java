@@ -8,18 +8,17 @@ import com.little.g.springcloud.pay.dto.Account;
 public enum FixAccount {
 
 	/* 冲帐用 */
-	LITTLE_G(10000L, "系统账户",
-			new com.little.g.springcloud.pay.dto.FixAccount(10000L, true)), THIRD_PAY(
-					9999L, "三方支付",
-					new com.little.g.springcloud.pay.dto.FixAccount(9999L, true));
+	LITTLE_G(10000, "系统账户",
+			new com.little.g.springcloud.pay.dto.FixAccount(10000, true)), THIRD_PAY(9999,
+			"三方支付", new com.little.g.springcloud.pay.dto.FixAccount(9999, true));
 
-	FixAccount(Long value, String desc, Account account) {
+	FixAccount(Integer value, String desc, Account account) {
 		this.value = value;
 		this.desc = desc;
 		this.account = account;
 	}
 
-	public Long value;
+	public Integer value;
 
 	public String desc;
 
@@ -33,11 +32,11 @@ public enum FixAccount {
 		return account;
 	}
 
-	public Long getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
-	public static boolean isFixAccount(Long uid) {
+	public static boolean isFixAccount(Integer uid) {
 		boolean flag = false;
 		for (FixAccount account : FixAccount.values()) {
 			if (account.getValue().equals(uid)) {

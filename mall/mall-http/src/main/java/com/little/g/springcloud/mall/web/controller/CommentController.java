@@ -140,18 +140,16 @@ public class CommentController {
 		List<LitemallCommentDTO> commentList = commentPage.getList();
 
 		List<Map<String, Object>> commentVoList = new ArrayList<>(commentList.size());
-		for (LitemallCommentDTO comment : commentList) {
+		commentList.forEach(comment -> {
 			Map<String, Object> commentVo = new HashMap<>();
 			commentVo.put("addTime", comment.getAddTime());
 			commentVo.put("content", comment.getContent());
 			commentVo.put("adminContent", comment.getAdminContent());
 			commentVo.put("picList", comment.getPicUrls());
-
-			UserDTO userInfo = userService.getUserById(Long.valueOf(comment.getUserId()));
+			UserDTO userInfo = userService.getUserById(comment.getUserId());
 			commentVo.put("userInfo", userInfo);
-
 			commentVoList.add(commentVo);
-		}
+		});
 		return ResponseUtil.okList(commentVoList, commentPage);
 	}
 

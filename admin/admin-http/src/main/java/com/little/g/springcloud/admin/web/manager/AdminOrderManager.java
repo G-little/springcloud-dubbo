@@ -115,7 +115,7 @@ public class AdminOrderManager {
 
 		// 元转成分
 		Long totalFee = order.getActualPrice().multiply(new BigDecimal(100)).longValue();
-		PreRefundResult refund = littlePayService.refund(Long.valueOf(order.getUserId()),
+		PreRefundResult refund = littlePayService.refund(order.getUserId(),
 				PayType.WEXINPAY, order.getOrderSn(), totalFee, totalFee);
 		if (!refund.getErrorCode().equals("SUCCESS")) {
 			log.warn("refund fail: " + refund.getErrorMsg());

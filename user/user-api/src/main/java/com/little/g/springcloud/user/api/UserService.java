@@ -42,7 +42,7 @@ public interface UserService {
 	 * @param uid
 	 * @return
 	 */
-	UserDTO getUserById(Long uid);
+    UserDTO getUserById(Integer uid);
 
 	/**
 	 * 更新用户信息
@@ -56,7 +56,7 @@ public interface UserService {
 	 * @param userDTO
 	 * @return
 	 */
-	Long addUser(UserDTO userDTO);
+    Integer addUser(UserDTO userDTO);
 
 	/**
 	 * 创建注册返回值

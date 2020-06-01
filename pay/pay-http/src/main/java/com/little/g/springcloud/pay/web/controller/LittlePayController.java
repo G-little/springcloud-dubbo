@@ -43,13 +43,13 @@ public class LittlePayController {
 
 	@RequestMapping
 	public ResultJson pay(@RequestParam String preorderNo) {
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+		Integer uid = HeaderParamsHolder.getHeader().getUid();
 		return littlePayService.pay(uid, preorderNo);
 	}
 
 	@RequestMapping("/charge")
 	public ResultJson charge(@RequestParam Double money) {
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+		Integer uid = HeaderParamsHolder.getHeader().getUid();
 		Long moneyFen = MoneyUtil.double2Long(money);
 		OrderResult r = chargeService.createChargeOrder(uid, moneyFen);
 
@@ -62,7 +62,7 @@ public class LittlePayController {
 	@RequestMapping("/{payType}/thirdpay")
 	public ResultJson thirdpay(@PathVariable("payType") String payType,
 			@RequestParam String preorderNo) {
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+		Integer uid = HeaderParamsHolder.getHeader().getUid();
 		return littlePayService.thirdpay(uid, payType, preorderNo);
 	}
 
@@ -75,7 +75,7 @@ public class LittlePayController {
 	@RequestMapping("/{payType}/params")
 	public ResultJson params(@PathVariable("payType") String payType,
 			@RequestParam String preorderNo) {
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+		Integer uid = HeaderParamsHolder.getHeader().getUid();
 		return littlePayService.prePay(uid, payType, preorderNo);
 	}
 

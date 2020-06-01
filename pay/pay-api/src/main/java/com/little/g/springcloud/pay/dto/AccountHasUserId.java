@@ -5,6 +5,6 @@ package com.little.g.springcloud.pay.dto;
  */
 public interface AccountHasUserId extends Account {
 
-	long getUid();
+    Integer getUid();
 
 }

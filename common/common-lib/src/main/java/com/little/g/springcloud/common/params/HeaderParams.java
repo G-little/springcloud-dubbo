@@ -11,7 +11,7 @@ public class HeaderParams {
 	/**
 	 * 用户ID
 	 */
-	private Long uid;
+    private Integer uid;
 
 	/**
 	 * 用户手机号
@@ -73,14 +73,6 @@ public class HeaderParams {
 	private String appVersion;
 
 	private Locale locale;
-
-	public Long getUid() {
-		return uid;
-	}
-
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
 
 	public String getMobile() {
 		return mobile;
@@ -161,5 +153,13 @@ public class HeaderParams {
 	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
 }

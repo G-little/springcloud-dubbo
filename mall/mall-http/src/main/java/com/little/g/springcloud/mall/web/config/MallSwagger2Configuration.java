@@ -27,36 +27,30 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class MallSwagger2Configuration {
+
     @Bean
     public Docket adminDocket() {
 
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("token").description("认证token")
-                .modelRef(new ModelRef("string")).parameterType("header")
-                .required(true).build();
+        tokenPar.name("token").description("认证token").modelRef(new ModelRef("string"))
+                .parameterType("header").required(true).build();
         pars.add(tokenPar.build());
         ParameterBuilder devicePar = new ParameterBuilder();
-        devicePar.name("deviceId").description("设备号")
-                .modelRef(new ModelRef("string")).parameterType("header")
-                .required(true).build();
+        devicePar.name("deviceId").description("设备号").modelRef(new ModelRef("string"))
+                .parameterType("header").required(true).build();
         pars.add(devicePar.build());
 
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("mall")
-                .apiInfo(adminApiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.little.g.springcloud.mall.web"))
-                .paths(PathSelectors.any())
-                .build()
-                .globalOperationParameters(pars);
+        return new Docket(DocumentationType.SWAGGER_2).groupName("mall")
+                .apiInfo(adminApiInfo()).select()
+                .apis(RequestHandlerSelectors
+                        .basePackage("com.little.g.springcloud.mall.web"))
+                .paths(PathSelectors.any()).build().globalOperationParameters(pars);
     }
 
     private ApiInfo adminApiInfo() {
-        return new ApiInfoBuilder()
-                .title("mall API")
-                .description("商城Api")
-                .version("1.0")
+        return new ApiInfoBuilder().title("mall API").description("商城Api").version("1.0")
                 .build();
     }
+
 }

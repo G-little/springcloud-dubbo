@@ -23,7 +23,6 @@ import javax.validation.Valid;
 
 /**
  * Created by lengligang on 2019/3/22.
- *
  */
 @RestController
 @RequestMapping("/user")
@@ -43,7 +42,7 @@ public class UserController {
 		ResultJson result = new ResultJson();
 		// 当前登录版本号为1
 		Integer interVersion = mobileSendParams.getLoginVersion();
-		if (interVersion == null || interVersion != UserConstants.smsVersion) {
+        if (interVersion == null || !interVersion.equals(UserConstants.smsVersion)) {
 			result.setC(ResultJson.INVALID_PARAM);
 			result.setM("msg.sms.version.invalid");
 			return result;
@@ -76,7 +75,7 @@ public class UserController {
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public ResultJson get() {
 		ResultJson r = new ResultJson();
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+        Integer uid = HeaderParamsHolder.getHeader().getUid();
 		UserDTO userDTO = userService.getUserById(uid);
 		r.setData(userDTO);
 		return r;
@@ -85,7 +84,7 @@ public class UserController {
 	@RequestMapping("/update")
 	public ResultJson update(@Valid UserUpdateParam param) {
 		ResultJson result = new ResultJson();
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+        Integer uid = HeaderParamsHolder.getHeader().getUid();
 		param.setUid(uid);
 		boolean r = userService.update(param);
 		if (!r) {

@@ -5,13 +5,13 @@ package com.little.g.springcloud.user.web.form;
  */
 public class BaseParams {
 
-	private Long uid;
+    private Integer uid;
 
-	public Long getUid() {
+    public Integer getUid() {
 		return uid;
 	}
 
-	public void setUid(Long uid) {
+    public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

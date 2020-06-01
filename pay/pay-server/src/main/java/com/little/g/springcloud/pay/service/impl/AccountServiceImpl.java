@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
-	public void createUserAccount(long uid) {
+    public void createUserAccount(Integer uid) {
 		transactionService.createAccount(new NormalUserAccount(uid));
 	}
 
@@ -78,8 +78,8 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
-	public List<TransactionRecordDTO> transfer(long fromUid, long toUid, long amount,
-			String transNum, BusinessType btype, String desc) {
+    public List<TransactionRecordDTO> transfer(Integer fromUid, Integer toUid,
+                                               long amount, String transNum, BusinessType btype, String desc) {
 		return transactionService.transfer(new NormalUserAccount(fromUid),
 				new NormalUserAccount(toUid), amount, transNum, btype, desc);
 	}
@@ -87,8 +87,8 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
-	public List<TransactionRecordDTO> froze(long uid, long amount, String transNum,
-			BusinessType btype, String desc) {
+    public List<TransactionRecordDTO> froze(Integer uid, long amount, String transNum,
+                                            BusinessType btype, String desc) {
 		return transactionService.transfer(new NormalUserAccount(uid),
 				new FrozenAccount(transNum), amount, transNum, btype, desc);
 	}
@@ -96,14 +96,14 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
-	public List<TransactionRecordDTO> unfroze(String srcTransNum, long amount, long toUid,
-			String transNum, BusinessType btype, String desc) {
+    public List<TransactionRecordDTO> unfroze(String srcTransNum, long amount,
+                                              Integer toUid, String transNum, BusinessType btype, String desc) {
 		return transactionService.transfer(new FrozenAccount(srcTransNum),
 				new NormalUserAccount(toUid), amount, transNum, btype, desc);
 	}
 
 	@Override
-	public Page<FrozenRecordDTO> listFrozenRecords(long uid, int page, int pageSize) {
+    public Page<FrozenRecordDTO> listFrozenRecords(Integer uid, int page, int pageSize) {
 		Preconditions.checkArgument(uid > 0);
 		Preconditions.checkArgument(page >= 0);
 		Preconditions.checkArgument(pageSize > 0 && pageSize < 200);

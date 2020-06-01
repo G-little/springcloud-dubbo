@@ -603,7 +603,7 @@ public class OrderManager {
 
 	private ResultJson createPayParams(Integer userId, LitemallOrderDTO order) {
 		PreOrderParams params = new PreOrderParams();
-		params.setAccountId(Long.valueOf(userId));
+		params.setAccountId(userId);
 		params.setMchId(MerchantId.LittelG.getValue());
 		params.setComment("支付订单");
 		params.setOppositAccount(FixAccount.LITTLE_G.getValue());
@@ -615,7 +615,7 @@ public class OrderManager {
 		params.setOutTradeNo(order.getOrderSn());
 		PreorderDTO preorderDTO = preOrderService.create(params);
 
-		return littlePayService.prePay(Long.valueOf(userId), PayType.WEXINPAY,
+		return littlePayService.prePay(userId, PayType.WEXINPAY,
 				preorderDTO.getPreOrderNo());
 	}
 

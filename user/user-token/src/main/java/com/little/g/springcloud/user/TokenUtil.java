@@ -13,7 +13,7 @@ import java.io.IOException;
 public class TokenUtil {
 
 	public static void main(String[] args) throws Exception {
-		Long uid = 178934567L;
+		Integer uid = 178934567;
 		String token1 = generatorToken(uid, TokenVersion.VERSION_2.getValue());
 		System.out.println("生成的token1为：" + token1 + "\n长度1为：" + token1.length());
 
@@ -25,7 +25,7 @@ public class TokenUtil {
 	 * @param version token的版本号
 	 * @return
 	 */
-	public static String generatorToken(Long uid, int version) throws IOException {
+	public static String generatorToken(Integer uid, int version) throws IOException {
 
 		// 获取当前系统时间，以秒为单位
 		int time = TokenCommonUtil.getSecondTime();
@@ -40,7 +40,7 @@ public class TokenUtil {
 	 * @param version token的版本号
 	 * @return
 	 */
-	public static String generatorToken(Long uid, int version, int time) {
+	public static String generatorToken(Integer uid, int version, int time) {
 
 		// 读取配置文件，通过版本号取得对应的token的加密解密的密钥，及自校验位的生成方式
 		TokenVersionConfig tokenVersionConfig = TokenVersionFactory
@@ -98,8 +98,8 @@ public class TokenUtil {
 	 * @param create_token_key token生成的密钥
 	 * @return 中间8字节
 	 */
-	private static byte[] generate8MD5ByVersion(int version, Long uid,
-			String create_token_key) {
+	private static byte[] generate8MD5ByVersion(int version, Integer uid,
+												String create_token_key) {
 		if (version == TokenVersion.VERSION_1.getValue()) {
 			String udidBuilder = uid + create_token_key + System.currentTimeMillis();
 			byte[] udidBytes = TokenCommonUtil
@@ -130,10 +130,10 @@ public class TokenUtil {
 		return null;
 	}
 
-	private static int getBytesLength(Long uid) {
-		return Long.toBinaryString(uid).length() % 8 == 0
-				? Long.toBinaryString(uid).length() / 8
-				: Long.toBinaryString(uid).length() / 8 + 1;
+	private static int getBytesLength(Integer uid) {
+		return Integer.toBinaryString(uid).length() % 8 == 0
+				? Integer.toBinaryString(uid).length() / 8
+				: Integer.toBinaryString(uid).length() / 8 + 1;
 	}
 
 }

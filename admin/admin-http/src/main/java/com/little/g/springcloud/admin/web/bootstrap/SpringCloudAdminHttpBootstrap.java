@@ -36,11 +36,11 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @ComponentScan(basePackages = {"com.little.g.springcloud.admin",
         "com.little.g.springcloud.common.cache", "com.little.g.springcloud.common.task"})
 public class SpringCloudAdminHttpBootstrap {
+
     @Bean
     public BeanUtil beanUtil() {
         return new BeanUtil();
     }
-
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(SpringCloudAdminHttpBootstrap.class)

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UserAccountDTO implements Serializable {
 
-	private Long uid;
+    private Integer uid;
 
 	private Long money;
 
@@ -17,14 +17,6 @@ public class UserAccountDTO implements Serializable {
 	private Long createTime;
 
 	private static final long serialVersionUID = 1L;
-
-	public Long getUid() {
-		return uid;
-	}
-
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
 
 	public Long getMoney() {
 		return money;
@@ -65,5 +57,13 @@ public class UserAccountDTO implements Serializable {
 	public void setCreateTime(Long createTime) {
 		this.createTime = createTime;
 	}
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
 }

@@ -69,10 +69,11 @@ public class TransactionServiceImpl implements TransactionService {
 		adaptor.init(account);
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
 	public List<TransactionRecordDTO> findTransaction(String transNum, Account from,
-			Account to) {
+													  Account to) {
 		TransactionRecordExample example = new TransactionRecordExample();
 		example.or().andTradeNumEqualTo(transNum);
 
@@ -89,8 +90,8 @@ public class TransactionServiceImpl implements TransactionService {
 				&& td.getType() == TransactionType.OUTCOME.getValue().byteValue()
 				&& td.getOpposite().equals(to.getId()))
 				|| (td.getAccountId().equals(to.getId())
-						&& td.getType() == TransactionType.INCOME.getValue().byteValue()
-						&& td.getOpposite().equals(from.getId()))) {
+				&& td.getType() == TransactionType.INCOME.getValue().byteValue()
+				&& td.getOpposite().equals(from.getId()))) {
 			return createTransactionDTO(existsTransDetails);
 		}
 
@@ -196,9 +197,10 @@ public class TransactionServiceImpl implements TransactionService {
 		return accountAdaptor.getDetail(account);
 	}
 
+	@Override
 	@Transactional
 	public CheckBalanceResultDTO checkBalance(Account account, boolean useCheckpoint,
-			boolean saveCheckpoint) {
+											  boolean saveCheckpoint) {
 		AccountAdaptor<Account> accountAdaptor = getAccountAdaptor(account);
 
 		long balance = accountAdaptor.getBalance(account);
@@ -230,12 +232,12 @@ public class TransactionServiceImpl implements TransactionService {
 			TransactionType t = TransactionType.valueOf(log.getType());
 			maxId = log.getId();
 			switch (t) {
-			case INCOME:
-			case OUTCOME:
-				expectedBalance += log.getMoney();
-				break;
-			default:
-				throw new ServiceDataException(1);
+				case INCOME:
+				case OUTCOME:
+					expectedBalance += log.getMoney();
+					break;
+				default:
+					throw new ServiceDataException(1);
 			}
 		}
 
@@ -261,8 +263,7 @@ public class TransactionServiceImpl implements TransactionService {
 			checkpoint.setUpdateTime(System.currentTimeMillis());
 			if (checkpoint.getId() == null) {
 				balanceCheckpointMapper.insert(checkpoint);
-			}
-			else {
+			} else {
 				balanceCheckpointMapper.updateByPrimaryKey(checkpoint);
 			}
 			LOGGER.info("Check balance updated checkpoint. checkpoint={}", checkpoint);
@@ -286,6 +287,7 @@ public class TransactionServiceImpl implements TransactionService {
 		return null;
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
 			isolation = Isolation.READ_COMMITTED)
 	public List<TransactionRecordDTO> strikeBalance(Account account) {
@@ -312,8 +314,7 @@ public class TransactionServiceImpl implements TransactionService {
 					result.getMoneyDifference(), trans2, BusinessType.STRIKE_BALANCE,
 					"冲帐"));
 
-		}
-		else { // 余额小于流水
+		} else { // 余额小于流水
 			String trans1 = TransactionNumUtil
 					.generate(TransactionNumUtil.PREFIX_STRIKE_A_BALANCE);
 			ret.addAll(logTransaction(account.getId(),

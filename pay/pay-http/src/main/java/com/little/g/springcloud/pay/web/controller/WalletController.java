@@ -33,7 +33,7 @@ public class WalletController {
 
 	@RequestMapping
 	public ResultJson wallet() {
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+		Integer uid = HeaderParamsHolder.getHeader().getUid();
 		ResultJson r = new ResultJson();
 		UserAccountDTO userAccountDTO = userAccountService.queryUserAccount(uid);
 		r.setData(convert2VO(userAccountDTO));
@@ -42,7 +42,7 @@ public class WalletController {
 
 	@RequestMapping("/transactions")
 	public ResultJson transactions(@Valid UidTimeQueryParam param) {
-		Long uid = HeaderParamsHolder.getHeader().getUid();
+		Integer uid = HeaderParamsHolder.getHeader().getUid();
 		ResultJson r = new ResultJson();
 		param.setUid(uid);
 		ListResultDTO<TransactionRecordDTO> result = transactionService.list(param);
