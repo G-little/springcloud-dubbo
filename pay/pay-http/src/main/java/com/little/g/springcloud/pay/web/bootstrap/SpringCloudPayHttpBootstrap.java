@@ -18,6 +18,7 @@ package com.little.g.springcloud.pay.web.bootstrap;
 
 import com.little.g.springcloud.common.web.annotation.EnableCmdErrorMsg;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,15 +27,15 @@ import org.springframework.context.annotation.ComponentScan;
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableCmdErrorMsg
-@ComponentScan(basePackages = { "com.little.g.springcloud.pay",
-		"com.little.g.springcloud.common.cache" })
+@ComponentScan(basePackages = {"com.little.g.springcloud.pay",
+        "com.little.g.springcloud.common.cache"})
 public class SpringCloudPayHttpBootstrap {
 
-	public static void main(String[] args) {
-		new SpringApplicationBuilder(SpringCloudPayHttpBootstrap.class)
-				.properties("spring.profiles.active=nacos").run(args);
-	}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(SpringCloudPayHttpBootstrap.class)
+                .properties("spring.profiles.active=nacos").run(args);
+    }
 
 }
