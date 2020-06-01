@@ -5,7 +5,8 @@ import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.common.web.annotation.LoginUser;
 import com.little.g.springcloud.mall.api.LitemallFeedbackService;
 import com.little.g.springcloud.mall.dto.LitemallFeedbackDTO;
-import com.little.g.springcloud.mall.dto.LitemallUserDTO;
+import com.little.g.springcloud.user.api.UserService;
+import com.little.g.springcloud.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
@@ -31,7 +32,7 @@ public class FeedbackController {
 	private LitemallFeedbackService feedbackService;
 
 	@Reference
-	private LitemallUserService userService;
+	private UserService userService;
 
 	private Object validate(LitemallFeedbackDTO feedback) {
 		String content = feedback.getContent();
@@ -77,8 +78,8 @@ public class FeedbackController {
 			return error;
 		}
 
-		LitemallUserDTO user = userService.findById(userId);
-		String username = user.getUsername();
+		UserDTO user = userService.getUserById(userId);
+		String username = user.getName();
 		feedback.setId(null);
 		feedback.setUserId(userId);
 		feedback.setUsername(username);

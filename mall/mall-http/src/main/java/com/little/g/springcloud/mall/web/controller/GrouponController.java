@@ -9,9 +9,11 @@ import com.little.g.springcloud.mall.dto.*;
 import com.little.g.springcloud.mall.util.OrderUtil;
 import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
-import com.little.g.springcloud.mall.vo.UserVo;
 import com.little.g.springcloud.mall.web.manager.GrouponRuleManager;
 import com.little.g.springcloud.mall.web.vo.GrouponRuleVo;
+import com.little.g.springcloud.user.api.UserService;
+import com.little.g.springcloud.user.dto.UserDTO;
+import com.little.g.springcloud.user.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,7 @@ public class GrouponController {
 	private LitemallOrderGoodsService orderGoodsService;
 
 	@Reference
-	private LitemallUserService userService;
+	private UserService userService;
 
 	@Reference
 	private ExpressService expressService;
@@ -237,24 +239,24 @@ public class GrouponController {
 
 		LitemallOrderDTO order;
 		LitemallGrouponRulesDTO rules;
-		LitemallUserDTO creator;
+		UserDTO creator;
 		for (LitemallGrouponDTO groupon : myGroupons) {
 			order = orderService.findById(userId, groupon.getOrderId());
 			rules = rulesService.findById(groupon.getRulesId());
-			creator = userService.findById(groupon.getCreatorUserId());
+			creator = userService.getUserById(groupon.getCreatorUserId());
 
 			Map<String, Object> grouponVo = new HashMap<>();
 			// 填充团购信息
 			grouponVo.put("id", groupon.getId());
 			grouponVo.put("groupon", groupon);
 			grouponVo.put("rules", rules);
-			grouponVo.put("creator", creator.getNickname());
+			grouponVo.put("creator", creator.getName());
 
 			int linkGrouponId;
 			// 这是一个团购发起记录
 			if (groupon.getGrouponId() == 0) {
 				linkGrouponId = groupon.getId();
-				grouponVo.put("isCreator", creator.getId().equals(userId));
+				grouponVo.put("isCreator", creator.getUid().equals(userId));
 			}
 			else {
 				linkGrouponId = groupon.getGrouponId();

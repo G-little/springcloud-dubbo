@@ -26,7 +26,7 @@ public interface LittlePayService {
 	 * @return
 	 */
 	ResultJson prePay(@NotBlank Integer uid, @NotEmpty String payType,
-					  @NotEmpty String preorderNo);
+			@NotEmpty String preorderNo);
 
 	/**
 	 * 使用三方支付订单
@@ -36,7 +36,7 @@ public interface LittlePayService {
 	 * @return
 	 */
 	ResultJson thirdpay(@NotBlank Integer uid, @NotEmpty String payType,
-						@NotEmpty String preorderNo);
+			@NotEmpty String preorderNo);
 
 	/**
 	 * 余额支付
@@ -62,6 +62,6 @@ public interface LittlePayService {
 	 * @return 退款结果
 	 */
 	PreRefundResult refund(Integer uid, @NotEmpty String payType,
-						   @NotEmpty String orderNo, Long total, Long money);
+			@NotEmpty String orderNo, Long total, Long money);
 
 }

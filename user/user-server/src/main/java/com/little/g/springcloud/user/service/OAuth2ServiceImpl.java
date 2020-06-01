@@ -69,9 +69,9 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 		if (deviceType == null || deviceType <= 0) {
 			deviceType = DeviceTypeEnum.MOBILE.getValue();
 		}
-        OAuthUserExample example = new OAuthUserExample();
-        example.or().andOauthTypeEqualTo(type).andOpenidEqualTo(oAuthUser.getOpenid());
-        OAuthUser oAuthUserRepo = oAuthUserMapper.selectOneByExample(example);
+		OAuthUserExample example = new OAuthUserExample();
+		example.or().andOauthTypeEqualTo(type).andOpenidEqualTo(oAuthUser.getOpenid());
+		OAuthUser oAuthUserRepo = oAuthUserMapper.selectOneByExample(example);
 
 		OAuthUser mixOAuthUser;
 		if (oAuthUserRepo == null) {
@@ -79,7 +79,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 			mixOAuthUser = oAuthUser;
 			UserDTO user = new UserDTO();
 			BeanUtils.copyProperties(mixOAuthUser, user);
-            Integer uid = userService.addUser(user);
+			Integer uid = userService.addUser(user);
 
 			mixOAuthUser.setUid(uid);
 			int row = oAuthUserMapper.insertSelective(mixOAuthUser);

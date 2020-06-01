@@ -83,7 +83,7 @@ public class LittlePayServiceImpl implements LittlePayService {
 
 	@Override
 	public ResultJson prePay(Integer uid, @NotEmpty String payType,
-							 @NotEmpty String preorderNo) {
+			@NotEmpty String preorderNo) {
 		ResultJson result = new ResultJson();
 		PreorderDTO preorderDTO = getUserPreorder(uid, preorderNo);
 

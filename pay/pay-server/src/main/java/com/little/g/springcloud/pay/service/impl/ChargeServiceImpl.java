@@ -46,8 +46,8 @@ public class ChargeServiceImpl implements ChargeService {
 	@Resource
 	private TransactionService transactionService;
 
-    @Override
-    public ChargeRecordDTO get(Integer uid, String preorderNo) {
+	@Override
+	public ChargeRecordDTO get(Integer uid, String preorderNo) {
 		ChargeRecordExample example = new ChargeRecordExample();
 		example.or().andUidEqualTo(uid).andPreorderNoEqualTo(preorderNo);
 		List<ChargeRecord> list = chargeRecordMapper.selectByExample(example);
@@ -79,9 +79,9 @@ public class ChargeServiceImpl implements ChargeService {
 		charge.setPreorderNo(params.getPreorderNo());
 		charge.setMchId(params.getMchId());
 
-        if (chargeRecordMapper.insert(charge) <= 0) {
-            return null;
-        }
+		if (chargeRecordMapper.insert(charge) <= 0) {
+			return null;
+		}
 		ChargeRecordDTO d = new ChargeRecordDTO();
 		BeanUtils.copyProperties(charge, d);
 
@@ -89,9 +89,9 @@ public class ChargeServiceImpl implements ChargeService {
 
 	}
 
-    @Override
-    public OrderResult createChargeOrder(@NotNull Integer uid,
-                                         @NotNull @Min(1) Long money) {
+	@Override
+	public OrderResult createChargeOrder(@NotNull Integer uid,
+			@NotNull @Min(1) Long money) {
 
 		String tranNum = TransactionNumUtil.generateChageNum();
 

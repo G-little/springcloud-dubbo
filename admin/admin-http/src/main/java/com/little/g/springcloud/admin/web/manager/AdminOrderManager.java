@@ -10,9 +10,11 @@ import com.little.g.springcloud.mall.dto.LitemallOrderDTO;
 import com.little.g.springcloud.mall.dto.LitemallOrderGoodsDTO;
 import com.little.g.springcloud.mall.enums.NotifyType;
 import com.little.g.springcloud.mall.util.OrderUtil;
-import com.little.g.springcloud.mall.vo.UserVo;
 import com.little.g.springcloud.pay.api.LittlePayService;
 import com.little.g.springcloud.thirdpay.dto.PreRefundResult;
+import com.little.g.springcloud.user.api.UserService;
+import com.little.g.springcloud.user.dto.UserDTO;
+import com.little.g.springcloud.user.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class AdminOrderManager {
 	private LitemallGoodsProductService productService;
 
 	@Reference
-	private LitemallUserService userService;
+	private UserService userService;
 
 	@Reference
 	private LitemallCommentService commentService;
@@ -67,7 +69,12 @@ public class AdminOrderManager {
 	public Object detail(Integer id) {
 		LitemallOrderDTO order = orderService.findById(id);
 		List<LitemallOrderGoodsDTO> orderGoods = orderGoodsService.queryByOid(id);
-		UserVo user = userService.findUserVoById(order.getUserId());
+		UserDTO user = userService.getUserById(order.getUserId());
+		UserVo vo = new UserVo();
+		if (user != null) {
+			vo.setAvatar(user.getAvatar());
+			vo.setNickname(user.getName());
+		}
 		Map<String, Object> data = new HashMap<>();
 		data.put("order", order);
 		data.put("orderGoods", orderGoods);

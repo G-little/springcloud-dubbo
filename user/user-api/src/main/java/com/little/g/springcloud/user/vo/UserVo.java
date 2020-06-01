@@ -1,4 +1,4 @@
-package com.little.g.springcloud.mall.vo;
+package com.little.g.springcloud.user.vo;
 
 import java.io.Serializable;
 

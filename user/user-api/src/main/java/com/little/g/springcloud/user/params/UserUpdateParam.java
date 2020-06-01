@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class UserUpdateParam implements Serializable {
 
-    private Integer uid;
+	private Integer uid;
 
 	@Size(min = 1, max = 200)
 	private String avatar;
@@ -55,12 +55,12 @@ public class UserUpdateParam implements Serializable {
 		this.birthday = birthday;
 	}
 
-    public Integer getUid() {
-        return uid;
-    }
+	public Integer getUid() {
+		return uid;
+	}
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
 
 }

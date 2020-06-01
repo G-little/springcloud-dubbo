@@ -99,7 +99,7 @@ public class TokenUtil {
 	 * @return 中间8字节
 	 */
 	private static byte[] generate8MD5ByVersion(int version, Integer uid,
-												String create_token_key) {
+			String create_token_key) {
 		if (version == TokenVersion.VERSION_1.getValue()) {
 			String udidBuilder = uid + create_token_key + System.currentTimeMillis();
 			byte[] udidBytes = TokenCommonUtil

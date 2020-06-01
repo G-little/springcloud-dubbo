@@ -15,7 +15,7 @@ public class ChargeParams implements Serializable {
 	private String preorderNo;
 
 	@NotEmpty
-    private Integer accountId;
+	private Integer accountId;
 
 	@Min(1)
 	private Long money;
@@ -38,11 +38,11 @@ public class ChargeParams implements Serializable {
 		this.preorderNo = preorderNo;
 	}
 
-    public Integer getAccountId() {
+	public Integer getAccountId() {
 		return accountId;
 	}
 
-    public void setAccountId(Integer accountId) {
+	public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}
 

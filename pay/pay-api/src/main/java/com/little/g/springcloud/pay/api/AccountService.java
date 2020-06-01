@@ -18,7 +18,7 @@ public interface AccountService {
 	 * 创建账户
 	 * @param uid 用户ID
 	 */
-    void createUserAccount(Integer uid);
+	void createUserAccount(Integer uid);
 
 	/**
 	 * 获取账户信息
@@ -57,8 +57,8 @@ public interface AccountService {
 	 * @param desc
 	 * @return
 	 */
-    List<TransactionRecordDTO> transfer(Integer fromUid, Integer toUid, long amount,
-                                        String transNum, BusinessType btype, String desc);
+	List<TransactionRecordDTO> transfer(Integer fromUid, Integer toUid, long amount,
+			String transNum, BusinessType btype, String desc);
 
 	/**
 	 * 冻结
@@ -69,8 +69,8 @@ public interface AccountService {
 	 * @param desc
 	 * @return
 	 */
-    List<TransactionRecordDTO> froze(Integer uid, long amount, String transNum,
-                                     BusinessType btype, String desc);
+	List<TransactionRecordDTO> froze(Integer uid, long amount, String transNum,
+			BusinessType btype, String desc);
 
 	/**
 	 * 解冻
@@ -82,8 +82,8 @@ public interface AccountService {
 	 * @param desc
 	 * @return
 	 */
-    List<TransactionRecordDTO> unfroze(String srcTransNum, long amount, Integer toUid,
-                                       String transNum, BusinessType btype, String desc);
+	List<TransactionRecordDTO> unfroze(String srcTransNum, long amount, Integer toUid,
+			String transNum, BusinessType btype, String desc);
 
 	/**
 	 * 分页查询
@@ -92,7 +92,7 @@ public interface AccountService {
 	 * @param pageSize
 	 * @return
 	 */
-    Page<FrozenRecordDTO> listFrozenRecords(Integer uid, int page, int pageSize);
+	Page<FrozenRecordDTO> listFrozenRecords(Integer uid, int page, int pageSize);
 
 	/**
 	 * 创建账户

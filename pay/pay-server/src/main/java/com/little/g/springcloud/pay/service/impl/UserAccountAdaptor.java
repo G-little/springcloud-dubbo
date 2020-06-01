@@ -156,7 +156,7 @@ public class UserAccountAdaptor implements AccountAdaptor<NormalUserAccount> {
 		}
 	}
 
-    private UserAccount initAccount(Integer uid) {
+	private UserAccount initAccount(Integer uid) {
 		UserAccount account = new UserAccount();
 		account.setUid(uid);
 		account.setUpdateTime(System.currentTimeMillis());

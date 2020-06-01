@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 public interface ChargeService {
 
-    ChargeRecordDTO get(@NotNull Integer uid, @NotEmpty String preorderNo);
+	ChargeRecordDTO get(@NotNull Integer uid, @NotEmpty String preorderNo);
 
 	ChargeRecordDTO create(@NotNull @Valid ChargeParams params);
 
@@ -22,7 +22,7 @@ public interface ChargeService {
 	 * @param money
 	 * @return
 	 */
-    OrderResult createChargeOrder(@NotNull Integer uid, @NotNull @Min(1) Long money);
+	OrderResult createChargeOrder(@NotNull Integer uid, @NotNull @Min(1) Long money);
 
 	/**
 	 * 更新充值成功状态

@@ -18,32 +18,33 @@ import java.util.List;
 @Component
 public class AdminTaskStartupRunner implements ApplicationRunner {
 
-    @Reference
-    private LitemallGrouponRulesService rulesService;
+	@Reference
+	private LitemallGrouponRulesService rulesService;
 
-    @Autowired
-    private TaskService taskService;
+	@Autowired
+	private TaskService taskService;
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        List<LitemallGrouponRulesDTO> grouponRulesList = rulesService
-                .queryByStatus(GrouponConstant.RULE_STATUS_ON);
-        if (CollectionUtils.isEmpty(grouponRulesList)) {
-            return;
-        }
-        for (LitemallGrouponRulesDTO grouponRules : grouponRulesList) {
-            LocalDateTime now = LocalDateTime.now();
-            LocalDateTime expire = grouponRules.getExpireTime();
-            if (expire.isBefore(now)) {
-                // 已经过期，则加入延迟队列
-                taskService.addTask(new GrouponRuleExpiredTask(grouponRules.getId(), 0));
-            } else {
-                // 还没过期，则加入延迟队列
-                long delay = ChronoUnit.MILLIS.between(now, expire);
-                taskService
-                        .addTask(new GrouponRuleExpiredTask(grouponRules.getId(), delay));
-            }
-        }
-    }
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		List<LitemallGrouponRulesDTO> grouponRulesList = rulesService
+				.queryByStatus(GrouponConstant.RULE_STATUS_ON);
+		if (CollectionUtils.isEmpty(grouponRulesList)) {
+			return;
+		}
+		for (LitemallGrouponRulesDTO grouponRules : grouponRulesList) {
+			LocalDateTime now = LocalDateTime.now();
+			LocalDateTime expire = grouponRules.getExpireTime();
+			if (expire.isBefore(now)) {
+				// 已经过期，则加入延迟队列
+				taskService.addTask(new GrouponRuleExpiredTask(grouponRules.getId(), 0));
+			}
+			else {
+				// 还没过期，则加入延迟队列
+				long delay = ChronoUnit.MILLIS.between(now, expire);
+				taskService
+						.addTask(new GrouponRuleExpiredTask(grouponRules.getId(), delay));
+			}
+		}
+	}
 
 }

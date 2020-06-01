@@ -111,9 +111,9 @@ public class PreOrderServiceImpl implements PreOrderService {
 		key.setPreOrderNo(preorderNo);
 
 		Preorder preorder = preorderMapper.selectByPrimaryKey(key);
-        if (preorder == null) {
-            return null;
-        }
+		if (preorder == null) {
+			return null;
+		}
 
 		PreorderDTO dto = new PreorderDTO();
 		BeanUtils.copyProperties(preorder, dto);
@@ -123,8 +123,8 @@ public class PreOrderServiceImpl implements PreOrderService {
 
 	@Transactional
 	@Override
-    public boolean updateStatus(@NotNull Integer uid, @NotEmpty String preorderNo,
-                                Byte status, @NotEmpty String payType, String thirdyPayNo) {
+	public boolean updateStatus(@NotNull Integer uid, @NotEmpty String preorderNo,
+			Byte status, @NotEmpty String payType, String thirdyPayNo) {
 
 		PreorderExample example = new PreorderExample();
 		example.or().andAccountIdEqualTo(uid).andPreOrderNoEqualTo(preorderNo)
@@ -157,7 +157,7 @@ public class PreOrderServiceImpl implements PreOrderService {
 				// 发送通知
 				ResultJson result = HttpUtils.post(preorder.getNotifyUrl(), null,
 						JSONObject.toJSONString(preorder), ResultJson.class);
-                if (result != null && result.getC().equals(ResultJson.SUCCESSFUL)) {
+				if (result != null && result.getC().equals(ResultJson.SUCCESSFUL)) {
 					return true;
 				}
 			}

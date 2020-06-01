@@ -4,6 +4,7 @@ import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.mall.api.LitemallGoodsProductService;
 import com.little.g.springcloud.mall.api.LitemallGoodsService;
 import com.little.g.springcloud.mall.api.LitemallOrderService;
+import com.little.g.springcloud.user.api.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.dubbo.config.annotation.Reference;
@@ -23,7 +24,7 @@ public class AdminDashbordController {
 	private final Log logger = LogFactory.getLog(AdminDashbordController.class);
 
 	@Reference
-	private LitemallUserService userService;
+	private UserService userService;
 
 	@Reference
 	private LitemallGoodsService goodsService;
@@ -36,12 +37,12 @@ public class AdminDashbordController {
 
 	@GetMapping("")
 	public Object info() {
-		int userTotal = userService.count();
+		long userTotal = userService.count();
 		int goodsTotal = goodsService.count();
 		int productTotal = productService.count();
 		int orderTotal = orderService.count();
 		Map<String, Integer> data = new HashMap<>();
-		data.put("userTotal", userTotal);
+		data.put("userTotal", new Long(userTotal).intValue());
 		data.put("goodsTotal", goodsTotal);
 		data.put("productTotal", productTotal);
 		data.put("orderTotal", orderTotal);

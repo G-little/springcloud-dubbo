@@ -13,7 +13,7 @@ public interface UserAccountService {
 	 * @param uid uid
 	 * @return if success
 	 */
-    boolean createUserAccount(Integer uid);
+	boolean createUserAccount(Integer uid);
 
 	/**
 	 * update user account status
@@ -21,13 +21,13 @@ public interface UserAccountService {
 	 * @param accountStatus user status enum;
 	 * @return
 	 */
-    boolean updateAccountStatus(Integer uid, AccountStatus accountStatus, String reason);
+	boolean updateAccountStatus(Integer uid, AccountStatus accountStatus, String reason);
 
 	/**
 	 * query user account
 	 * @param uid userId
 	 * @return userAccountStatus
 	 */
-    UserAccountDTO queryUserAccount(Integer uid);
+	UserAccountDTO queryUserAccount(Integer uid);
 
 }

@@ -30,21 +30,21 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @EnableCmdErrorMsg
 @EnableRedisHttpSession
-@ComponentScan(basePackages = {"com.little.g.springcloud.admin",
-        "com.little.g.springcloud.common.cache", "com.little.g.springcloud.common.task"})
+@ComponentScan(basePackages = { "com.little.g.springcloud.admin",
+		"com.little.g.springcloud.common.cache", "com.little.g.springcloud.common.task" })
 public class SpringCloudAdminHttpBootstrap {
 
-    @Bean
-    public BeanUtil beanUtil() {
-        return new BeanUtil();
-    }
+	@Bean
+	public BeanUtil beanUtil() {
+		return new BeanUtil();
+	}
 
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(SpringCloudAdminHttpBootstrap.class)
-                .properties("spring.profiles.active=nacos").run(args);
-    }
+	public static void main(String[] args) {
+		new SpringApplicationBuilder(SpringCloudAdminHttpBootstrap.class)
+				.properties("spring.profiles.active=nacos").run(args);
+	}
 
 }

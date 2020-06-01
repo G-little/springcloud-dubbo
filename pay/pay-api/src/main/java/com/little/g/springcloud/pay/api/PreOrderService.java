@@ -36,6 +36,6 @@ public interface PreOrderService {
 	 * @return
 	 */
 	boolean updateStatus(@NotNull Integer uid, @NotEmpty String preorderNo, Byte status,
-						 @NotEmpty String payType, String thirdyPayNo);
+			@NotEmpty String payType, String thirdyPayNo);
 
 }

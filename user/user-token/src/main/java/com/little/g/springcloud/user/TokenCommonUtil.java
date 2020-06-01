@@ -95,7 +95,7 @@ public class TokenCommonUtil {
 	 * @return
 	 */
 	public static Date secondTimeToDate(int time) {
-        long timeStamp = time * 1000L;
+		long timeStamp = time * 1000L;
 		Date date = new Date();
 		date.setTime(timeStamp);
 		return date;

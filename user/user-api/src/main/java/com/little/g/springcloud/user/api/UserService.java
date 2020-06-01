@@ -6,6 +6,7 @@ import com.little.g.springcloud.common.validate.annatations.DeviceType;
 import com.little.g.springcloud.user.dto.UserDTO;
 import com.little.g.springcloud.user.dto.UserJoininDTO;
 import com.little.g.springcloud.user.params.UserUpdateParam;
+import com.little.g.springcloud.user.vo.UserVo;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -42,7 +43,7 @@ public interface UserService {
 	 * @param uid
 	 * @return
 	 */
-    UserDTO getUserById(Integer uid);
+	UserDTO getUserById(Integer uid);
 
 	/**
 	 * 更新用户信息
@@ -56,7 +57,7 @@ public interface UserService {
 	 * @param userDTO
 	 * @return
 	 */
-    Integer addUser(UserDTO userDTO);
+	Integer addUser(UserDTO userDTO);
 
 	/**
 	 * 创建注册返回值
@@ -68,5 +69,18 @@ public interface UserService {
 	 */
 	UserJoininDTO createLoginReturn(@NotBlank String deviceId, Byte deviceType, String os,
 			UserDTO user);
+
+	/**
+	 * 查询用户总数
+	 * @return
+	 */
+	long count();
+
+	/**
+	 * 查询用户vo
+	 * @param uid 用户ID
+	 * @return 用户vo
+	 */
+	UserVo findUserVoById(Integer uid);
 
 }

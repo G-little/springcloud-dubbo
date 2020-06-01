@@ -26,10 +26,10 @@ public class PreOrderParams implements Serializable {
 	private Long totalFee;
 
 	@NotNull
-    private Integer accountId;
+	private Integer accountId;
 
 	@NotNull
-    private Integer oppositAccount;
+	private Integer oppositAccount;
 
 	@NotNull
 	private TradeType tradeType;
@@ -74,19 +74,19 @@ public class PreOrderParams implements Serializable {
 		this.totalFee = totalFee;
 	}
 
-    public Integer getAccountId() {
+	public Integer getAccountId() {
 		return accountId;
 	}
 
-    public void setAccountId(Integer accountId) {
+	public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}
 
-    public Integer getOppositAccount() {
+	public Integer getOppositAccount() {
 		return oppositAccount;
 	}
 
-    public void setOppositAccount(Integer oppositAccount) {
+	public void setOppositAccount(Integer oppositAccount) {
 		this.oppositAccount = oppositAccount;
 	}
 

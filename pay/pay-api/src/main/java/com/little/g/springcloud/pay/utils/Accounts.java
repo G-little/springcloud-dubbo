@@ -15,17 +15,17 @@ public class Accounts {
 
 	public static NormalUserAccount parseUserAccount(String accountId) {
 		Preconditions.checkArgument(accountId.startsWith(NORMAL_USER_PREFIX));
-        return new NormalUserAccount(Integer.parseInt(accountId.substring(3)));
+		return new NormalUserAccount(Integer.parseInt(accountId.substring(3)));
 	}
 
 	public static Account parse(String accountId) {
 		if (accountId.startsWith(NORMAL_USER_PREFIX)) {
-            return new NormalUserAccount(Integer.parseInt(accountId.substring(3)));
+			return new NormalUserAccount(Integer.parseInt(accountId.substring(3)));
 		}
 		return null;
 	}
 
-    public static AccountHasUserId newAccount(String type, Integer uid) {
+	public static AccountHasUserId newAccount(String type, Integer uid) {
 		switch (Strings.nullToEmpty(type)) {
 		case NORMAL_USER_PREFIX:
 			return new NormalUserAccount(uid);

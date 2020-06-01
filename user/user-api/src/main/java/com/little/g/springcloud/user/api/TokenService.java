@@ -17,9 +17,9 @@ public interface TokenService {
 	 * @param uid 用户的唯一标识
 	 * @return
 	 */
-    UserDeviceTokenDTO createToken(@NotBlank @Min(1) Integer uid,
-                                   @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-                                   @Size(min = 1, max = 100) String os);
+	UserDeviceTokenDTO createToken(@NotBlank @Min(1) Integer uid,
+			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+			@Size(min = 1, max = 100) String os);
 
 	/**
 	 * token 验证 逻辑
@@ -39,9 +39,9 @@ public interface TokenService {
 	 * @param refreshToken
 	 * @return
 	 */
-    UserDeviceTokenDTO refreshToken(@NotBlank @Min(1) Integer uid,
-                                    @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-                                    @Size(min = 1, max = 100) String os, String refreshToken);
+	UserDeviceTokenDTO refreshToken(@NotBlank @Min(1) Integer uid,
+			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+			@Size(min = 1, max = 100) String os, String refreshToken);
 
 	/**
 	 * 登出token
@@ -51,8 +51,8 @@ public interface TokenService {
 	 * @param os
 	 * @return
 	 */
-    boolean logout(@NotBlank @Min(1) Integer uid,
-                   @NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
-                   @Size(min = 1, max = 100) String os);
+	boolean logout(@NotBlank @Min(1) Integer uid,
+			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
+			@Size(min = 1, max = 100) String os);
 
 }

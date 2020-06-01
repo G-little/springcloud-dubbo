@@ -8,6 +8,8 @@ import com.little.g.springcloud.mall.dto.*;
 import com.little.g.springcloud.mall.system.SystemConfig;
 import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
+import com.little.g.springcloud.user.api.UserService;
+import com.little.g.springcloud.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.util.StringUtils;
@@ -52,7 +54,7 @@ public class GoodsController {
 	private LitemallCommentService commentService;
 
 	@Reference
-	private LitemallUserService userService;
+	private UserService userService;
 
 	@Reference
 	private LitemallCollectService collectService;
@@ -132,8 +134,8 @@ public class GoodsController {
 				c.put("addTime", comment.getAddTime());
 				c.put("content", comment.getContent());
 				c.put("adminContent", comment.getAdminContent());
-				LitemallUserDTO user = userService.findById(comment.getUserId());
-				c.put("nickname", user == null ? "" : user.getNickname());
+				UserDTO user = userService.getUserById(comment.getUserId());
+				c.put("nickname", user == null ? "" : user.getName());
 				c.put("avatar", user == null ? "" : user.getAvatar());
 				c.put("picList", comment.getPicUrls());
 				commentsVo.add(c);

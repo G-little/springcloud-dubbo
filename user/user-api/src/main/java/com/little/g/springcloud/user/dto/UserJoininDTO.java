@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class UserJoininDTO implements Serializable {
 
-    private Integer uid;
+	private Integer uid;
 
 	private String accessToken;
 
@@ -19,11 +19,11 @@ public class UserJoininDTO implements Serializable {
 
 	private UserDTO user;
 
-    public Integer getUid() {
+	public Integer getUid() {
 		return uid;
 	}
 
-    public void setUid(Integer uid) {
+	public void setUid(Integer uid) {
 		this.uid = uid;
 	}
 

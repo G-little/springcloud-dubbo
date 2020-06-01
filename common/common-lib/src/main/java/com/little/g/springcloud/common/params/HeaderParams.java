@@ -11,7 +11,7 @@ public class HeaderParams {
 	/**
 	 * 用户ID
 	 */
-    private Integer uid;
+	private Integer uid;
 
 	/**
 	 * 用户手机号
@@ -154,12 +154,12 @@ public class HeaderParams {
 		this.locale = locale;
 	}
 
-    public Integer getUid() {
-        return uid;
-    }
+	public Integer getUid() {
+		return uid;
+	}
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
 
 }

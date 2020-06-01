@@ -15,6 +15,7 @@ import com.little.g.springcloud.user.mapper.UserMapperExt;
 import com.little.g.springcloud.user.model.User;
 import com.little.g.springcloud.user.model.UserExample;
 import com.little.g.springcloud.user.params.UserUpdateParam;
+import com.little.g.springcloud.user.vo.UserVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.ValueOperations;
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	private SmsService smsService;
 
 	@Resource
-    private ValueOperations<String, Integer> valueOperations;
+	private ValueOperations<String, Integer> valueOperations;
 
 	@Override
 	public UserDTO getUserInfoByMobile(@NotEmpty String mobile) {
@@ -109,7 +110,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-    public UserDTO getUserById(Integer uid) {
+	public long count() {
+		UserExample example = new UserExample();
+		return userMapper.countByExample(example);
+	}
+
+	@Override
+	public UserVo findUserVoById(Integer uid) {
+		User user = userMapper.selectByPrimaryKey(uid);
+		if (user == null) {
+			return null;
+		}
+		UserVo vo = new UserVo();
+		vo.setAvatar(user.getAvatar());
+		vo.setNickname(user.getName());
+		return null;
+	}
+
+	@Override
+	public UserDTO getUserById(Integer uid) {
 		if (uid == null) {
 			return null;
 		}
@@ -138,7 +157,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-    public Integer addUser(UserDTO userDTO) {
+	public Integer addUser(UserDTO userDTO) {
 		User user = new User();
 		user.setMobile(userDTO.getMobile());
 		user.setUid(maxUid());
@@ -151,21 +170,21 @@ public class UserServiceImpl implements UserService {
 		return user.getUid();
 	}
 
-    private Integer maxUid() {
-        Integer uid;
+	private Integer maxUid() {
+		Integer uid;
 		String key = "uid_max";
 
 		// if exist , get and incr
 		Number r = valueOperations.get(key);
 		if (r != null) {
 			Number incr = valueOperations.increment(key);
-            return incr.intValue();
+			return incr.intValue();
 		}
 		else {
 			// if not exist , get max uid from db
 			uid = userMapperExt.maxUid();
 			if (uid == null || uid <= 0) {
-                uid = 10000;
+				uid = 10000;
 			}
 			uid = uid + 1;
 			valueOperations.set(key, (uid));

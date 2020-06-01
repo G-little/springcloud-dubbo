@@ -9,17 +9,17 @@ public class NormalUserAccount implements AccountHasUserId {
 
 	private static final long serialVersionUID = -4068712037983174359L;
 
-    private Integer uid;
+	private Integer uid;
 
 	public NormalUserAccount() {
 	}
 
-    public NormalUserAccount(Integer uid) {
+	public NormalUserAccount(Integer uid) {
 		this.uid = uid;
 	}
 
-    @Override
-    public Integer getUid() {
+	@Override
+	public Integer getUid() {
 		return uid;
 	}
 
@@ -35,16 +35,16 @@ public class NormalUserAccount implements AccountHasUserId {
 
 	@Override
 	public boolean equals(Object o) {
-        if (this == o) {
+		if (this == o) {
 			return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
 		NormalUserAccount that = (NormalUserAccount) o;
 
-        return uid.equals(that.uid);
+		return uid.equals(that.uid);
 
 	}
 
