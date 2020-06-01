@@ -4,7 +4,6 @@ import com.little.g.springcloud.common.utils.RegexUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.common.web.annotation.LoginUser;
 import com.little.g.springcloud.mall.api.LitemallFeedbackService;
-import com.little.g.springcloud.mall.api.LitemallUserService;
 import com.little.g.springcloud.mall.dto.LitemallFeedbackDTO;
 import com.little.g.springcloud.mall.dto.LitemallUserDTO;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,6 @@ import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.mall.api.LitemallGoodsProductService;
 import com.little.g.springcloud.mall.api.LitemallGoodsService;
 import com.little.g.springcloud.mall.api.LitemallOrderService;
-import com.little.g.springcloud.mall.api.LitemallUserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.dubbo.config.annotation.Reference;

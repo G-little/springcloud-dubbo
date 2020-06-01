@@ -27,6 +27,8 @@ import com.little.g.springcloud.pay.dto.PreorderDTO;
 import com.little.g.springcloud.pay.enums.FixAccount;
 import com.little.g.springcloud.pay.enums.MerchantId;
 import com.little.g.springcloud.pay.params.PreOrderParams;
+import com.little.g.springcloud.user.api.UserService;
+import com.little.g.springcloud.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.dubbo.config.annotation.Reference;
@@ -65,7 +67,7 @@ import static com.little.g.springcloud.mall.MallErrorCodes.*;
 public class OrderManager {
 
 	@Reference
-	private LitemallUserService userService;
+	private UserService userService;
 
 	@Reference
 	private LitemallOrderService orderService;
@@ -126,14 +128,15 @@ public class OrderManager {
 
 	/**
 	 * 订单列表
-	 * @param userId 用户ID
+	 *
+	 * @param userId   用户ID
 	 * @param showType 订单信息： 0，全部订单； 1，待付款； 2，待发货； 3，待收货； 4，待评价。
-	 * @param page 分页页数
-	 * @param limit 分页大小
+	 * @param page     分页页数
+	 * @param limit    分页大小
 	 * @return 订单列表
 	 */
 	public ResultJson list(Integer userId, Integer showType, Integer page, Integer limit,
-			String sort, String order) {
+						   String sort, String order) {
 		if (userId == null) {
 			return ResponseUtil.unlogin();
 		}
@@ -155,8 +158,7 @@ public class OrderManager {
 			LitemallGrouponDTO groupon = grouponService.queryByOrderId(o.getId());
 			if (groupon != null) {
 				orderVo.put("isGroupin", true);
-			}
-			else {
+			} else {
 				orderVo.put("isGroupin", false);
 			}
 
@@ -184,7 +186,8 @@ public class OrderManager {
 
 	/**
 	 * 订单详情
-	 * @param userId 用户ID
+	 *
+	 * @param userId  用户ID
 	 * @param orderId 订单ID
 	 * @return 订单详情
 	 */
@@ -234,12 +237,10 @@ public class OrderManager {
 					order.getShipSn());
 			if (ei == null) {
 				result.put("expressInfo", new ArrayList<>());
-			}
-			else {
+			} else {
 				result.put("expressInfo", ei);
 			}
-		}
-		else {
+		} else {
 			result.put("expressInfo", new ArrayList<>());
 		}
 
@@ -251,9 +252,10 @@ public class OrderManager {
 	 * 提交订单
 	 * <p>
 	 * 1. 创建订单表项和订单商品表项; 2. 购物车清空; 3. 优惠券设置已用; 4. 商品货品库存减少; 5. 如果是团购商品，则创建团购活动表项。
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ cartId：xxx, addressId: xxx, couponId: xxx, message: xxx,
-	 * grouponRulesId: xxx, grouponLinkId: xxx}
+	 * @param body   订单信息，{ cartId：xxx, addressId: xxx, couponId: xxx, message: xxx,
+	 *               grouponRulesId: xxx, grouponLinkId: xxx}
 	 * @return 提交订单操作结果
 	 */
 	@Transactional
@@ -332,8 +334,7 @@ public class OrderManager {
 		List<LitemallCartDTO> checkedGoodsList = null;
 		if (cartId.equals(0)) {
 			checkedGoodsList = cartService.queryByUidAndChecked(userId);
-		}
-		else {
+		} else {
 			LitemallCartDTO cart = cartService.findById(cartId);
 			checkedGoodsList = new ArrayList<>(1);
 			checkedGoodsList.add(cart);
@@ -349,8 +350,7 @@ public class OrderManager {
 				checkedGoodsPrice = checkedGoodsPrice
 						.add(checkGoods.getPrice().subtract(grouponPrice)
 								.multiply(new BigDecimal(checkGoods.getNumber())));
-			}
-			else {
+			} else {
 				checkedGoodsPrice = checkedGoodsPrice.add(checkGoods.getPrice()
 						.multiply(new BigDecimal(checkGoods.getNumber())));
 			}
@@ -407,8 +407,7 @@ public class OrderManager {
 		// 有团购
 		if (grouponRules != null) {
 			order.setGrouponPrice(grouponPrice); // 团购价格
-		}
-		else {
+		} else {
 			order.setGrouponPrice(new BigDecimal(0)); // 团购价格
 		}
 
@@ -476,8 +475,7 @@ public class OrderManager {
 				groupon.setGrouponId(grouponLinkId);
 				groupon.setShareUrl(baseGroupon.getShareUrl());
 				grouponService.createGroupon(groupon);
-			}
-			else {
+			} else {
 				groupon.setCreatorUserId(userId);
 				groupon.setCreatorUserTime(LocalDateTime.now());
 				groupon.setGrouponId(0);
@@ -493,8 +491,7 @@ public class OrderManager {
 		data.put("orderId", orderId);
 		if (grouponRulesId != null && grouponRulesId > 0) {
 			data.put("grouponLinkId", grouponLinkId);
-		}
-		else {
+		} else {
 			data.put("grouponLinkId", 0);
 		}
 		return ResponseUtil.ok(data);
@@ -504,8 +501,9 @@ public class OrderManager {
 	 * 取消订单
 	 * <p>
 	 * 1. 检测当前订单是否能够取消； 2. 设置订单取消状态； 3. 商品货品库存恢复； 4. TODO 优惠券；
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ orderId：xxx }
+	 * @param body   订单信息，{ orderId：xxx }
 	 * @return 取消订单操作结果
 	 */
 	@Transactional
@@ -559,8 +557,9 @@ public class OrderManager {
 	 * 付款订单的预支付会话标识
 	 * <p>
 	 * 1. 检测当前订单是否能够付款 2. 微信商户平台返回支付订单ID 3. 设置订单付款状态
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ orderId：xxx }
+	 * @param body   订单信息，{ orderId：xxx }
 	 * @return 支付订单ID
 	 */
 	@Transactional
@@ -587,8 +586,8 @@ public class OrderManager {
 			return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能支付");
 		}
 
-		LitemallUserDTO user = userService.findById(userId);
-		String openid = user.getWeixinOpenid();
+		UserDTO user = userService.getUserById(userId);
+		String openid = null;
 		if (openid == null) {
 			return ResponseUtil.fail(AUTH_OPENID_UNACCESS, "订单不能支付");
 		}
@@ -621,6 +620,7 @@ public class OrderManager {
 
 	/**
 	 * 微信H5支付
+	 *
 	 * @param userId
 	 * @param body
 	 * @param request
@@ -659,7 +659,8 @@ public class OrderManager {
 	 * 微信付款成功或失败回调接口
 	 * <p>
 	 * 1. 检测当前订单是否是付款状态; 2. 设置订单付款成功状态相关信息; 3. 响应微信商户平台.
-	 * @param request 请求内容
+	 *
+	 * @param request  请求内容
 	 * @param response 响应内容
 	 * @return 操作结果
 	 */
@@ -669,8 +670,7 @@ public class OrderManager {
 		try {
 			xmlResult = IOUtils.toString(request.getInputStream(),
 					request.getCharacterEncoding());
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return WxPayNotifyResponse.fail(e.getMessage());
 		}
@@ -688,8 +688,7 @@ public class OrderManager {
 				log.error(xmlResult);
 				throw new WxPayException("微信通知支付失败！");
 			}
-		}
-		catch (WxPayException e) {
+		} catch (WxPayException e) {
 			e.printStackTrace();
 			return WxPayNotifyResponse.fail(e.getMessage());
 		}
@@ -763,13 +762,13 @@ public class OrderManager {
 		notifyService.notifyMail("新订单通知", order.toString());
 		// 这里微信的短信平台对参数长度有限制，所以将订单号只截取后6位
 		notifyService.notifySmsTemplateSync(order.getMobile(), NotifyType.PAY_SUCCEED,
-				new String[] { orderSn.substring(8, 14) });
+				new String[]{orderSn.substring(8, 14)});
 
 		// 请依据自己的模版消息配置更改参数
-		String[] parms = new String[] { order.getOrderSn(),
+		String[] parms = new String[]{order.getOrderSn(),
 				order.getOrderPrice().toString(),
 				DateTimeUtil.getDateTimeDisplayString(order.getAddTime()),
-				order.getConsignee(), order.getMobile(), order.getAddress() };
+				order.getConsignee(), order.getMobile(), order.getAddress()};
 
 		// 取消订单超时未支付任务
 		taskService.removeTask(new OrderUnpaidTask(order.getId()));
@@ -781,8 +780,9 @@ public class OrderManager {
 	 * 订单申请退款
 	 * <p>
 	 * 1. 检测当前订单是否能够退款； 2. 设置订单申请退款状态。
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ orderId：xxx }
+	 * @param body   订单信息，{ orderId：xxx }
 	 * @return 订单退款操作结果
 	 */
 	public Object refund(Integer userId, String body) {
@@ -824,8 +824,9 @@ public class OrderManager {
 	 * 确认收货
 	 * <p>
 	 * 1. 检测当前订单是否能够确认收货； 2. 设置订单确认收货状态。
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ orderId：xxx }
+	 * @param body   订单信息，{ orderId：xxx }
 	 * @return 订单操作结果
 	 */
 	public Object confirm(Integer userId, String body) {
@@ -865,8 +866,9 @@ public class OrderManager {
 	 * 删除订单
 	 * <p>
 	 * 1. 检测当前订单是否可以删除； 2. 删除订单。
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ orderId：xxx }
+	 * @param body   订单信息，{ orderId：xxx }
 	 * @return 订单操作结果
 	 */
 	public Object delete(Integer userId, String body) {
@@ -902,7 +904,8 @@ public class OrderManager {
 
 	/**
 	 * 待评价订单商品信息
-	 * @param userId 用户ID
+	 *
+	 * @param userId  用户ID
 	 * @param orderId 订单ID
 	 * @param goodsId 商品ID
 	 * @return 待评价订单商品信息
@@ -934,8 +937,9 @@ public class OrderManager {
 	 * 评价订单商品
 	 * <p>
 	 * 确认商品收货或者系统自动确认商品收货后7天内可以评价，过期不能评价。
+	 *
 	 * @param userId 用户ID
-	 * @param body 订单信息，{ orderId：xxx }
+	 * @param body   订单信息，{ orderId：xxx }
 	 * @return 订单操作结果
 	 */
 	public Object comment(Integer userId, String body) {
@@ -990,7 +994,7 @@ public class OrderManager {
 		comment.setStar(star.shortValue());
 		comment.setContent(content);
 		comment.setHasPicture(hasPicture);
-		comment.setPicUrls(picUrls.toArray(new String[] {}));
+		comment.setPicUrls(picUrls.toArray(new String[]{}));
 		commentService.save(comment);
 
 		// 2. 更新订单商品的评价列表
