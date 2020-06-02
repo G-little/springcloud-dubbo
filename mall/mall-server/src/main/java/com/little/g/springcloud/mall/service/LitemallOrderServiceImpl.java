@@ -97,7 +97,7 @@ public class LitemallOrderServiceImpl implements LitemallOrderService {
 			List<Short> orderStatus, Integer page, Integer limit, String sort,
 			String order) {
 		LitemallOrderExample example = new LitemallOrderExample();
-		example.setOrderByClause(LitemallOrderDTO.Column.addTime.desc());
+		example.setOrderByClause(LitemallOrder.Column.addTime.desc());
 		LitemallOrderExample.Criteria criteria = example.or();
 		criteria.andUserIdEqualTo(userId);
 		if (orderStatus != null) {

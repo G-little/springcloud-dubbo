@@ -24,7 +24,7 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
 	@Override
 	public List<LitemallCommentDTO> queryGoodsByGid(Integer id, int offset, int limit) {
 		LitemallCommentExample example = new LitemallCommentExample();
-		example.setOrderByClause(LitemallCommentDTO.Column.addTime.desc());
+		example.setOrderByClause(LitemallComment.Column.addTime.desc());
 		example.or().andValueIdEqualTo(id).andTypeEqualTo((byte) 0)
 				.andDeletedEqualTo(false);
 		PageHelper.startPage(offset, limit);
@@ -36,7 +36,7 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
 	public PageInfo<LitemallCommentDTO> query(Byte type, Integer valueId,
 			Integer showType, Integer offset, Integer limit) {
 		LitemallCommentExample example = new LitemallCommentExample();
-		example.setOrderByClause(LitemallCommentDTO.Column.addTime.desc());
+		example.setOrderByClause(LitemallComment.Column.addTime.desc());
 		if (showType == 0) {
 			example.or().andValueIdEqualTo(valueId).andTypeEqualTo(type)
 					.andDeletedEqualTo(false);
