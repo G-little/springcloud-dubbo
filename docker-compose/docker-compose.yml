@@ -233,6 +233,8 @@ services:
       - nacos
       - redis
       - admin-server
+      - user-server
+      - mall-server
     environment:
       - NACOS_HOST=nacos
       - NACOS_PORT=8848
