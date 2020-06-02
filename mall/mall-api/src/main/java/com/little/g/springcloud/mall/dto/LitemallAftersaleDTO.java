@@ -255,4 +255,5 @@ public class LitemallAftersaleDTO implements Serializable {
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
+
 }
