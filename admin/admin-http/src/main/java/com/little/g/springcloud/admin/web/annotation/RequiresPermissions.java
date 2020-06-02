@@ -1,5 +1,7 @@
 package com.little.g.springcloud.admin.web.annotation;
 
+import com.little.g.springcloud.admin.enums.LogicalEnum;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,6 +19,6 @@ public @interface RequiresPermissions {
 	 *
 	 * @since 1.1.0
 	 */
-	Logical logical() default Logical.AND;
+	LogicalEnum logical() default LogicalEnum.AND;
 
 }

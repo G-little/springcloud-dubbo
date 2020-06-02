@@ -7,6 +7,7 @@ import com.little.g.springcloud.admin.dto.AdminUserDTO;
 import com.little.g.springcloud.admin.dto.ResourcesDTO;
 import com.little.g.springcloud.admin.dto.UserResourceDTO;
 import com.little.g.springcloud.admin.enums.AdminTypeEnum;
+import com.little.g.springcloud.admin.enums.LogicalEnum;
 import com.little.g.springcloud.admin.enums.ResourcesEnum;
 import com.little.g.springcloud.admin.mapper.ResourcesMapper;
 import com.little.g.springcloud.admin.mapper.ResourcesMapperExt;
@@ -18,6 +19,7 @@ import com.little.g.springcloud.common.enums.BooleanEnum;
 import com.little.g.springcloud.common.exception.ServiceDataException;
 import com.little.g.springcloud.common.params.PageQueryParam;
 import com.little.g.springcloud.common.params.TimeQueryParam;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.apache.ibatis.session.RowBounds;
@@ -77,8 +79,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 			if (Objects.equals(resources.getType(), ResourcesEnum.SIMPLE.getValue())) {
 				// 普通
 				pathResourcesTemp.put(resources.getPath(), resources);
-			}
-			else {
+			} else {
 				// 通配符
 				wildcardResourcesTemp.put(resources.getPath(), resources);
 			}
@@ -90,6 +91,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 
 	}
 
+	@Override
 	public ResourcesDTO getResourceByUri(String uri) {
 		if (StringUtils.isEmpty(uri)) {
 			return null;
@@ -104,8 +106,9 @@ public class ResourcesServiceImpl implements ResourcesService {
 				}
 			}
 		}
-		if (resources == null)
+		if (resources == null) {
 			return null;
+		}
 
 		ResourcesDTO dto = new ResourcesDTO();
 		BeanUtils.copyProperties(resources, dto);
@@ -140,8 +143,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 		Long val = resourcesMapperExt.selectMaxPrivilegeVal(pos);
 		if (val == null || val <= 0) {
 			val = 1l;
-		}
-		else {
+		} else {
 			val = (val << 1);
 		}
 		if (val < 0) {
@@ -291,7 +293,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 	}
 
 	private List<UserResourceDTO> convertSubList(AdminUserDTO admin,
-			List<Resources> resourceList, boolean filter) {
+												 List<Resources> resourceList, boolean filter) {
 		List<UserResourceDTO> userresourceList = new ArrayList<>(resourceList.size());
 		for (Resources resources : resourceList) {
 			UserResourceDTO dto = new UserResourceDTO();
@@ -299,8 +301,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 			if (admin != null) {
 				if (Objects.equals(admin.getType(), AdminTypeEnum.SUPER.getValue())) {
 					dto.setChecked(true);
-				}
-				else if (admin.getPrivilege() != null
+				} else if (admin.getPrivilege() != null
 						&& admin.getPrivilege().length >= resources.getPrivilegePos()) {
 					if ((resources.getPrivilegeVal()
 							& admin.getPrivilege()[resources.getPrivilegePos()]) > 0) {
@@ -312,8 +313,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 				if (dto.isChecked()) {
 					userresourceList.add(dto);
 				}
-			}
-			else {
+			} else {
 				userresourceList.add(dto);
 			}
 		}
@@ -334,7 +334,7 @@ public class ResourcesServiceImpl implements ResourcesService {
 	}
 
 	private List<UserResourceDTO> setSubList(List<UserResourceDTO> parentList,
-			List<UserResourceDTO> all) {
+											 List<UserResourceDTO> all) {
 		for (UserResourceDTO top : parentList) {
 			List<UserResourceDTO> subList = all.stream().filter(
 					resource -> Objects.equals(resource.getParentId(), top.getId()))
@@ -348,16 +348,56 @@ public class ResourcesServiceImpl implements ResourcesService {
 	}
 
 	@Override
-	public boolean hasPrivilege(String url, AdminUserDTO adminUserDTO)
+	public boolean hasPrivilege(String[] permissions, LogicalEnum l, String url, AdminUserDTO adminUserDTO)
 			throws ServiceDataException {
-		if (StringUtils.isEmpty(url)) {
-			return false;
+		if (StringUtils.isEmpty(url) && ArrayUtils.isEmpty(permissions)) {
+			return true;
 		}
 		if (adminUserDTO == null) {
 			throw new ServiceDataException(AdminResultJson.ERROR_NEET_LOGIN);
 		}
 		if (Objects.equals(adminUserDTO.getType(), AdminTypeEnum.SUPER.getValue())) {
 			return true;
+		}
+
+		//优先判断 permissions
+
+		if (!ArrayUtils.isEmpty(permissions)) {
+			//批量获取资源列表
+
+			Long[] privileges = adminUserDTO.getPrivilege();
+
+
+			if (l == null || l == LogicalEnum.AND) {
+				for (String permission : permissions) {
+					ResourcesDTO resources = getResourceByUri(permission);
+					if (privileges == null || privileges.length < (resources.getPrivilegePos() + 1)) {
+						throw new ServiceDataException(AdminResultJson.ERR_NOT_ALLOW_OPERATION);
+					}
+
+					if ((privileges[resources.getPrivilegePos()] & resources.getPrivilegeVal()) > 0) {
+						continue;
+					} else {
+						return false;
+					}
+				}
+			} else {
+				for (String permission : permissions) {
+					ResourcesDTO resources = getResourceByUri(permission);
+					if (privileges == null || privileges.length < (resources.getPrivilegePos() + 1)) {
+						continue;
+					}
+
+					if ((privileges[resources.getPrivilegePos()] & resources.getPrivilegeVal()) > 0) {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			return true;
+
+
 		}
 
 		ResourcesDTO resources = getResourceByUri(url.replace("//", "/"));

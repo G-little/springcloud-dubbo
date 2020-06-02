@@ -3,6 +3,7 @@ package com.little.g.springcloud.admin.api;
 import com.little.g.springcloud.admin.dto.AdminUserDTO;
 import com.little.g.springcloud.admin.dto.ResourcesDTO;
 import com.little.g.springcloud.admin.dto.UserResourceDTO;
+import com.little.g.springcloud.admin.enums.LogicalEnum;
 import com.little.g.springcloud.common.dto.ListResultDTO;
 import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.exception.ServiceDataException;
@@ -89,11 +90,17 @@ public interface ResourcesService {
 
 	/**
 	 * 查看是否权限
-	 * @param url
+     *
+     * @param permissions
+     * @param l
+     * @param url
 	 * @param admin
 	 * @return
 	 * @throws ServiceDataException
 	 */
-	boolean hasPrivilege(String url, AdminUserDTO admin) throws ServiceDataException;
+    boolean hasPrivilege(String[] permissions, LogicalEnum l, String url, AdminUserDTO admin) throws ServiceDataException;
+
+
+
 
 }

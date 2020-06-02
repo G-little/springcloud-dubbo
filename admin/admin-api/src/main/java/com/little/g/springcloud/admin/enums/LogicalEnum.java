@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.little.g.springcloud.admin.web.annotation;
+package com.little.g.springcloud.admin.enums;
 
 /**
  * An enum for specifying a logical operation that can be used for interpreting
@@ -24,7 +24,7 @@ package com.little.g.springcloud.admin.web.annotation;
  *
  * @since 1.1.0
  */
-public enum Logical {
+public enum LogicalEnum {
 
 	AND, OR
 

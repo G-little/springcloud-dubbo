@@ -1,6 +1,7 @@
 package com.little.g.springcloud.admin.web.interceptor;
 
 import com.little.g.springcloud.admin.api.ResourcesService;
+import com.little.g.springcloud.admin.enums.LogicalEnum;
 import com.little.g.springcloud.admin.web.annotation.RequiresPermissions;
 import com.little.g.springcloud.admin.web.utils.SessionUtils;
 import com.little.g.springcloud.admin.web.vo.LoginSession;
@@ -35,9 +36,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         }
         HandlerMethod method = (HandlerMethod) handler;
         RequiresPermissions methodAnnotation = method.getMethodAnnotation(RequiresPermissions.class);
-        String[] value = methodAnnotation.value();
+        //TODO 设置权限逻辑
+        String[] permissions = null;
+        LogicalEnum l = null;
+        if (methodAnnotation != null) {
+            permissions = methodAnnotation.value();
+            l = methodAnnotation.logical();
+            if (l == null) {
+                l = LogicalEnum.AND;
+            }
+        }
         SessionUtils.set(session.getAdminUser());
-        return resourcesService.hasPrivilege(request.getRequestURI(),
+        return resourcesService.hasPrivilege(permissions, l, request.getRequestURI(),
                 session.getAdminUser());
 
     }
