@@ -35,8 +35,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             throw new ServiceDataException(CommonErrorCodes.NOT_LOGIN);
         }
         HandlerMethod method = (HandlerMethod) handler;
-        RequiresPermissions methodAnnotation = method.getMethodAnnotation(RequiresPermissions.class);
-        //TODO 设置权限逻辑
+        RequiresPermissions methodAnnotation = method
+                .getMethodAnnotation(RequiresPermissions.class);
+        // TODO 设置权限逻辑
         String[] permissions = null;
         LogicalEnum l = null;
         if (methodAnnotation != null) {

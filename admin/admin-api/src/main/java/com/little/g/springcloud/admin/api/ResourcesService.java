@@ -90,7 +90,6 @@ public interface ResourcesService {
 
 	/**
 	 * 查看是否权限
-     *
      * @param permissions
      * @param l
      * @param url
@@ -98,9 +97,7 @@ public interface ResourcesService {
 	 * @return
 	 * @throws ServiceDataException
 	 */
-    boolean hasPrivilege(String[] permissions, LogicalEnum l, String url, AdminUserDTO admin) throws ServiceDataException;
-
-
-
+    boolean hasPrivilege(String[] permissions, LogicalEnum l, String url,
+                         AdminUserDTO admin) throws ServiceDataException;
 
 }

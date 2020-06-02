@@ -351,8 +351,8 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public boolean hasPrivilege(String[] permissions, LogicalEnum l, String url, AdminUserDTO adminUserDTO)
-            throws ServiceDataException {
+    public boolean hasPrivilege(String[] permissions, LogicalEnum l, String url,
+                                AdminUserDTO adminUserDTO) throws ServiceDataException {
         if (StringUtils.isEmpty(url) && ArrayUtils.isEmpty(permissions)) {
             return true;
         }
@@ -363,26 +363,29 @@ public class ResourcesServiceImpl implements ResourcesService {
             return true;
         }
 
-        //优先判断 permissions
+        // 优先判断 permissions
 
         if (!ArrayUtils.isEmpty(permissions)) {
-            //批量获取资源列表
+            // 批量获取资源列表
 
             Long[] privileges = adminUserDTO.getPrivilege();
-
 
             if (l == null || l == LogicalEnum.AND) {
                 for (String permission : permissions) {
                     ResourcesDTO resources = getResourceByUri(permission);
-                    if (privileges == null || privileges.length < (resources.getPrivilegePos() + 1)) {
-                        throw new ServiceDataException(AdminResultJson.ERR_NOT_ALLOW_OPERATION);
+                    if (privileges == null
+                            || privileges.length < (resources.getPrivilegePos() + 1)) {
+                        throw new ServiceDataException(
+                                AdminResultJson.ERR_NOT_ALLOW_OPERATION);
                     }
 
-                    if (Objects.equals(resources.getNeedAuth(), BooleanEnum.FALSE.getValue())) {
+                    if (Objects.equals(resources.getNeedAuth(),
+                            BooleanEnum.FALSE.getValue())) {
                         continue;
                     }
 
-                    if ((privileges[resources.getPrivilegePos()] & resources.getPrivilegeVal()) > 0) {
+                    if ((privileges[resources.getPrivilegePos()]
+                            & resources.getPrivilegeVal()) > 0) {
                         continue;
                     } else {
                         return false;
@@ -391,14 +394,17 @@ public class ResourcesServiceImpl implements ResourcesService {
             } else {
                 for (String permission : permissions) {
                     ResourcesDTO resources = getResourceByUri(permission);
-                    if (privileges == null || privileges.length < (resources.getPrivilegePos() + 1)) {
+                    if (privileges == null
+                            || privileges.length < (resources.getPrivilegePos() + 1)) {
                         continue;
                     }
-                    if (Objects.equals(resources.getNeedAuth(), BooleanEnum.FALSE.getValue())) {
+                    if (Objects.equals(resources.getNeedAuth(),
+                            BooleanEnum.FALSE.getValue())) {
                         return true;
                     }
 
-                    if ((privileges[resources.getPrivilegePos()] & resources.getPrivilegeVal()) > 0) {
+                    if ((privileges[resources.getPrivilegePos()]
+                            & resources.getPrivilegeVal()) > 0) {
                         return true;
                     }
                 }
@@ -406,7 +412,6 @@ public class ResourcesServiceImpl implements ResourcesService {
             }
 
             return true;
-
 
         }
 
