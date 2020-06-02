@@ -30,12 +30,12 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableCmdErrorMsg
 @ComponentScan(basePackages = {"com.little.g.springcloud.pay",
-        "com.little.g.springcloud.common.cache"})
+		"com.little.g.springcloud.common.cache"})
 public class SpringCloudPayHttpBootstrap {
 
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(SpringCloudPayHttpBootstrap.class)
-                .properties("spring.profiles.active=nacos").run(args);
-    }
+	public static void main(String[] args) {
+		new SpringApplicationBuilder(SpringCloudPayHttpBootstrap.class)
+				.properties("spring.profiles.active=nacos").run(args);
+	}
 
 }
