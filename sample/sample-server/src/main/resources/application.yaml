@@ -7,7 +7,7 @@ dubbo:
       port: -1
     rest:
       name: rest
-      port: 9091
+      port: 9090
       server: netty
   registry:
 #   The Spring Cloud Dubbo's registry extension
