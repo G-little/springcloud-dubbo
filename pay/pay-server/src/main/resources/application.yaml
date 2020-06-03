@@ -5,12 +5,15 @@ dubbo:
     dubbo:
       name: dubbo
       port: 20880
+    rest:
+      name: rest
+      port: 9090
 
   registry:
-#   The Spring Cloud Dubbo's registry extension
+    #   The Spring Cloud Dubbo's registry extension
     address: spring-cloud://localhost
-#   The traditional Dubbo's registry
-#   address: zookeeper://127.0.0.1:2181
+  #   The traditional Dubbo's registry
+  #   address: zookeeper://127.0.0.1:2181
   cloud:
     # The subscribed services in consumer side
     subscribed-services: user-server
