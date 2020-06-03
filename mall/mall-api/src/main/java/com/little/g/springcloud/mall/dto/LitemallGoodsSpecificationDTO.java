@@ -108,7 +108,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	}
 
 	public void setSpecification(String specification) {
-		this.specification = specification;
+        this.specification = specification;
 	}
 
 	public String getValue() {
@@ -116,7 +116,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	}
 
 	public void setValue(String value) {
-		this.value = value;
+        this.value = value;
 	}
 
 	public String getPicUrl() {
@@ -124,7 +124,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
+        this.picUrl = picUrl;
 	}
 
 	public LocalDateTime getAddTime() {

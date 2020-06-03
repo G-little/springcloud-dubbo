@@ -10,5 +10,4 @@ import org.springframework.test.context.junit4.SpringRunner;
         properties = {"spring.profiles.active=nacos"})
 public class BaseTest {
 
-
 }

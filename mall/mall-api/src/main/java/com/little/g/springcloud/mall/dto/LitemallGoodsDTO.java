@@ -192,13 +192,13 @@ public class LitemallGoodsDTO implements Serializable {
 	 */
 	private String detail;
 
-	public static Boolean getIsDeleted() {
-		return IS_DELETED;
-	}
+    public static Boolean getIsDeleted() {
+        return IS_DELETED;
+    }
 
-	public static Boolean getNotDeleted() {
-		return NOT_DELETED;
-	}
+    public static Boolean getNotDeleted() {
+        return NOT_DELETED;
+    }
 
 	public Integer getId() {
 		return id;
@@ -213,7 +213,7 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setGoodsSn(String goodsSn) {
-		this.goodsSn = goodsSn;
+        this.goodsSn = goodsSn;
 	}
 
 	public String getName() {
@@ -221,7 +221,7 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+        this.name = name;
 	}
 
 	public Integer getCategoryId() {
@@ -253,7 +253,7 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+        this.keywords = keywords;
 	}
 
 	public String getBrief() {
@@ -261,15 +261,15 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setBrief(String brief) {
-		this.brief = brief;
-	}
+        this.brief = brief;
+    }
 
-	public Boolean getOnSale() {
+    public Boolean getOnSale() {
 		return isOnSale;
 	}
 
-	public void setOnSale(Boolean onSale) {
-		isOnSale = onSale;
+    public void setOnSale(Boolean onSale) {
+        isOnSale = onSale;
 	}
 
 	public Short getSortOrder() {
@@ -285,7 +285,7 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
+        this.picUrl = picUrl;
 	}
 
 	public String getShareUrl() {
@@ -293,23 +293,23 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setShareUrl(String shareUrl) {
-		this.shareUrl = shareUrl;
-	}
+        this.shareUrl = shareUrl;
+    }
 
-	public Boolean getNew() {
+    public Boolean getNew() {
 		return isNew;
 	}
 
-	public void setNew(Boolean aNew) {
-		isNew = aNew;
-	}
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
+    }
 
-	public Boolean getHot() {
+    public Boolean getHot() {
 		return isHot;
 	}
 
-	public void setHot(Boolean hot) {
-		isHot = hot;
+    public void setHot(Boolean hot) {
+        isHot = hot;
 	}
 
 	public String getUnit() {
@@ -317,7 +317,7 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setUnit(String unit) {
-		this.unit = unit;
+        this.unit = unit;
 	}
 
 	public BigDecimal getCounterPrice() {
@@ -365,7 +365,7 @@ public class LitemallGoodsDTO implements Serializable {
 	}
 
 	public void setDetail(String detail) {
-		this.detail = detail;
+        this.detail = detail;
 	}
 
 }
