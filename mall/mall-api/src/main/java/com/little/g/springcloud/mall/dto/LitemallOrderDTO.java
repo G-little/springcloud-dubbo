@@ -293,7 +293,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setOrderSn(String orderSn) {
-        this.orderSn = orderSn;
+		this.orderSn = orderSn;
 	}
 
 	public Short getOrderStatus() {
@@ -317,7 +317,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setConsignee(String consignee) {
-        this.consignee = consignee;
+		this.consignee = consignee;
 	}
 
 	public String getMobile() {
@@ -325,7 +325,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setMobile(String mobile) {
-        this.mobile = mobile;
+		this.mobile = mobile;
 	}
 
 	public String getAddress() {
@@ -333,7 +333,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setAddress(String address) {
-        this.address = address;
+		this.address = address;
 	}
 
 	public String getMessage() {
@@ -341,7 +341,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setMessage(String message) {
-        this.message = message;
+		this.message = message;
 	}
 
 	public BigDecimal getGoodsPrice() {
@@ -405,7 +405,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setPayId(String payId) {
-        this.payId = payId;
+		this.payId = payId;
 	}
 
 	public LocalDateTime getPayTime() {
@@ -421,7 +421,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setShipSn(String shipSn) {
-        this.shipSn = shipSn;
+		this.shipSn = shipSn;
 	}
 
 	public String getShipChannel() {
@@ -429,7 +429,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setShipChannel(String shipChannel) {
-        this.shipChannel = shipChannel;
+		this.shipChannel = shipChannel;
 	}
 
 	public LocalDateTime getShipTime() {
@@ -453,7 +453,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setRefundType(String refundType) {
-        this.refundType = refundType;
+		this.refundType = refundType;
 	}
 
 	public String getRefundContent() {
@@ -461,7 +461,7 @@ public class LitemallOrderDTO implements Serializable {
 	}
 
 	public void setRefundContent(String refundContent) {
-        this.refundContent = refundContent;
+		this.refundContent = refundContent;
 	}
 
 	public LocalDateTime getRefundTime() {

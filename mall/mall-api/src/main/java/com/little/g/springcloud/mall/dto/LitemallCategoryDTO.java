@@ -119,13 +119,13 @@ public class LitemallCategoryDTO implements Serializable {
 	 */
 	private Boolean deleted;
 
-    public static Boolean getIsDeleted() {
-        return IS_DELETED;
-    }
+	public static Boolean getIsDeleted() {
+		return IS_DELETED;
+	}
 
-    public static Boolean getNotDeleted() {
-        return NOT_DELETED;
-    }
+	public static Boolean getNotDeleted() {
+		return NOT_DELETED;
+	}
 
 	public Integer getId() {
 		return id;
@@ -140,7 +140,7 @@ public class LitemallCategoryDTO implements Serializable {
 	}
 
 	public void setName(String name) {
-        this.name = name;
+		this.name = name;
 	}
 
 	public String getKeywords() {
@@ -148,7 +148,7 @@ public class LitemallCategoryDTO implements Serializable {
 	}
 
 	public void setKeywords(String keywords) {
-        this.keywords = keywords;
+		this.keywords = keywords;
 	}
 
 	public String getDesc() {
@@ -156,7 +156,7 @@ public class LitemallCategoryDTO implements Serializable {
 	}
 
 	public void setDesc(String desc) {
-        this.desc = desc;
+		this.desc = desc;
 	}
 
 	public Integer getPid() {
@@ -172,7 +172,7 @@ public class LitemallCategoryDTO implements Serializable {
 	}
 
 	public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
+		this.iconUrl = iconUrl;
 	}
 
 	public String getPicUrl() {
@@ -180,7 +180,7 @@ public class LitemallCategoryDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+		this.picUrl = picUrl;
 	}
 
 	public String getLevel() {
@@ -188,7 +188,7 @@ public class LitemallCategoryDTO implements Serializable {
 	}
 
 	public void setLevel(String level) {
-        this.level = level;
+		this.level = level;
 	}
 
 	public Byte getSortOrder() {

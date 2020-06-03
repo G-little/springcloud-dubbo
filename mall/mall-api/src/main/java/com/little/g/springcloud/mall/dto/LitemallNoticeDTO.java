@@ -92,7 +92,7 @@ public class LitemallNoticeDTO implements Serializable {
 	}
 
 	public void setTitle(String title) {
-        this.title = title;
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -100,7 +100,7 @@ public class LitemallNoticeDTO implements Serializable {
 	}
 
 	public void setContent(String content) {
-        this.content = content;
+		this.content = content;
 	}
 
 	public Integer getAdminId() {

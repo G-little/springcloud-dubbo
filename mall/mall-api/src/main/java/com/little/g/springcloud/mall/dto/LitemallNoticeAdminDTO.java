@@ -108,7 +108,7 @@ public class LitemallNoticeAdminDTO implements Serializable {
 	}
 
 	public void setNoticeTitle(String noticeTitle) {
-        this.noticeTitle = noticeTitle;
+		this.noticeTitle = noticeTitle;
 	}
 
 	public Integer getAdminId() {

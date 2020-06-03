@@ -133,7 +133,7 @@ public class LitemallTopicDTO implements Serializable {
 	}
 
 	public void setTitle(String title) {
-        this.title = title;
+		this.title = title;
 	}
 
 	public String getSubtitle() {
@@ -141,7 +141,7 @@ public class LitemallTopicDTO implements Serializable {
 	}
 
 	public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+		this.subtitle = subtitle;
 	}
 
 	public BigDecimal getPrice() {
@@ -157,7 +157,7 @@ public class LitemallTopicDTO implements Serializable {
 	}
 
 	public void setReadCount(String readCount) {
-        this.readCount = readCount;
+		this.readCount = readCount;
 	}
 
 	public String getPicUrl() {
@@ -165,7 +165,7 @@ public class LitemallTopicDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+		this.picUrl = picUrl;
 	}
 
 	public Integer getSortOrder() {
@@ -213,7 +213,7 @@ public class LitemallTopicDTO implements Serializable {
 	}
 
 	public void setContent(String content) {
-        this.content = content;
+		this.content = content;
 	}
 
 }

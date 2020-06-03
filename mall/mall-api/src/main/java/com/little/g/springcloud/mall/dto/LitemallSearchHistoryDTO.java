@@ -100,7 +100,7 @@ public class LitemallSearchHistoryDTO implements Serializable {
 	}
 
 	public void setKeyword(String keyword) {
-        this.keyword = keyword;
+		this.keyword = keyword;
 	}
 
 	public String getFrom() {
@@ -108,7 +108,7 @@ public class LitemallSearchHistoryDTO implements Serializable {
 	}
 
 	public void setFrom(String from) {
-        this.from = from;
+		this.from = from;
 	}
 
 	public LocalDateTime getAddTime() {

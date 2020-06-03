@@ -133,7 +133,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	}
 
 	public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
+		this.goodsName = goodsName;
 	}
 
 	public String getPicUrl() {
@@ -141,7 +141,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+		this.picUrl = picUrl;
 	}
 
 	public BigDecimal getDiscount() {

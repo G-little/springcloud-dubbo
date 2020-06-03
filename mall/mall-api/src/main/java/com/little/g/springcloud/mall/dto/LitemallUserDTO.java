@@ -173,7 +173,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setUsername(String username) {
-        this.username = username;
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -181,7 +181,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setPassword(String password) {
-        this.password = password;
+		this.password = password;
 	}
 
 	public Byte getGender() {
@@ -213,7 +213,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp;
+		this.lastLoginIp = lastLoginIp;
 	}
 
 	public Byte getUserLevel() {
@@ -229,7 +229,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setNickname(String nickname) {
-        this.nickname = nickname;
+		this.nickname = nickname;
 	}
 
 	public String getMobile() {
@@ -237,7 +237,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setMobile(String mobile) {
-        this.mobile = mobile;
+		this.mobile = mobile;
 	}
 
 	public String getAvatar() {
@@ -245,7 +245,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setAvatar(String avatar) {
-        this.avatar = avatar;
+		this.avatar = avatar;
 	}
 
 	public String getWeixinOpenid() {
@@ -253,7 +253,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setWeixinOpenid(String weixinOpenid) {
-        this.weixinOpenid = weixinOpenid;
+		this.weixinOpenid = weixinOpenid;
 	}
 
 	public String getSessionKey() {
@@ -261,7 +261,7 @@ public class LitemallUserDTO implements Serializable {
 	}
 
 	public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
+		this.sessionKey = sessionKey;
 	}
 
 	public Byte getStatus() {

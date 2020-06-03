@@ -124,7 +124,7 @@ public class LitemallLogDTO implements Serializable {
 	}
 
 	public void setAdmin(String admin) {
-        this.admin = admin;
+		this.admin = admin;
 	}
 
 	public String getIp() {
@@ -132,7 +132,7 @@ public class LitemallLogDTO implements Serializable {
 	}
 
 	public void setIp(String ip) {
-        this.ip = ip;
+		this.ip = ip;
 	}
 
 	public Integer getType() {
@@ -148,7 +148,7 @@ public class LitemallLogDTO implements Serializable {
 	}
 
 	public void setAction(String action) {
-        this.action = action;
+		this.action = action;
 	}
 
 	public Boolean getStatus() {
@@ -164,7 +164,7 @@ public class LitemallLogDTO implements Serializable {
 	}
 
 	public void setResult(String result) {
-        this.result = result;
+		this.result = result;
 	}
 
 	public String getComment() {
@@ -172,7 +172,7 @@ public class LitemallLogDTO implements Serializable {
 	}
 
 	public void setComment(String comment) {
-        this.comment = comment;
+		this.comment = comment;
 	}
 
 	public LocalDateTime getAddTime() {

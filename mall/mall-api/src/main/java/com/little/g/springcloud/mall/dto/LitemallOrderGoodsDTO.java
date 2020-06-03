@@ -165,7 +165,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	}
 
 	public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
+		this.goodsName = goodsName;
 	}
 
 	public String getGoodsSn() {
@@ -173,7 +173,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	}
 
 	public void setGoodsSn(String goodsSn) {
-        this.goodsSn = goodsSn;
+		this.goodsSn = goodsSn;
 	}
 
 	public Integer getProductId() {
@@ -213,7 +213,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+		this.picUrl = picUrl;
 	}
 
 	public Integer getComment() {

@@ -79,13 +79,13 @@ public class LitemallGoodsAttributeDTO implements Serializable {
 	 */
 	private Boolean deleted;
 
-    public static Boolean getIsDeleted() {
-        return IS_DELETED;
-    }
+	public static Boolean getIsDeleted() {
+		return IS_DELETED;
+	}
 
-    public static Boolean getNotDeleted() {
-        return NOT_DELETED;
-    }
+	public static Boolean getNotDeleted() {
+		return NOT_DELETED;
+	}
 
 	public Integer getId() {
 		return id;
@@ -108,7 +108,7 @@ public class LitemallGoodsAttributeDTO implements Serializable {
 	}
 
 	public void setAttribute(String attribute) {
-        this.attribute = attribute;
+		this.attribute = attribute;
 	}
 
 	public String getValue() {
@@ -116,7 +116,7 @@ public class LitemallGoodsAttributeDTO implements Serializable {
 	}
 
 	public void setValue(String value) {
-        this.value = value;
+		this.value = value;
 	}
 
 	public LocalDateTime getAddTime() {

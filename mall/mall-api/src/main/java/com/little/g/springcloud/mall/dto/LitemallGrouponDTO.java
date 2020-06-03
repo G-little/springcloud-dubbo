@@ -163,7 +163,7 @@ public class LitemallGrouponDTO {
 	}
 
 	public void setShareUrl(String shareUrl) {
-        this.shareUrl = shareUrl;
+		this.shareUrl = shareUrl;
 	}
 
 	public Integer getCreatorUserId() {

@@ -111,13 +111,13 @@ public class LitemallCouponUserDTO implements Serializable {
 	 */
 	private Boolean deleted;
 
-    public static Boolean getIsDeleted() {
-        return IS_DELETED;
-    }
+	public static Boolean getIsDeleted() {
+		return IS_DELETED;
+	}
 
-    public static Boolean getNotDeleted() {
-        return NOT_DELETED;
-    }
+	public static Boolean getNotDeleted() {
+		return NOT_DELETED;
+	}
 
 	public Integer getId() {
 		return id;

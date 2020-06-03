@@ -136,13 +136,13 @@ public class LitemallCartDTO implements Serializable {
 	 */
 	private Boolean deleted;
 
-    public static Boolean getIsDeleted() {
-        return IS_DELETED;
-    }
+	public static Boolean getIsDeleted() {
+		return IS_DELETED;
+	}
 
-    public static Boolean getNotDeleted() {
-        return NOT_DELETED;
-    }
+	public static Boolean getNotDeleted() {
+		return NOT_DELETED;
+	}
 
 	public Integer getId() {
 		return id;
@@ -173,7 +173,7 @@ public class LitemallCartDTO implements Serializable {
 	}
 
 	public void setGoodsSn(String goodsSn) {
-        this.goodsSn = goodsSn;
+		this.goodsSn = goodsSn;
 	}
 
 	public String getGoodsName() {
@@ -181,7 +181,7 @@ public class LitemallCartDTO implements Serializable {
 	}
 
 	public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
+		this.goodsName = goodsName;
 	}
 
 	public Integer getProductId() {
@@ -229,7 +229,7 @@ public class LitemallCartDTO implements Serializable {
 	}
 
 	public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+		this.picUrl = picUrl;
 	}
 
 	public LocalDateTime getAddTime() {
