@@ -1,10 +1,13 @@
 package com.little.g.springcloud.user.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.little.g.springcloud.common.ResultJson;
 import com.little.g.springcloud.common.enums.DeviceTypeEnum;
 import com.little.g.springcloud.common.enums.TokenVersion;
 import com.little.g.springcloud.common.exception.ServiceDataException;
-import com.little.g.springcloud.user.TokenUtil;
 import com.little.g.springcloud.user.api.TokenService;
 import com.little.g.springcloud.user.common.RedisConstants;
 import com.little.g.springcloud.user.dto.TokenCache;
@@ -12,6 +15,8 @@ import com.little.g.springcloud.user.dto.UserDeviceTokenDTO;
 import com.little.g.springcloud.user.mapper.UserDeviceTokenMapper;
 import com.little.g.springcloud.user.model.UserDeviceToken;
 import com.little.g.springcloud.user.model.UserDeviceTokenExample;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,6 +26,7 @@ import javax.annotation.Resource;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -28,7 +34,7 @@ import java.util.stream.Collectors;
 /**
  * Created by lengligang on 2019/3/29.
  */
-
+@Slf4j
 @Service(protocol = "dubbo")
 public class TokenServiceImpl implements TokenService {
 
@@ -51,13 +57,23 @@ public class TokenServiceImpl implements TokenService {
 			@NotBlank @Size(min = 3, max = 50) String deviceId, @NotBlank Byte deviceType,
 			@Size(min = 1, max = 100) String os, boolean refresh) {
 
-		long curTime = System.currentTimeMillis();
-		int time = (int) (curTime / 1000);
-		String accessToken = TokenUtil.generatorToken(uid, version, time);
-		String refreshToken = TokenUtil.generatorToken(uid, version, time + 1);
+		String pass = RandomStringUtils.random(20);
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.MONTH, 2);
+		String accessToken = JWT.create().withAudience(String.valueOf(uid), deviceId)
+				.withExpiresAt(calendar.getTime()).sign(Algorithm.HMAC256(pass));
+
+		Long accessExpire = calendar.getTimeInMillis();
+
+		calendar.add(Calendar.MONTH, 2);
+
+		Long refreshExpire = calendar.getTimeInMillis();
+
+		String refreshToken = RandomStringUtils.random(25);
 
 		UserDeviceTokenDTO userDeviceTokenDTO = new UserDeviceTokenDTO(uid, deviceId,
 				accessToken);
+		userDeviceTokenDTO.setPass(pass);
 		if (deviceType != null && DeviceTypeEnum.checkKeyIsExist(deviceType)) {
 			userDeviceTokenDTO.setDeviceType(deviceType);
 		}
@@ -68,8 +84,8 @@ public class TokenServiceImpl implements TokenService {
 		userDeviceTokenDTO.setRefreshToken(refreshToken);
 		userDeviceTokenDTO.setOs(os);
 
-		userDeviceTokenDTO.setAccessExpiresIn(curTime + TimeUnit.DAYS.toMillis(30));
-		userDeviceTokenDTO.setRefreshExpiresIn(curTime + TimeUnit.DAYS.toMillis(60));
+		userDeviceTokenDTO.setAccessExpiresIn(accessExpire);
+		userDeviceTokenDTO.setRefreshExpiresIn(refreshExpire);
 
 		UserDeviceTokenExample example = new UserDeviceTokenExample();
 		// 同一个设备只能有一台登录
@@ -131,6 +147,17 @@ public class TokenServiceImpl implements TokenService {
 			userDeviceTokenDTO = getDeviceToken(deviceId, token);
 
 			if (userDeviceTokenDTO == null) {
+				return tokenCache;
+			}
+
+			JWTVerifier jwtVerifier = JWT
+					.require(Algorithm.HMAC256(userDeviceTokenDTO.getPass())).build();
+			try {
+				jwtVerifier.verify(token);
+			} catch (JWTVerificationException e) {
+				log.error("jwt token verify exception token:{},pass:{},e:{}", token,
+						userDeviceTokenDTO.getPass(), e);
+				tokenCache.setLogin(false);
 				return tokenCache;
 			}
 

@@ -19,12 +19,7 @@
         <module>user-dao</module>
         <module>user-server</module>
         <module>user-http</module>
-        <module>user-token</module>
     </modules>
-
-
-
-
 
 
 </project>

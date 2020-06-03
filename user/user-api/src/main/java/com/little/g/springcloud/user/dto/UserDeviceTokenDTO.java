@@ -101,6 +101,8 @@ public class UserDeviceTokenDTO implements Serializable {
 	 */
 	private Long updateTime;
 
+	private String pass;
+
 	private static final long serialVersionUID = 1L;
 
 	public Long getId() {
@@ -189,6 +191,14 @@ public class UserDeviceTokenDTO implements Serializable {
 
 	public void setUpdateTime(Long updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 }

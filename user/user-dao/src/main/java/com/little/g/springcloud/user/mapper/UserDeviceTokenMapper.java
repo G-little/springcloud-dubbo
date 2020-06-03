@@ -2,9 +2,9 @@ package com.little.g.springcloud.user.mapper;
 
 import com.little.g.springcloud.user.model.UserDeviceToken;
 import com.little.g.springcloud.user.model.UserDeviceTokenExample;
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserDeviceTokenMapper {
 

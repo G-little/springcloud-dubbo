@@ -34,7 +34,6 @@ public class AddressController extends GetRegionManager {
 
 	/**
 	 * 用户收货地址列表
-	 *
 	 * @param userId 用户ID
 	 * @return 收货地址列表
 	 */
@@ -49,9 +48,8 @@ public class AddressController extends GetRegionManager {
 
 	/**
 	 * 收货地址详情
-	 *
 	 * @param userId 用户ID
-	 * @param id     收货地址ID
+     * @param id 收货地址ID
 	 * @return 收货地址详情
 	 */
 	@GetMapping("detail")
@@ -113,14 +111,13 @@ public class AddressController extends GetRegionManager {
 
 	/**
 	 * 添加或更新收货地址
-	 *
-	 * @param userId  用户ID
+     * @param userId 用户ID
 	 * @param address 用户收货地址
 	 * @return 添加或更新操作结果
 	 */
 	@PostMapping("save")
 	public ResultJson save(@LoginUser Integer userId,
-						   @RequestBody LitemallAddressDTO address) {
+                           @RequestBody LitemallAddressDTO address) {
 		if (userId == null) {
 			return ResponseUtil.unlogin();
 		}
@@ -138,7 +135,7 @@ public class AddressController extends GetRegionManager {
 			address.setId(null);
 			address.setUserId(userId);
 			addressService.add(address);
-		} else {
+        } else {
 			LitemallAddressDTO litemallAddress = addressService.query(userId,
 					address.getId());
 			if (litemallAddress == null) {
@@ -158,14 +155,13 @@ public class AddressController extends GetRegionManager {
 
 	/**
 	 * 删除收货地址
-	 *
-	 * @param userId  用户ID
+     * @param userId 用户ID
 	 * @param address 用户收货地址，{ id: xxx }
 	 * @return 删除操作结果
 	 */
 	@PostMapping("delete")
 	public Object delete(@LoginUser Integer userId,
-						 @RequestBody LitemallAddressDTO address) {
+                         @RequestBody LitemallAddressDTO address) {
 		if (userId == null) {
 			return ResponseUtil.unlogin();
 		}

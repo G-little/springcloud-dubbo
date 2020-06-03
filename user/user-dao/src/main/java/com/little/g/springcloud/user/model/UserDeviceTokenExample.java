@@ -1387,6 +1387,112 @@ public class UserDeviceTokenExample {
 			return (Criteria) this;
 		}
 
+        public Criteria andPassIsNull() {
+            addCriterion("pass is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassIsNotNull() {
+            addCriterion("pass is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassEqualTo(String value) {
+            addCriterion("pass =", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassEqualToColumn(UserDeviceToken.Column column) {
+            addCriterion(new StringBuilder("pass = ")
+                    .append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPassNotEqualTo(String value) {
+            addCriterion("pass <>", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassNotEqualToColumn(UserDeviceToken.Column column) {
+            addCriterion(new StringBuilder("pass <> ")
+                    .append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPassGreaterThan(String value) {
+            addCriterion("pass >", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassGreaterThanColumn(UserDeviceToken.Column column) {
+            addCriterion(new StringBuilder("pass > ")
+                    .append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPassGreaterThanOrEqualTo(String value) {
+            addCriterion("pass >=", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassGreaterThanOrEqualToColumn(UserDeviceToken.Column column) {
+            addCriterion(new StringBuilder("pass >= ")
+                    .append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPassLessThan(String value) {
+            addCriterion("pass <", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassLessThanColumn(UserDeviceToken.Column column) {
+            addCriterion(new StringBuilder("pass < ")
+                    .append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPassLessThanOrEqualTo(String value) {
+            addCriterion("pass <=", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassLessThanOrEqualToColumn(UserDeviceToken.Column column) {
+            addCriterion(new StringBuilder("pass <= ")
+                    .append(column.getEscapedColumnName()).toString());
+            return (Criteria) this;
+        }
+
+        public Criteria andPassLike(String value) {
+            addCriterion("pass like", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassNotLike(String value) {
+            addCriterion("pass not like", value, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassIn(List<String> values) {
+            addCriterion("pass in", values, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassNotIn(List<String> values) {
+            addCriterion("pass not in", values, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassBetween(String value1, String value2) {
+            addCriterion("pass between", value1, value2, "pass");
+            return (Criteria) this;
+        }
+
+        public Criteria andPassNotBetween(String value1, String value2) {
+            addCriterion("pass not between", value1, value2, "pass");
+            return (Criteria) this;
+        }
+
 	}
 
 	/**
