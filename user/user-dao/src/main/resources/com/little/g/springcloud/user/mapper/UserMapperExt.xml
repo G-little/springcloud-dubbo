@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.little.g.springcloud.user.mapper.UserMapperExt">
 
-  <select id="maxUid" resultType="java.lang.Long">
+    <select id="maxUid" resultType="java.lang.Integer">
       select max(uid) from user
   </select>
 </mapper>

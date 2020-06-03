@@ -30,12 +30,12 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableCmdErrorMsg
 @ComponentScan(basePackages = {"com.little.g.springcloud.user",
-        "com.little.g.springcloud.common.cache"})
+		"com.little.g.springcloud.common.cache"})
 public class SpringCloudUserHttpBootstrap {
 
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(SpringCloudUserHttpBootstrap.class)
-                .properties("spring.profiles.active=nacos").run(args);
-    }
+	public static void main(String[] args) {
+		new SpringApplicationBuilder(SpringCloudUserHttpBootstrap.class)
+				.properties("spring.profiles.active=nacos").run(args);
+	}
 
 }

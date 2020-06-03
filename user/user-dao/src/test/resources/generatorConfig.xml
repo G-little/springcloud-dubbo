@@ -82,10 +82,14 @@
         <table tableName="oauth_user" domainObjectName="OAuthUser" enableUpdateByPrimaryKey="true">
 
         </table>
-        -->
 
         <table tableName="user_device_token">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        -->
+
+
+        <table tableName="user">
         </table>
 
 
