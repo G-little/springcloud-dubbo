@@ -154,7 +154,7 @@ public class TokenServiceImpl implements TokenService {
 					.require(Algorithm.HMAC256(userDeviceTokenDTO.getPass())).build();
 			try {
 				jwtVerifier.verify(token);
-            } catch (JWTVerificationException e) {
+			} catch (JWTVerificationException e) {
 				log.error("jwt token verify exception token:{},pass:{},e:{}", token,
 						userDeviceTokenDTO.getPass(), e);
 				tokenCache.setLogin(false);
