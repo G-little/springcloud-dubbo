@@ -40,7 +40,7 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 
 	@Override
 	public PageInfo<LitemallAftersaleDTO> queryList(Integer userId, Short status,
-													Integer page, Integer limit, String sort, String order) {
+                                                    Integer page, Integer limit, String sort, String order) {
 		LitemallAftersaleExample example = new LitemallAftersaleExample();
 		LitemallAftersaleExample.Criteria criteria = example.or();
 		criteria.andUserIdEqualTo(userId);
@@ -50,7 +50,7 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 		criteria.andDeletedEqualTo(false);
 		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
 			example.setOrderByClause(sort + " " + order);
-		} else {
+        } else {
 			example.setOrderByClause(LitemallAftersale.Column.addTime.desc());
 		}
 
@@ -61,8 +61,8 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 
 	@Override
 	public PageInfo<LitemallAftersaleDTO> querySelective(Integer orderId,
-														 String aftersaleSn, Short status, Integer page, Integer limit, String sort,
-														 String order) {
+                                                         String aftersaleSn, Short status, Integer page, Integer limit, String sort,
+                                                         String order) {
 		LitemallAftersaleExample example = new LitemallAftersaleExample();
 		LitemallAftersaleExample.Criteria criteria = example.or();
 		if (orderId != null) {
@@ -77,7 +77,7 @@ public class LitemallAftersaleServiceImpl implements LitemallAftersaleService {
 		criteria.andDeletedEqualTo(false);
 		if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
 			example.setOrderByClause(sort + " " + order);
-		} else {
+        } else {
 			example.setOrderByClause(LitemallAftersale.Column.addTime.desc());
 		}
 

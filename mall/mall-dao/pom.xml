@@ -44,7 +44,7 @@
                 <!-- 数据库 -->
                 <priest.jdbc.driver>com.mysql.jdbc.Driver</priest.jdbc.driver>
                 <!--suppress UnresolvedMavenProperty -->
-                <priest.jdbc.url>jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/springcloud-mall?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
+                <priest.jdbc.url>jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/litemall?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</priest.jdbc.url>
                 <!--suppress UnresolvedMavenProperty -->
                 <priest.jdbc.username>${MYSQL_USER}</priest.jdbc.username>
                 <!--suppress UnresolvedMavenProperty -->

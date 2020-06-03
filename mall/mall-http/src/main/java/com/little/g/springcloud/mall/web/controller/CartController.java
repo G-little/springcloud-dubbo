@@ -73,7 +73,7 @@ public class CartController {
 		// 更好的效果应该是告知用户商品失效，允许用户点击按钮来清除失效商品。
 		for (LitemallCartDTO cart : list) {
 			LitemallGoodsDTO goods = goodsService.findById(cart.getGoodsId());
-			if (goods == null || !goods.getIsOnSale()) {
+			if (goods == null || !goods.getOnSale()) {
 				cartService.deleteById(cart.getId());
 				log.debug("系统自动删除失效购物车商品 goodsId=" + cart.getGoodsId() + " productId="
 						+ cart.getProductId());
@@ -139,7 +139,7 @@ public class CartController {
 
 		// 判断商品是否可以购买
 		LitemallGoodsDTO goods = goodsService.findById(goodsId);
-		if (goods == null || !goods.getIsOnSale()) {
+		if (goods == null || !goods.getOnSale()) {
 			return ResponseUtil.fail(GOODS_UNSHELVE, "商品已下架");
 		}
 
@@ -212,7 +212,7 @@ public class CartController {
 
 		// 判断商品是否可以购买
 		LitemallGoodsDTO goods = goodsService.findById(goodsId);
-		if (goods == null || !goods.getIsOnSale()) {
+		if (goods == null || !goods.getOnSale()) {
 			return ResponseUtil.fail(GOODS_UNSHELVE, "商品已下架");
 		}
 
@@ -294,7 +294,7 @@ public class CartController {
 
 		// 判断商品是否可以购买
 		LitemallGoodsDTO goods = goodsService.findById(goodsId);
-		if (goods == null || !goods.getIsOnSale()) {
+		if (goods == null || !goods.getOnSale()) {
 			return ResponseUtil.fail(GOODS_UNSHELVE, "商品已下架");
 		}
 
