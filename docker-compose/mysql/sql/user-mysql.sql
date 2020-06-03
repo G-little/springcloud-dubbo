@@ -90,6 +90,7 @@ CREATE TABLE `user_device_token` (
   `refresh_expires_in` bigint(20) DEFAULT NULL,
   `create_time` bigint(20) DEFAULT NULL COMMENT '记录创建时间',
   `update_time` bigint(20) DEFAULT NULL COMMENT '记录修改时间',
+  `pass` varchar (30) DEFAULT NULL COMMENT '密码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNI_UID_DEVICE` (`uid`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户设备表';
