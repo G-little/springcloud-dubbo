@@ -23,10 +23,10 @@ public class ResultJson<T> implements Serializable {
 
     public static final Map<Integer, String> msg = new HashMap<Integer, String>();
 
-    @ApiModelProperty(value = "错误码", position = 1)
+    @ApiModelProperty(value = "错误码", position = 0)
     private Integer c = SUCCESSFUL; // code
 
-    @ApiModelProperty(value = "错误信息", position = 0)
+    @ApiModelProperty(value = "错误信息", position = 1)
     private String m; // message
 
     private Map<String, Object> d = null; // data
