@@ -5,10 +5,7 @@ dubbo:
     dubbo:
       name: dubbo
       port: 20880
-    rest:
-      name: rest
-      port: 9090
-      server: netty
+
   registry:
     #   The Spring Cloud Dubbo's registry extension
     address: spring-cloud://localhost
