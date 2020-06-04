@@ -98,6 +98,6 @@ public interface ResourcesService {
 	 * @throws ServiceDataException
 	 */
 	boolean hasPrivilege(String[] permissions, LogicalEnum l, String url,
-                         AdminUserDTO admin) throws ServiceDataException;
+			AdminUserDTO admin) throws ServiceDataException;
 
 }

@@ -27,10 +27,10 @@ import org.springframework.context.annotation.ComponentScan;
  * Dubbo Spring Cloud Provider Bootstrap.
  */
 @EnableDiscoveryClient
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @EnableCmdErrorMsg
-@ComponentScan(basePackages = {"com.little.g.springcloud.user",
-		"com.little.g.springcloud.common.cache"})
+@ComponentScan(basePackages = { "com.little.g.springcloud.user",
+		"com.little.g.springcloud.common.cache" })
 public class SpringCloudUserHttpBootstrap {
 
 	public static void main(String[] args) {

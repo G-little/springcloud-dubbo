@@ -31,31 +31,31 @@ import static com.google.common.collect.Lists.newArrayList;
 public class MallSwagger2Configuration {
 
 	@Bean
-    public Docket mallDocket() {
+	public Docket mallDocket() {
 
 		return new Docket(DocumentationType.SWAGGER_2).groupName("mall")
-                .useDefaultResponseMessages(false).apiInfo(adminApiInfo()).select()
+				.useDefaultResponseMessages(false).apiInfo(adminApiInfo()).select()
 				.apis(RequestHandlerSelectors
 						.basePackage("com.little.g.springcloud.mall.web"))
-                .paths(PathSelectors.regex("^(?!auth).*$")).build()
-                .securitySchemes(securitySchemes()).securityContexts(securityContexts());
-    }
+				.paths(PathSelectors.regex("^(?!auth).*$")).build()
+				.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+	}
 
-    private List<ApiKey> securitySchemes() {
-        return newArrayList(new ApiKey("Authorization", "Authorization", "header"));
-    }
+	private List<ApiKey> securitySchemes() {
+		return newArrayList(new ApiKey("Authorization", "Authorization", "header"));
+	}
 
-    private List<SecurityContext> securityContexts() {
-        return newArrayList(SecurityContext.builder().securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("^(?!auth).*$")).build());
-    }
+	private List<SecurityContext> securityContexts() {
+		return newArrayList(SecurityContext.builder().securityReferences(defaultAuth())
+				.forPaths(PathSelectors.regex("^(?!auth).*$")).build());
+	}
 
-    List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global",
-                "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return newArrayList(new SecurityReference("Authorization", authorizationScopes));
+	List<SecurityReference> defaultAuth() {
+		AuthorizationScope authorizationScope = new AuthorizationScope("global",
+				"accessEverything");
+		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+		authorizationScopes[0] = authorizationScope;
+		return newArrayList(new SecurityReference("Authorization", authorizationScopes));
 	}
 
 	private ApiInfo adminApiInfo() {

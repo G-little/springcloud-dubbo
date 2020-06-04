@@ -84,7 +84,7 @@ CREATE TABLE `user_device_token` (
   `device_id` varchar(45) DEFAULT NULL COMMENT '设备编号',
   `device_type` tinyint(4) DEFAULT NULL,
   `os` varchar(128) DEFAULT NULL,
-  `access_token` varchar(128) DEFAULT NULL COMMENT '用户访问的凭证',
+  `access_token` varchar(300) DEFAULT NULL COMMENT '用户访问的凭证',
   `access_expires_in` bigint(20) DEFAULT NULL,
   `refresh_token` varchar(128) DEFAULT NULL COMMENT '用来刷新access_token的refresh_token',
   `refresh_expires_in` bigint(20) DEFAULT NULL,

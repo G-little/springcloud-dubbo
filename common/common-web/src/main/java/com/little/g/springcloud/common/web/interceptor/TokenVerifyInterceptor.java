@@ -47,7 +47,7 @@ public class TokenVerifyInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-							 Object handler) throws Exception {
+			Object handler) throws Exception {
 
 		/* 用户Token */
 		String token = request.getHeader("Authorization");

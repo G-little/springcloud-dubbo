@@ -22,7 +22,7 @@ public class LitemallFootprintServiceImpl implements LitemallFootprintService {
 
 	@Override
 	public PageInfo<LitemallFootprintDTO> queryByAddTime(Integer userId, Integer page,
-														 Integer size) {
+			Integer size) {
 		LitemallFootprintExample example = new LitemallFootprintExample();
 		example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
 		example.setOrderByClause(LitemallFootprint.Column.addTime.desc());
@@ -60,7 +60,7 @@ public class LitemallFootprintServiceImpl implements LitemallFootprintService {
 
 	@Override
 	public PageInfo<LitemallFootprintDTO> querySelective(String userId, String goodsId,
-														 Integer page, Integer size, String sort, String order) {
+			Integer page, Integer size, String sort, String order) {
 		LitemallFootprintExample example = new LitemallFootprintExample();
 		LitemallFootprintExample.Criteria criteria = example.createCriteria();
 

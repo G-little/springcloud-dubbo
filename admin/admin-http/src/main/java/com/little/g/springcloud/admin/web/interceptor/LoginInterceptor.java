@@ -22,48 +22,48 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-    private static Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+	private static Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
-    @Reference
-    private ResourcesService resourcesService;
+	@Reference
+	private ResourcesService resourcesService;
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                             Object handler) throws Exception {
-        LoginSession session = SessionUtils.getLoginSession(request);
-        if (session == null) {
-            throw new ServiceDataException(CommonErrorCodes.NOT_LOGIN);
-        }
-        HandlerMethod method = (HandlerMethod) handler;
-        RequiresPermissions methodAnnotation = method
-                .getMethodAnnotation(RequiresPermissions.class);
-        // TODO 设置权限逻辑
-        String[] permissions = null;
-        LogicalEnum l = null;
-        if (methodAnnotation != null) {
-            permissions = methodAnnotation.value();
-            l = methodAnnotation.logical();
-            if (l == null) {
-                l = LogicalEnum.AND;
-            }
-        }
-        SessionUtils.set(session.getAdminUser());
-        return resourcesService.hasPrivilege(permissions, l, request.getRequestURI(),
-                session.getAdminUser());
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+			Object handler) throws Exception {
+		LoginSession session = SessionUtils.getLoginSession(request);
+		if (session == null) {
+			throw new ServiceDataException(CommonErrorCodes.NOT_LOGIN);
+		}
+		HandlerMethod method = (HandlerMethod) handler;
+		RequiresPermissions methodAnnotation = method
+				.getMethodAnnotation(RequiresPermissions.class);
+		// TODO 设置权限逻辑
+		String[] permissions = null;
+		LogicalEnum l = null;
+		if (methodAnnotation != null) {
+			permissions = methodAnnotation.value();
+			l = methodAnnotation.logical();
+			if (l == null) {
+				l = LogicalEnum.AND;
+			}
+		}
+		SessionUtils.set(session.getAdminUser());
+		return resourcesService.hasPrivilege(permissions, l, request.getRequestURI(),
+				session.getAdminUser());
 
-    }
+	}
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response,
-                           Object handler, ModelAndView modelAndView) throws Exception {
-        super.postHandle(request, response, handler, modelAndView);
-    }
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response,
+			Object handler, ModelAndView modelAndView) throws Exception {
+		super.postHandle(request, response, handler, modelAndView);
+	}
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-                                Object handler, Exception ex) throws Exception {
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
+			Object handler, Exception ex) throws Exception {
 
-        super.afterCompletion(request, response, handler, ex);
-    }
+		super.afterCompletion(request, response, handler, ex);
+	}
 
 }

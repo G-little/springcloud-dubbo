@@ -442,9 +442,9 @@ public class UserDeviceToken {
 				&& (this.getCreateTime() == null ? other.getCreateTime() == null
 						: this.getCreateTime().equals(other.getCreateTime()))
 				&& (this.getUpdateTime() == null ? other.getUpdateTime() == null
-                : this.getUpdateTime().equals(other.getUpdateTime()))
+						: this.getUpdateTime().equals(other.getUpdateTime()))
 				&& (this.getPass() == null ? other.getPass() == null
-                : this.getPass().equals(other.getPass()));
+						: this.getPass().equals(other.getPass()));
 	}
 
 	/**
@@ -502,13 +502,13 @@ public class UserDeviceToken {
 														false), createTime("create_time",
 																"createTime", "BIGINT",
 																false), updateTime(
-                "update_time",
-                "updateTime",
-                "BIGINT",
-                false), pass(
-                "pass",
-                "pass",
-                "VARCHAR",
+																		"update_time",
+																		"updateTime",
+																		"BIGINT",
+																		false), pass(
+																				"pass",
+																				"pass",
+																				"VARCHAR",
 																				false);
 
 		/**
