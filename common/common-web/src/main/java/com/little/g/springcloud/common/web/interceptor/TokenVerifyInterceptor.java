@@ -34,9 +34,10 @@ public class TokenVerifyInterceptor extends HandlerInterceptorAdapter {
 			.build(new CacheLoader<String, TokenCache>() {
 				@Override
 				public TokenCache load(String s) throws Exception {
-					if (StringUtils.isEmpty(s))
+					if (StringUtils.isEmpty(s)) {
 						return null;
-					String[] credentials = s.split("_");
+					}
+					String[] credentials = s.split("@_");
 					String token = credentials[0];
 					String deviceId = credentials[1];
 
@@ -46,7 +47,7 @@ public class TokenVerifyInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-			Object handler) throws Exception {
+							 Object handler) throws Exception {
 
 		/* 用户Token */
 		String token = request.getHeader("Authorization");
@@ -56,14 +57,14 @@ public class TokenVerifyInterceptor extends HandlerInterceptorAdapter {
 					"msg.user.not.login");
 		}
 		/* 设备ID */
-		String deviceId = JWT.decode(token).getAudience().get(0);
+		String deviceId = JWT.decode(token).getAudience().get(1);
 
 		if (StringUtils.isEmpty(deviceId)) {
 			throw new ServiceDataException(CommonErrorCodes.NOT_LOGIN,
 					"msg.user.not.login");
 		}
 
-		String localKey = String.format("%s_%s", token, deviceId);
+		String localKey = String.format("%s@_%s", token, deviceId);
 
 		TokenCache tokenCache = cache.get(localKey);
 		if (tokenCache != null && tokenCache.isLogin()) {
