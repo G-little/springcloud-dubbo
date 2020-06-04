@@ -43,8 +43,8 @@ public class ResponseUtil {
 		return r;
 	}
 
-	public static ResultJson ok(Object data) {
-		ResultJson r = new ResultJson();
+	public static <T> ResultJson<T> ok(T data) {
+		ResultJson<T> r = new ResultJson<>();
 		r.setData(data);
 		return r;
 	}
