@@ -1,6 +1,7 @@
 package com.little.g.springcloud.mall.web.controller;
 
 import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.utils.RegexUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.common.web.annotation.LoginUser;
@@ -47,7 +48,7 @@ public class AddressController extends GetRegionManager {
 
     @ApiOperation(value = "拉取收货地址列表", notes = "获取用户填写的地理位置信息历史记录")
     @GetMapping("list")
-    public ResultJson<List<LitemallAddressDTO>> list(@LoginUser Integer userId) {
+    public ResultJson<Page<LitemallAddressDTO>> list(@LoginUser Integer userId) {
 
         List<LitemallAddressDTO> addressList = addressService.queryByUid(userId);
         return ResponseUtil.okList(addressList);
