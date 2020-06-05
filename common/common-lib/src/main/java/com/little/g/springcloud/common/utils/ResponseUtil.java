@@ -2,6 +2,7 @@ package com.little.g.springcloud.common.utils;
 
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.error.CommonErrorCodes;
 
 import java.util.List;
@@ -38,95 +39,88 @@ import java.util.List;
  */
 public class ResponseUtil {
 
-	public static ResultJson ok() {
-		ResultJson r = new ResultJson();
-		return r;
-	}
+    public static ResultJson ok() {
+        ResultJson r = new ResultJson();
+        return r;
+    }
 
-	public static <T> ResultJson<T> ok(T data) {
-		ResultJson<T> r = new ResultJson<>();
-		r.setData(data);
-		return r;
-	}
+    public static <T> ResultJson<T> ok(T data) {
+        ResultJson<T> r = new ResultJson<>();
+        r.setData(data);
+        return r;
+    }
 
-	public static ResultJson fail() {
-		ResultJson r = new ResultJson();
-		r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
-		return r;
-	}
+    public static ResultJson fail() {
+        ResultJson r = new ResultJson();
+        r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
+        return r;
+    }
 
-	public static ResultJson fail(int errno, String errmsg) {
-		ResultJson r = new ResultJson();
-		r.setC(errno);
-		r.setM(errmsg);
-		return r;
-	}
+    public static ResultJson fail(int errno, String errmsg) {
+        ResultJson r = new ResultJson();
+        r.setC(errno);
+        r.setM(errmsg);
+        return r;
+    }
 
-	public static ResultJson okList(List list) {
-		ResultJson r = new ResultJson();
-		r.putD("list", list);
+    public static <T> ResultJson<Page<T>> okList(List<T> list) {
+        ResultJson<Page<T>> r = new ResultJson();
+        Page<T> p = new Page<>();
+        p.setResult(list);
+        p.setTotalCount(list.size());
+        p.setCurrentPage(1);
+        p.setPageSize(list.size());
 
-		r.putD("total", list.size());
-		r.putD("page", 1);
-		r.putD("limit", list.size());
-		r.putD("pages", 1);
-		return r;
-	}
+        r.setData(p);
+        return r;
+    }
 
-	public static ResultJson okPage(PageInfo<?> page) {
-		ResultJson r = new ResultJson();
-		r.putD("list", page.getList());
+    public static <T> ResultJson<Page<T>> okPage(PageInfo<T> page) {
+        return okList(page.getList(), page);
+    }
 
-		r.putD("total", page.getTotal());
-		r.putD("page", page.getPageNum());
-		r.putD("limit", page.getPageSize());
-		r.putD("pages", page.getPages());
+    public static <T> ResultJson<Page<T>> okList(List<T> list, PageInfo<?> page) {
+        ResultJson<Page<T>> r = new ResultJson();
+        Page<T> p = new Page<>();
+        p.setResult(list);
+        p.setTotalCount(page.getTotal());
+        p.setCurrentPage(page.getPageNum());
+        p.setPageSize(page.getPageSize());
 
-		return r;
-	}
+        r.setData(p);
+        return r;
+    }
 
-	public static ResultJson okList(List list, PageInfo<?> page) {
-		ResultJson r = new ResultJson();
-		r.putD("list", list);
+    public static ResultJson badArgument() {
+        return fail(CommonErrorCodes.INVALID_PARAM, "参数不对");
+    }
 
-		r.putD("total", page.getTotal());
-		r.putD("page", page.getPageNum());
-		r.putD("limit", page.getPageSize());
-		r.putD("pages", page.getPages());
+    public static ResultJson badArgumentValue() {
+        return fail(CommonErrorCodes.INVALID_VALUE, "参数值不对");
+    }
 
-		return r;
-	}
+    public static ResultJson unlogin() {
+        return fail(CommonErrorCodes.NOT_LOGIN, "请登录");
+    }
 
-	public static ResultJson badArgument() {
-		return fail(CommonErrorCodes.INVALID_PARAM, "参数不对");
-	}
+    public static ResultJson serious() {
+        return fail(CommonErrorCodes.SYSTEM_UNKNOWN_EXCEPTION, "系统内部错误");
+    }
 
-	public static ResultJson badArgumentValue() {
-		return fail(CommonErrorCodes.INVALID_VALUE, "参数值不对");
-	}
+    public static ResultJson unsupport() {
+        return fail(CommonErrorCodes.BUSINESS_UNSUPPORT_ERROR, "业务不支持");
+    }
 
-	public static ResultJson unlogin() {
-		return fail(CommonErrorCodes.NOT_LOGIN, "请登录");
-	}
+    public static ResultJson updatedDateExpired() {
+        return fail(CommonErrorCodes.UPDATE_DATA_TIMEOUT_ERROR, "更新数据已经失效");
+    }
 
-	public static ResultJson serious() {
-		return fail(CommonErrorCodes.SYSTEM_UNKNOWN_EXCEPTION, "系统内部错误");
-	}
+    public static ResultJson updatedDataFailed() {
+        return fail(CommonErrorCodes.UPDATE_DATA_FAILED_ERROR, "更新数据失败");
+    }
 
-	public static ResultJson unsupport() {
-		return fail(CommonErrorCodes.BUSINESS_UNSUPPORT_ERROR, "业务不支持");
-	}
-
-	public static ResultJson updatedDateExpired() {
-		return fail(CommonErrorCodes.UPDATE_DATA_TIMEOUT_ERROR, "更新数据已经失效");
-	}
-
-	public static ResultJson updatedDataFailed() {
-		return fail(CommonErrorCodes.UPDATE_DATA_FAILED_ERROR, "更新数据失败");
-	}
-
-	public static ResultJson unauthz() {
-		return fail(CommonErrorCodes.NO_PRIVILEGE_ERROR, "无操作权限");
-	}
+    public static ResultJson unauthz() {
+        return fail(CommonErrorCodes.NO_PRIVILEGE_ERROR, "无操作权限");
+    }
 
 }

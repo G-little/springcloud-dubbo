@@ -1,5 +1,6 @@
 package com.little.g.springcloud.mall.web.config;
 
+import com.little.g.springcloud.common.web.annotation.LoginUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -38,7 +39,8 @@ public class MallSwagger2Configuration {
 				.apis(RequestHandlerSelectors
 						.basePackage("com.little.g.springcloud.mall.web"))
 				.paths(PathSelectors.regex("^(?!auth).*$")).build()
-				.securitySchemes(securitySchemes()).securityContexts(securityContexts());
+				.ignoredParameterTypes(LoginUser.class).securitySchemes(securitySchemes())
+				.securityContexts(securityContexts());
 	}
 
 	private List<ApiKey> securitySchemes() {

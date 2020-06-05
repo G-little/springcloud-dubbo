@@ -1,12 +1,16 @@
 
 package com.little.g.springcloud.common.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by mayan on 14-11-5.
  */
+@ApiModel
 public class Page<T> implements Serializable {
 
 	// 初始化size
@@ -14,10 +18,13 @@ public class Page<T> implements Serializable {
 
 	private static final long serialVersionUID = 5784595885066034295L;
 
+	@ApiModelProperty("单页条数")
 	private int pageSize = INIT_SIZE;
 
+	@ApiModelProperty("分页总条数")
 	private long totalCount;
 
+	@ApiModelProperty("当前页")
 	private int currentPage;
 
 	private List<T> data;
@@ -39,6 +46,7 @@ public class Page<T> implements Serializable {
 	 * 获取开始索引
 	 * @return
 	 */
+	@ApiModelProperty("开始索引")
 	public int getStartIndex() {
 		return (getCurrentPage() - 1) * this.pageSize;
 	}
@@ -47,6 +55,7 @@ public class Page<T> implements Serializable {
 	 * 获取结束索引
 	 * @return
 	 */
+	@ApiModelProperty("结束索引")
 	public int getEndIndex() {
 		return getCurrentPage() * this.pageSize;
 	}
@@ -55,6 +64,7 @@ public class Page<T> implements Serializable {
 	 * 是否第一页
 	 * @return
 	 */
+	@ApiModelProperty("是否第一页")
 	public boolean isFirstPage() {
 		return getCurrentPage() <= 1;
 	}
@@ -63,6 +73,7 @@ public class Page<T> implements Serializable {
 	 * 是否末页
 	 * @return
 	 */
+	@ApiModelProperty("是否最后一页")
 	public boolean isLastPage() {
 		return getCurrentPage() >= getPageCount();
 	}
@@ -71,6 +82,7 @@ public class Page<T> implements Serializable {
 	 * 获取下一页页码
 	 * @return
 	 */
+	@ApiModelProperty("下一页码")
 	public int getNextPage() {
 		if (isLastPage()) {
 			return getCurrentPage();
@@ -82,6 +94,7 @@ public class Page<T> implements Serializable {
 	 * 获取上一页页码
 	 * @return
 	 */
+	@ApiModelProperty("上一页码")
 	public int getPreviousPage() {
 		if (isFirstPage()) {
 			return 1;
@@ -104,6 +117,7 @@ public class Page<T> implements Serializable {
 	 * 取得总页数
 	 * @return
 	 */
+	@ApiModelProperty("总页数")
 	public long getPageCount() {
 		if (totalCount % pageSize == 0) {
 			return totalCount / pageSize;
@@ -161,6 +175,7 @@ public class Page<T> implements Serializable {
 	 * 获取数据集
 	 * @return
 	 */
+	@ApiModelProperty("分页数据")
 	public List<T> getResult() {
 		return data;
 	}

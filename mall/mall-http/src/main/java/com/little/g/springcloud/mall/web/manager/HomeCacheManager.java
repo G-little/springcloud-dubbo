@@ -1,87 +1,77 @@
 package com.little.g.springcloud.mall.web.manager;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 简单缓存的数据
  */
 public class HomeCacheManager {
 
-	public static final boolean ENABLE = false;
+    public static final boolean ENABLE = false;
 
-	public static final String INDEX = "index";
+    public static final String INDEX = "index";
 
-	public static final String CATALOG = "catalog";
+    public static final String CATALOG = "catalog";
 
-	public static final String GOODS = "goods";
+    public static final String GOODS = "goods";
 
-	private static ConcurrentHashMap<String, Map<String, Object>> cacheDataList = new ConcurrentHashMap<>();
+    private static Cache<String, Object> guavaCache = CacheBuilder.newBuilder()
+            .expireAfterWrite(10L, TimeUnit.MINUTES)
+            .build();
 
-	/**
-	 * 缓存首页数据
-	 * @param data
-	 */
-	public static void loadData(String cacheKey, Map<String, Object> data) {
-		Map<String, Object> cacheData = cacheDataList.get(cacheKey);
-		// 有记录，则先丢弃
-		if (cacheData != null) {
-			cacheData.remove(cacheKey);
-		}
 
-		cacheData = new HashMap<>();
-		// 深拷贝
-		cacheData.putAll(data);
-		cacheData.put("isCache", "true");
-		// 设置缓存有效期为10分钟
-		cacheData.put("expireTime", LocalDateTime.now().plusMinutes(10));
-		cacheDataList.put(cacheKey, cacheData);
-	}
+    /**
+     * 缓存首页数据
+     *
+     * @param data
+     */
+    public static void loadData(String cacheKey, Object data) {
+        Object cacheData = guavaCache.getIfPresent(cacheKey);
+        // 有记录，则先丢弃
+        if (cacheData != null) {
+            guavaCache.invalidate(cacheKey);
+        }
 
-	public static Map<String, Object> getCacheData(String cacheKey) {
-		return cacheDataList.get(cacheKey);
-	}
+        guavaCache.put(cacheKey, data);
+    }
 
-	/**
-	 * 判断缓存中是否有数据
-	 * @return
-	 */
-	public static boolean hasData(String cacheKey) {
-		if (!ENABLE)
-			return false;
+    public static <T> T getCacheData(String cacheKey, Class<T> clazz) {
+        return (T) guavaCache.getIfPresent(cacheKey);
+    }
 
-		Map<String, Object> cacheData = cacheDataList.get(cacheKey);
-		if (cacheData == null) {
-			return false;
-		}
-		else {
-			LocalDateTime expire = (LocalDateTime) cacheData.get("expireTime");
-			if (expire.isBefore(LocalDateTime.now())) {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-	}
+    /**
+     * 判断缓存中是否有数据
+     *
+     * @return
+     */
+    public static boolean hasData(String cacheKey) {
+        if (!ENABLE) {
+            return false;
+        }
 
-	/**
-	 * 清除所有缓存
-	 */
-	public static void clearAll() {
-		cacheDataList = new ConcurrentHashMap<>();
-	}
 
-	/**
-	 * 清除缓存数据
-	 */
-	public static void clear(String cacheKey) {
-		Map<String, Object> cacheData = cacheDataList.get(cacheKey);
-		if (cacheData != null) {
-			cacheDataList.remove(cacheKey);
-		}
-	}
+        Object cacheData = guavaCache.getIfPresent(cacheKey);
+        if (cacheData == null) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 清除所有缓存
+     */
+    public static void clearAll() {
+        guavaCache.cleanUp();
+    }
+
+    /**
+     * 清除缓存数据
+     */
+    public static void clear(String cacheKey) {
+        guavaCache.invalidate(cacheKey);
+    }
 
 }

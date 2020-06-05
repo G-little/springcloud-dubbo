@@ -46,13 +46,8 @@ public class AddressController extends GetRegionManager {
      */
 
     @ApiOperation(value = "拉取收货地址列表", notes = "获取用户填写的地理位置信息历史记录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "uid", value = "用户ID", dataType = "int",
-                    required = false),
-            @ApiImplicitParam(name = "test", value = "test", dataType = "long",
-                    required = true)})
     @GetMapping("list")
-    public ResultJson list(@LoginUser Integer userId) {
+    public ResultJson<List<LitemallAddressDTO>> list(@LoginUser Integer userId) {
 
         List<LitemallAddressDTO> addressList = addressService.queryByUid(userId);
         return ResponseUtil.okList(addressList);
@@ -66,10 +61,11 @@ public class AddressController extends GetRegionManager {
      * @return 收货地址详情
      */
     @ApiOperation(value = "获取收货地址详细信息", notes = "获取收货地址详细信息")
-    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "地址id", dataType = "int",
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "地址id", dataType = "Integer",
             required = true)})
     @GetMapping("detail")
-    public ResultJson<LitemallAddressDTO> detail(@LoginUser Integer userId, @NotNull Integer id) {
+    public ResultJson<LitemallAddressDTO> detail(@LoginUser Integer userId,
+                                                 @NotNull Integer id) {
 
         LitemallAddressDTO address = addressService.query(userId, id);
         if (address == null) {
@@ -173,19 +169,17 @@ public class AddressController extends GetRegionManager {
     /**
      * 删除收货地址
      *
-     * @param userId  用户ID
-     * @param address 用户收货地址，{ id: xxx }
+     * @param userId 用户ID
+     * @param id     用户收货地址，{ id: xxx }
      * @return 删除操作结果
      */
+    @ApiOperation(value = "删除收货地址", notes = "根据id删除收货地址")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "地址id", dataType = "Integer",
+            required = true)})
     @PostMapping("delete")
-    public Object delete(@LoginUser Integer userId,
-                         @RequestBody LitemallAddressDTO address) {
+    public ResultJson delete(@LoginUser Integer userId, @RequestParam Integer id) {
         if (userId == null) {
             return ResponseUtil.unlogin();
-        }
-        Integer id = address.getId();
-        if (id == null) {
-            return ResponseUtil.badArgument();
         }
         LitemallAddressDTO litemallAddress = addressService.query(userId, id);
         if (litemallAddress == null) {

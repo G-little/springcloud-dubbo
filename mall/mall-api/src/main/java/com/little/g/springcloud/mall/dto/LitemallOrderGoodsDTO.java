@@ -1,11 +1,14 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@ApiModel("订单产品")
 public class LitemallOrderGoodsDTO implements Serializable {
 
 	/**
@@ -30,6 +33,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("订单产品Id")
 	private Integer id;
 
 	/**
@@ -38,6 +42,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("订单号")
 	private Integer orderId;
 
 	/**
@@ -46,6 +51,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("产品ID")
 	private Integer goodsId;
 
 	/**
@@ -54,6 +60,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("产品名")
 	private String goodsName;
 
 	/**
@@ -62,6 +69,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("产品SN")
 	private String goodsSn;
 
 	/**
@@ -70,6 +78,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("产品ID")
 	private Integer productId;
 
 	/**
@@ -78,6 +87,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("编号")
 	private Short number;
 
 	/**
@@ -86,6 +96,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("价格")
 	private BigDecimal price;
 
 	/**
@@ -94,6 +105,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品规格")
 	private String[] specifications;
 
 	/**
@@ -102,6 +114,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("规格图片")
 	private String picUrl;
 
 	/**
@@ -110,6 +123,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("描述")
 	private Integer comment;
 
 	/**
@@ -118,6 +132,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("添加时间")
 	private LocalDateTime addTime;
 
 	/**
@@ -126,6 +141,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新时间")
 	private LocalDateTime updateTime;
 
 	/**
@@ -134,6 +150,7 @@ public class LitemallOrderGoodsDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("是否删除")
 	private Boolean deleted;
 
 	public Integer getId() {
