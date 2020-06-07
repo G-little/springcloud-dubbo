@@ -11,9 +11,10 @@ import java.util.List;
 @Data
 public class CategoryCurrentVo {
 
-    @ApiModelProperty("当前分类")
-    private LitemallCategoryDTO currentCategory;
-    @ApiModelProperty("二级分类")
-    private List<LitemallCategoryDTO> currentSubCategory;
+	@ApiModelProperty("当前分类")
+	private LitemallCategoryDTO currentCategory;
+
+	@ApiModelProperty("二级分类")
+	private List<LitemallCategoryDTO> currentSubCategory;
 
 }

@@ -123,8 +123,7 @@ public class LitemallAddressDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
-	@ApiModelProperty(value = "更新时间",
-			allowEmptyValue = true)
+	@ApiModelProperty(value = "更新时间", allowEmptyValue = true)
 	private LocalDateTime updateTime;
 
 	/**

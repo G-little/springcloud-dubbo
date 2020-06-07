@@ -10,11 +10,14 @@ import java.util.List;
 @ApiModel
 @Data
 public class CategoryIndexVo {
-    @ApiModelProperty("一级分类")
-    private List<LitemallCategoryDTO> categoryList;
-    @ApiModelProperty("当前分类")
-    private LitemallCategoryDTO currentCategory;
-    @ApiModelProperty("二级分类")
-    private List<LitemallCategoryDTO> currentSubCategory;
+
+	@ApiModelProperty("一级分类")
+	private List<LitemallCategoryDTO> categoryList;
+
+	@ApiModelProperty("当前分类")
+	private LitemallCategoryDTO currentCategory;
+
+	@ApiModelProperty("二级分类")
+	private List<LitemallCategoryDTO> currentSubCategory;
 
 }
