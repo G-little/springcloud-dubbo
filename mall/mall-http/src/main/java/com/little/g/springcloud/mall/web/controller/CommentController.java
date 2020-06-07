@@ -1,8 +1,8 @@
 package com.little.g.springcloud.mall.web.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.common.web.annotation.LoginUser;
 import com.little.g.springcloud.mall.api.LitemallCommentService;
@@ -177,7 +177,7 @@ public class CommentController {
             commentVo.setUserInfo(userInfo);
             commentVoList.add(commentVo);
         });
-		return ResponseUtil.okList(commentVoList, commentPage);
+        return ResponseUtil.okList(commentVoList, commentPage);
     }
 
 }
