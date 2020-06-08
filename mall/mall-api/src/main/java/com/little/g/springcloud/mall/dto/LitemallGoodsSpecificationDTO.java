@@ -1,10 +1,13 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@ApiModel("商品规格")
 public class LitemallGoodsSpecificationDTO implements Serializable {
 
 	/**
@@ -29,6 +32,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("id")
 	private Integer id;
 
 	/**
@@ -37,6 +41,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品ID")
 	private Integer goodsId;
 
 	/**
@@ -45,6 +50,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("规格名称")
 	private String specification;
 
 	/**
@@ -53,6 +59,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("规格值")
 	private String value;
 
 	/**
@@ -61,6 +68,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品规格图")
 	private String picUrl;
 
 	/**
@@ -69,6 +77,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("添加时间")
 	private LocalDateTime addTime;
 
 	/**
@@ -77,6 +86,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新时间")
 	private LocalDateTime updateTime;
 
 	/**
@@ -85,6 +95,7 @@ public class LitemallGoodsSpecificationDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("是否删除")
 	private Boolean deleted;
 
 	public Integer getId() {

@@ -1,10 +1,13 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@ApiModel("常见问题表")
 public class LitemallIssueDTO implements Serializable {
 
 	/**
@@ -29,6 +32,7 @@ public class LitemallIssueDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("问题ID")
 	private Integer id;
 
 	/**
@@ -37,6 +41,7 @@ public class LitemallIssueDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("问题")
 	private String question;
 
 	/**
@@ -45,6 +50,7 @@ public class LitemallIssueDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("答案")
 	private String answer;
 
 	/**
@@ -53,6 +59,7 @@ public class LitemallIssueDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("添加时间")
 	private LocalDateTime addTime;
 
 	/**
@@ -61,6 +68,7 @@ public class LitemallIssueDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新时间")
 	private LocalDateTime updateTime;
 
 	/**

@@ -1,10 +1,13 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@ApiModel("足迹")
 public class LitemallFootprintDTO implements Serializable {
 
 	/**
@@ -29,6 +32,7 @@ public class LitemallFootprintDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("足迹ID")
 	private Integer id;
 
 	/**
@@ -37,6 +41,7 @@ public class LitemallFootprintDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("用户ID")
 	private Integer userId;
 
 	/**
@@ -45,6 +50,7 @@ public class LitemallFootprintDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品ID")
 	private Integer goodsId;
 
 	/**
@@ -53,6 +59,7 @@ public class LitemallFootprintDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("添加时间")
 	private LocalDateTime addTime;
 
 	/**
@@ -61,6 +68,7 @@ public class LitemallFootprintDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新时间")
 	private LocalDateTime updateTime;
 
 	/**
@@ -69,6 +77,7 @@ public class LitemallFootprintDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("是否已删除")
 	private Boolean deleted;
 
 	public static Boolean getIsDeleted() {

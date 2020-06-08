@@ -8,10 +8,10 @@ import lombok.Data;
 @ApiModel("评论技术vo")
 public class CommentCountVo {
 
-    @ApiModelProperty("评论总数")
-    private Integer allCount;
-    @ApiModelProperty("带图片评论总数")
-    private Integer hasPicCount;
+	@ApiModelProperty("评论总数")
+	private Integer allCount;
 
+	@ApiModelProperty("带图片评论总数")
+	private Integer hasPicCount;
 
 }

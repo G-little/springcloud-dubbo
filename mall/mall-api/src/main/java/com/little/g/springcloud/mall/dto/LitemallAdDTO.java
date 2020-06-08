@@ -1,10 +1,13 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@ApiModel("广告")
 public class LitemallAdDTO implements Serializable {
 
 	/**
@@ -29,6 +32,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("广告Id")
 	private Integer id;
 
 	/**
@@ -37,6 +41,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("广告标题")
 	private String name;
 
 	/**
@@ -45,6 +50,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("所广告的商品页面或者活动页面链接地址")
 	private String link;
 
 	/**
@@ -53,6 +59,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("广告宣传图片")
 	private String url;
 
 	/**
@@ -61,6 +68,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("广告位置：1则是首页")
 	private Byte position;
 
 	/**
@@ -69,6 +77,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("活动内容")
 	private String content;
 
 	/**
@@ -77,6 +86,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("广告开始时间")
 	private LocalDateTime startTime;
 
 	/**
@@ -85,6 +95,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("广告结束时间")
 	private LocalDateTime endTime;
 
 	/**
@@ -93,6 +104,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("是否启动")
 	private Boolean enabled;
 
 	/**
@@ -101,6 +113,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("添加时间")
 	private LocalDateTime addTime;
 
 	/**
@@ -109,6 +122,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新时间")
 	private LocalDateTime updateTime;
 
 	/**
@@ -117,6 +131,7 @@ public class LitemallAdDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("是否删除")
 	private Boolean deleted;
 
 	public static Boolean getIsDeleted() {

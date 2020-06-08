@@ -1,6 +1,8 @@
 package com.little.g.springcloud.mall.web.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.utils.JacksonUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
 import com.little.g.springcloud.common.web.annotation.LoginUser;
@@ -8,19 +10,22 @@ import com.little.g.springcloud.mall.api.LitemallFootprintService;
 import com.little.g.springcloud.mall.api.LitemallGoodsService;
 import com.little.g.springcloud.mall.dto.LitemallFootprintDTO;
 import com.little.g.springcloud.mall.dto.LitemallGoodsDTO;
+import com.little.g.springcloud.mall.web.vo.FootprintVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户访问足迹服务
  */
+@Api("用户访问足迹服务")
 @RestController
 @RequestMapping("/footprint")
 @Validated
@@ -39,8 +44,10 @@ public class FootprintController {
 	 * @param body 请求内容， { id: xxx }
 	 * @return 删除操作结果
 	 */
+	@ApiOperation("删除用户足迹")
+	@ApiImplicitParam("请求内容， { id: xxx }")
 	@PostMapping("delete")
-	public Object delete(@LoginUser Integer userId, @RequestBody String body) {
+	public ResultJson delete(@LoginUser Integer userId, @RequestBody String body) {
 		if (userId == null) {
 			return ResponseUtil.unlogin();
 		}
@@ -71,8 +78,9 @@ public class FootprintController {
 	 * @param limit 分页大小
 	 * @return 用户足迹列表
 	 */
+	@ApiOperation("用户足迹列表")
 	@GetMapping("list")
-	public Object list(@LoginUser Integer userId,
+	public ResultJson<Page<FootprintVo>> list(@LoginUser Integer userId,
 			@RequestParam(defaultValue = "1") Integer page,
 			@RequestParam(defaultValue = "10") Integer limit) {
 		if (userId == null) {
@@ -88,20 +96,19 @@ public class FootprintController {
 
 		List<LitemallFootprintDTO> footprintList = pageInfo.getList();
 
-		List<Object> footprintVoList = new ArrayList<>(footprintList.size());
+		List<FootprintVo> footprintVoList = new ArrayList<>(footprintList.size());
 		for (LitemallFootprintDTO footprint : footprintList) {
-			Map<String, Object> c = new HashMap<String, Object>();
-			c.put("id", footprint.getId());
-			c.put("goodsId", footprint.getGoodsId());
-			c.put("addTime", footprint.getAddTime());
-
+			FootprintVo vo = new FootprintVo();
+			vo.setId(footprint.getId());
+			vo.setGoodsId(footprint.getGoodsId());
+			vo.setAddTime(footprint.getAddTime());
 			LitemallGoodsDTO goods = goodsService.findById(footprint.getGoodsId());
-			c.put("name", goods.getName());
-			c.put("brief", goods.getBrief());
-			c.put("picUrl", goods.getPicUrl());
-			c.put("retailPrice", goods.getRetailPrice());
+			vo.setName(goods.getName());
+			vo.setBrief(goods.getBrief());
+			vo.setPicUrl(goods.getPicUrl());
+			vo.setRetailPrice(goods.getRetailPrice());
 
-			footprintVoList.add(c);
+			footprintVoList.add(vo);
 		}
 
 		return ResponseUtil.okList(footprintVoList, pageInfo);

@@ -1,5 +1,6 @@
 package com.little.g.springcloud.mall.api;
 
+import com.little.g.springcloud.mall.dto.GoodsSpecificationListDTO;
 import com.little.g.springcloud.mall.dto.LitemallGoodsSpecificationDTO;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface LitemallGoodsSpecificationService {
 
 	void add(LitemallGoodsSpecificationDTO goodsSpecification);
 
-	Object getSpecificationVoList(Integer id);
+	List<GoodsSpecificationListDTO> getSpecificationVoList(Integer id);
 
 	void updateById(LitemallGoodsSpecificationDTO specification);
 

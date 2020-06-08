@@ -1,6 +1,7 @@
 
 package com.little.g.springcloud.common.dto;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -31,6 +32,21 @@ public class Page<T> implements Serializable {
 
 	public Page() {
 		// 默认构造器
+	}
+
+	public static <X extends Page> X newInstance(PageInfo info, Class<X> clazz) {
+		X page = null;
+		try {
+			page = clazz.newInstance();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		page.setResult(info.getList());
+		page.setTotalCount(info.getTotal());
+		page.setCurrentPage(info.getPageNum());
+		page.setPageSize(info.getPageSize());
+		return page;
 	}
 
 	public Page(int currentPage) {

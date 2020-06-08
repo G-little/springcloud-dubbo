@@ -2,10 +2,10 @@ package com.little.g.springcloud.mall.api;
 
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallOrderDTO;
+import com.little.g.springcloud.mall.dto.UserOrderInfoDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 public interface LitemallOrderService {
 
@@ -41,7 +41,7 @@ public interface LitemallOrderService {
 
 	LitemallOrderDTO findBySn(String orderSn);
 
-	Map<Object, Object> orderInfo(Integer userId);
+	UserOrderInfoDTO orderInfo(Integer userId);
 
 	List<LitemallOrderDTO> queryComment(int days);
 

@@ -2,6 +2,7 @@ package com.little.g.springcloud.mall.service;
 
 import com.little.g.springcloud.common.utils.DTOUtil;
 import com.little.g.springcloud.mall.api.LitemallGoodsSpecificationService;
+import com.little.g.springcloud.mall.dto.GoodsSpecificationListDTO;
 import com.little.g.springcloud.mall.dto.LitemallGoodsSpecificationDTO;
 import com.little.g.springcloud.mall.mapper.LitemallGoodsSpecificationMapper;
 import com.little.g.springcloud.mall.model.LitemallGoodsSpecification;
@@ -57,17 +58,17 @@ public class LitemallGoodsSpecificationServiceImpl
 	 * @return
 	 */
 	@Override
-	public Object getSpecificationVoList(Integer id) {
+	public List<GoodsSpecificationListDTO> getSpecificationVoList(Integer id) {
 		List<LitemallGoodsSpecificationDTO> goodsSpecificationList = queryByGid(id);
 
-		Map<String, VO> map = new HashMap<>();
-		List<VO> specificationVoList = new ArrayList<>();
+		Map<String, GoodsSpecificationListDTO> map = new HashMap<>();
+		List<GoodsSpecificationListDTO> specificationVoList = new ArrayList<>();
 
 		for (LitemallGoodsSpecificationDTO goodsSpecification : goodsSpecificationList) {
 			String specification = goodsSpecification.getSpecification();
-			VO goodsSpecificationVo = map.get(specification);
+			GoodsSpecificationListDTO goodsSpecificationVo = map.get(specification);
 			if (goodsSpecificationVo == null) {
-				goodsSpecificationVo = new VO();
+				goodsSpecificationVo = new GoodsSpecificationListDTO();
 				goodsSpecificationVo.setName(specification);
 				List<LitemallGoodsSpecificationDTO> valueList = new ArrayList<>();
 				valueList.add(goodsSpecification);
@@ -90,30 +91,6 @@ public class LitemallGoodsSpecificationServiceImpl
 		specification.setUpdateTime(LocalDateTime.now());
 		goodsSpecificationMapper.updateByPrimaryKeySelective(
 				DTOUtil.convert2T(specification, LitemallGoodsSpecification.class));
-	}
-
-	private class VO {
-
-		private String name;
-
-		private List<LitemallGoodsSpecificationDTO> valueList;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public List<LitemallGoodsSpecificationDTO> getValueList() {
-			return valueList;
-		}
-
-		public void setValueList(List<LitemallGoodsSpecificationDTO> valueList) {
-			this.valueList = valueList;
-		}
-
 	}
 
 }

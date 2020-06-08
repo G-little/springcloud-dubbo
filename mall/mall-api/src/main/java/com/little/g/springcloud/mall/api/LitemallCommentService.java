@@ -3,11 +3,9 @@ package com.little.g.springcloud.mall.api;
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallCommentDTO;
 
-import java.util.List;
-
 public interface LitemallCommentService {
 
-	List<LitemallCommentDTO> queryGoodsByGid(Integer id, int offset, int limit);
+	PageInfo<LitemallCommentDTO> queryGoodsByGid(Integer id, int offset, int limit);
 
 	PageInfo<LitemallCommentDTO> query(Byte type, Integer valueId, Integer showType,
 			Integer offset, Integer limit);

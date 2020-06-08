@@ -32,68 +32,67 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class FeedbackController {
 
-    @Reference
-    private LitemallFeedbackService feedbackService;
+	@Reference
+	private LitemallFeedbackService feedbackService;
 
-    @Reference
-    private UserService userService;
+	@Reference
+	private UserService userService;
 
-    private ResultJson validate(LitemallFeedbackDTO feedback) {
-        String content = feedback.getContent();
-        if (StringUtils.isEmpty(content)) {
-            return ResponseUtil.badArgument();
-        }
+	private ResultJson validate(LitemallFeedbackDTO feedback) {
+		String content = feedback.getContent();
+		if (StringUtils.isEmpty(content)) {
+			return ResponseUtil.badArgument();
+		}
 
-        String type = feedback.getFeedType();
-        if (StringUtils.isEmpty(type)) {
-            return ResponseUtil.badArgument();
-        }
+		String type = feedback.getFeedType();
+		if (StringUtils.isEmpty(type)) {
+			return ResponseUtil.badArgument();
+		}
 
-        Boolean hasPicture = feedback.getHasPicture();
-        if (hasPicture == null || !hasPicture) {
-            feedback.setPicUrls(new String[0]);
-        }
+		Boolean hasPicture = feedback.getHasPicture();
+		if (hasPicture == null || !hasPicture) {
+			feedback.setPicUrls(new String[0]);
+		}
 
-        // 测试手机号码是否正确
-        String mobile = feedback.getMobile();
-        if (StringUtils.isEmpty(mobile)) {
-            return ResponseUtil.badArgument();
-        }
-        if (!RegexUtil.isMobileExact(mobile)) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
-    }
+		// 测试手机号码是否正确
+		String mobile = feedback.getMobile();
+		if (StringUtils.isEmpty(mobile)) {
+			return ResponseUtil.badArgument();
+		}
+		if (!RegexUtil.isMobileExact(mobile)) {
+			return ResponseUtil.badArgument();
+		}
+		return null;
+	}
 
-    /**
-     * 添加意见反馈
-     *
-     * @param userId   用户ID
-     * @param feedback 意见反馈
-     * @return 操作结果
-     */
-    @ApiOperation("添加意见反馈")
-    @PostMapping("submit")
-    public Object submit(@LoginUser Integer userId,
-                         @RequestBody LitemallFeedbackDTO feedback) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-        Object error = validate(feedback);
-        if (error != null) {
-            return error;
-        }
+	/**
+	 * 添加意见反馈
+	 * @param userId 用户ID
+	 * @param feedback 意见反馈
+	 * @return 操作结果
+	 */
+	@ApiOperation("添加意见反馈")
+	@PostMapping("submit")
+	public Object submit(@LoginUser Integer userId,
+			@RequestBody LitemallFeedbackDTO feedback) {
+		if (userId == null) {
+			return ResponseUtil.unlogin();
+		}
+		Object error = validate(feedback);
+		if (error != null) {
+			return error;
+		}
 
-        UserDTO user = userService.getUserById(userId);
-        String username = user.getName();
-        feedback.setId(null);
-        feedback.setUserId(userId);
-        feedback.setUsername(username);
-        // 状态默认是0，1表示状态已发生变化
-        feedback.setStatus(1);
-        feedbackService.add(feedback);
+		UserDTO user = userService.getUserById(userId);
+		String username = user.getName();
+		feedback.setId(null);
+		feedback.setUserId(userId);
+		feedback.setUsername(username);
+		// 状态默认是0，1表示状态已发生变化
+		feedback.setStatus(1);
+		feedbackService.add(feedback);
 
-        return ResponseUtil.ok();
-    }
+		return ResponseUtil.ok();
+	}
 
 }

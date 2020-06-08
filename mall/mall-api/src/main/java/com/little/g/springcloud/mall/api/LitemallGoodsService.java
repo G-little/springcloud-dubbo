@@ -2,7 +2,6 @@ package com.little.g.springcloud.mall.api;
 
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.mall.dto.LitemallGoodsDTO;
-import org.springframework.data.annotation.Reference;
 
 import java.util.List;
 
@@ -16,9 +15,9 @@ public interface LitemallGoodsService {
 
 	List<LitemallGoodsDTO> queryByCategory(Integer catId, int offset, int limit);
 
-	List<LitemallGoodsDTO> querySelective(Integer catId, Integer brandId, String keywords,
-			Boolean isHot, Boolean isNew, Integer offset, Integer limit, String sort,
-			String order);
+	PageInfo<LitemallGoodsDTO> querySelective(Integer catId, Integer brandId,
+			String keywords, Boolean isHot, Boolean isNew, Integer offset, Integer limit,
+			String sort, String order);
 
 	PageInfo<LitemallGoodsDTO> querySelective(Integer goodsId, String goodsSn,
 			String name, Integer page, Integer size, String sort, String order);

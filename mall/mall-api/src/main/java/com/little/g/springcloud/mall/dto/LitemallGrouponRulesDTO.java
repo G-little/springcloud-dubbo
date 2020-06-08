@@ -1,11 +1,14 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@ApiModel("团购规则")
 public class LitemallGrouponRulesDTO implements Serializable {
 
 	/**
@@ -30,6 +33,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("团购规则ID")
 	private Integer id;
 
 	/**
@@ -38,6 +42,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品ID")
 	private Integer goodsId;
 
 	/**
@@ -46,6 +51,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品名称")
 	private String goodsName;
 
 	/**
@@ -54,6 +60,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("商品图片或者商品货品图片")
 	private String picUrl;
 
 	/**
@@ -62,6 +69,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("优惠金额")
 	private BigDecimal discount;
 
 	/**
@@ -70,6 +78,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("达到优惠条件的人数")
 	private Integer discountMember;
 
 	/**
@@ -78,6 +87,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("过期时间")
 	private LocalDateTime expireTime;
 
 	/**
@@ -86,6 +96,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("团购规则状态")
 	private Short status;
 
 	/**
@@ -94,6 +105,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("添加状态")
 	private LocalDateTime addTime;
 
 	/**
@@ -102,6 +114,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新状态")
 	private LocalDateTime updateTime;
 
 	/**
@@ -110,6 +123,7 @@ public class LitemallGrouponRulesDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("删除状态")
 	private Boolean deleted;
 
 	public Integer getId() {

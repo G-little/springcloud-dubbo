@@ -1,10 +1,13 @@
 package com.little.g.springcloud.mall.dto;
 
 import com.little.g.springcloud.common.enums.Deleted;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@ApiModel("类目")
 public class LitemallCategoryDTO implements Serializable {
 
 	/**
@@ -29,6 +32,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目ID")
 	private Integer id;
 
 	/**
@@ -37,6 +41,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目名称")
 	private String name;
 
 	/**
@@ -45,6 +50,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目关键词")
 	private String keywords;
 
 	/**
@@ -53,6 +59,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目广告语介绍")
 	private String desc;
 
 	/**
@@ -61,6 +68,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("父类目ID")
 	private Integer pid;
 
 	/**
@@ -69,6 +77,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目图标")
 	private String iconUrl;
 
 	/**
@@ -77,6 +86,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目图片")
 	private String picUrl;
 
 	/**
@@ -85,6 +95,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("类目级别")
 	private String level;
 
 	/**
@@ -93,6 +104,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("排序字段")
 	private Byte sortOrder;
 
 	/**
@@ -101,6 +113,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("创建时间")
 	private LocalDateTime addTime;
 
 	/**
@@ -109,6 +122,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("更新时间")
 	private LocalDateTime updateTime;
 
 	/**
@@ -117,6 +131,7 @@ public class LitemallCategoryDTO implements Serializable {
 	 *
 	 * @mbg.generated
 	 */
+	@ApiModelProperty("是否删除")
 	private Boolean deleted;
 
 	public static Boolean getIsDeleted() {

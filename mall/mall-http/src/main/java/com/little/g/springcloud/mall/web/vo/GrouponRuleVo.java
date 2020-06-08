@@ -1,108 +1,112 @@
 package com.little.g.springcloud.mall.web.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@ApiModel("团购规则")
 public class GrouponRuleVo {
+    @ApiModelProperty("产品ID")
+    private Integer id;
+    @ApiModelProperty("产品名")
+    private String name;
+    @ApiModelProperty("产品介绍")
+    private String brief;
+    @ApiModelProperty("产品图片")
+    private String picUrl;
+    @ApiModelProperty("专柜价格")
+    private BigDecimal counterPrice;
+    @ApiModelProperty("零售价")
+    private BigDecimal retailPrice;
+    @ApiModelProperty("团购价")
+    private BigDecimal grouponPrice;
+    @ApiModelProperty("优惠金额")
+    private BigDecimal grouponDiscount;
+    @ApiModelProperty("达到优惠条件的人数")
+    private Integer grouponMember;
+    @ApiModelProperty("过期时间")
+    private LocalDateTime expireTime;
 
-	private Integer id;
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
 
-	private String name;
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
+    }
 
-	private String brief;
+    public BigDecimal getGrouponDiscount() {
+        return grouponDiscount;
+    }
 
-	private String picUrl;
+    public void setGrouponDiscount(BigDecimal grouponDiscount) {
+        this.grouponDiscount = grouponDiscount;
+    }
 
-	private BigDecimal counterPrice;
+    public Integer getGrouponMember() {
+        return grouponMember;
+    }
 
-	private BigDecimal retailPrice;
+    public void setGrouponMember(Integer grouponMember) {
+        this.grouponMember = grouponMember;
+    }
 
-	private BigDecimal grouponPrice;
+    public Integer getId() {
+        return id;
+    }
 
-	private BigDecimal grouponDiscount;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	private Integer grouponMember;
+    public String getName() {
+        return name;
+    }
 
-	private LocalDateTime expireTime;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public LocalDateTime getExpireTime() {
-		return expireTime;
-	}
+    public String getBrief() {
+        return brief;
+    }
 
-	public void setExpireTime(LocalDateTime expireTime) {
-		this.expireTime = expireTime;
-	}
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
 
-	public BigDecimal getGrouponDiscount() {
-		return grouponDiscount;
-	}
+    public String getPicUrl() {
+        return picUrl;
+    }
 
-	public void setGrouponDiscount(BigDecimal grouponDiscount) {
-		this.grouponDiscount = grouponDiscount;
-	}
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
 
-	public Integer getGrouponMember() {
-		return grouponMember;
-	}
+    public BigDecimal getCounterPrice() {
+        return counterPrice;
+    }
 
-	public void setGrouponMember(Integer grouponMember) {
-		this.grouponMember = grouponMember;
-	}
+    public void setCounterPrice(BigDecimal counterPrice) {
+        this.counterPrice = counterPrice;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public BigDecimal getRetailPrice() {
+        return retailPrice;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setRetailPrice(BigDecimal retailPrice) {
+        this.retailPrice = retailPrice;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public BigDecimal getGrouponPrice() {
+        return grouponPrice;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getBrief() {
-		return brief;
-	}
-
-	public void setBrief(String brief) {
-		this.brief = brief;
-	}
-
-	public String getPicUrl() {
-		return picUrl;
-	}
-
-	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
-	}
-
-	public BigDecimal getCounterPrice() {
-		return counterPrice;
-	}
-
-	public void setCounterPrice(BigDecimal counterPrice) {
-		this.counterPrice = counterPrice;
-	}
-
-	public BigDecimal getRetailPrice() {
-		return retailPrice;
-	}
-
-	public void setRetailPrice(BigDecimal retailPrice) {
-		this.retailPrice = retailPrice;
-	}
-
-	public BigDecimal getGrouponPrice() {
-		return grouponPrice;
-	}
-
-	public void setGrouponPrice(BigDecimal grouponPrice) {
-		this.grouponPrice = grouponPrice;
-	}
+    public void setGrouponPrice(BigDecimal grouponPrice) {
+        this.grouponPrice = grouponPrice;
+    }
 
 }

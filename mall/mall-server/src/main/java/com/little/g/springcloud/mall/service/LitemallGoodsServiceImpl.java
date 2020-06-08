@@ -107,7 +107,7 @@ public class LitemallGoodsServiceImpl implements LitemallGoodsService {
 	}
 
 	@Override
-	public List<LitemallGoodsDTO> querySelective(Integer catId, Integer brandId,
+	public PageInfo<LitemallGoodsDTO> querySelective(Integer catId, Integer brandId,
 			String keywords, Boolean isHot, Boolean isNew, Integer offset, Integer limit,
 			String sort, String order) {
 		LitemallGoodsExample example = new LitemallGoodsExample();
@@ -145,7 +145,7 @@ public class LitemallGoodsServiceImpl implements LitemallGoodsService {
 
 		PageHelper.startPage(offset, limit);
 
-		return DTOUtil.convert2List(
+		return DTOUtil.convert2Page(
 				goodsMapper.selectByExampleSelective(example, columns),
 				LitemallGoodsDTO.class);
 	}

@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service(protocol = "dubbo")
 public class LitemallCommentServiceImpl implements LitemallCommentService {
@@ -22,13 +21,14 @@ public class LitemallCommentServiceImpl implements LitemallCommentService {
 	private LitemallCommentMapper commentMapper;
 
 	@Override
-	public List<LitemallCommentDTO> queryGoodsByGid(Integer id, int offset, int limit) {
+	public PageInfo<LitemallCommentDTO> queryGoodsByGid(Integer id, int offset,
+			int limit) {
 		LitemallCommentExample example = new LitemallCommentExample();
 		example.setOrderByClause(LitemallComment.Column.addTime.desc());
 		example.or().andValueIdEqualTo(id).andTypeEqualTo((byte) 0)
 				.andDeletedEqualTo(false);
 		PageHelper.startPage(offset, limit);
-		return DTOUtil.convert2List(commentMapper.selectByExample(example),
+		return DTOUtil.convert2Page(commentMapper.selectByExample(example),
 				LitemallCommentDTO.class);
 	}
 
