@@ -10,20 +10,22 @@ import java.math.BigDecimal;
 @Data
 public class OrderGoodsVo {
 
-    @ApiModelProperty("id")
-    private Integer id;
-    @ApiModelProperty("商品名")
-    private String goodsName;
-    @ApiModelProperty("购买数量")
-    private Short number;
-    @ApiModelProperty("商品图片")
-    private String picUrl;
-    @ApiModelProperty("商品规格")
-    private String[] specifications;
-    @ApiModelProperty("价格")
-    private BigDecimal price;
+	@ApiModelProperty("id")
+	private Integer id;
 
+	@ApiModelProperty("商品名")
+	private String goodsName;
 
+	@ApiModelProperty("购买数量")
+	private Short number;
 
+	@ApiModelProperty("商品图片")
+	private String picUrl;
+
+	@ApiModelProperty("商品规格")
+	private String[] specifications;
+
+	@ApiModelProperty("价格")
+	private BigDecimal price;
 
 }

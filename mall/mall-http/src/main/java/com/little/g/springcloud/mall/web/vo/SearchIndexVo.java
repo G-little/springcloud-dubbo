@@ -11,12 +11,14 @@ import java.util.List;
 @ApiModel("搜索结果")
 @Data
 public class SearchIndexVo {
-    @ApiModelProperty("默认搜索词")
-    private LitemallKeywordDTO defaultKeyword;
-    @ApiModelProperty("历史搜索词")
-    private List<LitemallSearchHistoryDTO> historyKeywordList;
-    @ApiModelProperty("热门搜索词")
-    private List<LitemallKeywordDTO> hotKeywordList;
 
+	@ApiModelProperty("默认搜索词")
+	private LitemallKeywordDTO defaultKeyword;
+
+	@ApiModelProperty("历史搜索词")
+	private List<LitemallSearchHistoryDTO> historyKeywordList;
+
+	@ApiModelProperty("热门搜索词")
+	private List<LitemallKeywordDTO> hotKeywordList;
 
 }

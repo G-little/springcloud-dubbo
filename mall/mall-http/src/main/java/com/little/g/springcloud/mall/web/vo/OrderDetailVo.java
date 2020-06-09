@@ -11,10 +11,14 @@ import java.util.List;
 @ApiModel("订单详情(订单信息)Vo")
 @Data
 public class OrderDetailVo {
-    @ApiModelProperty("订单信息")
-    private OrderDetailInfoVo orderInfo;
-    @ApiModelProperty("订单商品")
-    private List<LitemallOrderGoodsDTO> orderGoods;
-    @ApiModelProperty("快递信息")
-    private ExpressInfoDTO expressInfo;
+
+	@ApiModelProperty("订单信息")
+	private OrderDetailInfoVo orderInfo;
+
+	@ApiModelProperty("订单商品")
+	private List<LitemallOrderGoodsDTO> orderGoods;
+
+	@ApiModelProperty("快递信息")
+	private ExpressInfoDTO expressInfo;
+
 }

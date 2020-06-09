@@ -11,9 +11,11 @@ import java.util.List;
 @ApiModel("专题")
 @Data
 public class TopicDetailVo {
-    @ApiModelProperty("专题商品列表")
-    private List<LitemallGoodsDTO> goods;
-    @ApiModelProperty("专题")
-    private LitemallTopicDTO topic;
+
+	@ApiModelProperty("专题商品列表")
+	private List<LitemallGoodsDTO> goods;
+
+	@ApiModelProperty("专题")
+	private LitemallTopicDTO topic;
 
 }

@@ -34,89 +34,87 @@ import java.util.List;
 @Validated
 public class SearchController {
 
-    @Reference
-    private LitemallKeywordService keywordsService;
+	@Reference
+	private LitemallKeywordService keywordsService;
 
-    @Reference
-    private LitemallSearchHistoryService searchHistoryService;
+	@Reference
+	private LitemallSearchHistoryService searchHistoryService;
 
-    /**
-     * 搜索页面信息
-     * <p>
-     * 如果用户已登录，则给出用户历史搜索记录； 如果没有登录，则给出空历史搜索记录。
-     *
-     * @param userId 用户ID，可选
-     * @return 搜索页面信息
-     */
-    @ApiOperation("搜索页面信息")
-    @GetMapping("index")
-    public ResultJson<SearchIndexVo> index(@LoginUser Integer userId) {
-        // 取出输入框默认的关键词
-        LitemallKeywordDTO defaultKeyword = keywordsService.queryDefault();
-        // 取出热闹关键词
-        List<LitemallKeywordDTO> hotKeywordList = keywordsService.queryHots();
+	/**
+	 * 搜索页面信息
+	 * <p>
+	 * 如果用户已登录，则给出用户历史搜索记录； 如果没有登录，则给出空历史搜索记录。
+	 * @param userId 用户ID，可选
+	 * @return 搜索页面信息
+	 */
+	@ApiOperation("搜索页面信息")
+	@GetMapping("index")
+	public ResultJson<SearchIndexVo> index(@LoginUser Integer userId) {
+		// 取出输入框默认的关键词
+		LitemallKeywordDTO defaultKeyword = keywordsService.queryDefault();
+		// 取出热闹关键词
+		List<LitemallKeywordDTO> hotKeywordList = keywordsService.queryHots();
 
-        List<LitemallSearchHistoryDTO> historyList = null;
-        if (userId != null) {
-            // 取出用户历史关键字
-            historyList = searchHistoryService.queryByUid(userId);
-        } else {
-            historyList = new ArrayList<>(0);
-        }
+		List<LitemallSearchHistoryDTO> historyList = null;
+		if (userId != null) {
+			// 取出用户历史关键字
+			historyList = searchHistoryService.queryByUid(userId);
+		}
+		else {
+			historyList = new ArrayList<>(0);
+		}
 
-        SearchIndexVo data = new SearchIndexVo();
-        data.setDefaultKeyword(defaultKeyword);
-        data.setHistoryKeywordList(historyList);
-        data.setHotKeywordList(hotKeywordList);
-        return ResponseUtil.ok(data);
-    }
+		SearchIndexVo data = new SearchIndexVo();
+		data.setDefaultKeyword(defaultKeyword);
+		data.setHistoryKeywordList(historyList);
+		data.setHotKeywordList(hotKeywordList);
+		return ResponseUtil.ok(data);
+	}
 
-    /**
-     * 关键字提醒
-     * <p>
-     * 当用户输入关键字一部分时，可以推荐系统中合适的关键字。
-     *
-     * @param keyword 关键字
-     * @return 合适的关键字
-     */
-    @ApiOperation(value = "关键字提醒", notes = "当用户输入关键字一部分时，可以推荐系统中合适的关键字。")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "keyword", value = "关键词", required = true),
-            @ApiImplicitParam(name = "page", value = "分页", dataType = "Integer",
-                    required = false, defaultValue = "1"),
-            @ApiImplicitParam(name = "limit", value = "单页条数", dataType = "Integer",
-                    required = false, defaultValue = "10")})
-    @GetMapping("helper")
-    public ResultJson<String[]> helper(@NotEmpty String keyword,
-                                       @RequestParam(defaultValue = "1") Integer page,
-                                       @RequestParam(defaultValue = "10") Integer limit) {
-        PageInfo<LitemallKeywordDTO> pageInfo = keywordsService.queryByKeyword(keyword,
-                page, limit);
-        List<LitemallKeywordDTO> keywordsList = pageInfo.getList();
-        String[] keys = new String[keywordsList.size()];
-        int index = 0;
-        for (LitemallKeywordDTO key : keywordsList) {
-            keys[index++] = key.getKeyword();
-        }
-        return ResponseUtil.ok(keys);
-    }
+	/**
+	 * 关键字提醒
+	 * <p>
+	 * 当用户输入关键字一部分时，可以推荐系统中合适的关键字。
+	 * @param keyword 关键字
+	 * @return 合适的关键字
+	 */
+	@ApiOperation(value = "关键字提醒", notes = "当用户输入关键字一部分时，可以推荐系统中合适的关键字。")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "keyword", value = "关键词", required = true),
+			@ApiImplicitParam(name = "page", value = "分页", dataType = "Integer",
+					required = false, defaultValue = "1"),
+			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "Integer",
+					required = false, defaultValue = "10") })
+	@GetMapping("helper")
+	public ResultJson<String[]> helper(@NotEmpty String keyword,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit) {
+		PageInfo<LitemallKeywordDTO> pageInfo = keywordsService.queryByKeyword(keyword,
+				page, limit);
+		List<LitemallKeywordDTO> keywordsList = pageInfo.getList();
+		String[] keys = new String[keywordsList.size()];
+		int index = 0;
+		for (LitemallKeywordDTO key : keywordsList) {
+			keys[index++] = key.getKeyword();
+		}
+		return ResponseUtil.ok(keys);
+	}
 
-    /**
-     * 清除用户搜索历史
-     *
-     * @param userId 用户ID
-     * @return 清理是否成功
-     */
+	/**
+	 * 清除用户搜索历史
+	 * @param userId 用户ID
+	 * @return 清理是否成功
+	 */
 
-    @ApiOperation("清楚用户搜索历史")
-    @PostMapping("clearhistory")
-    public ResultJson clearhistory(@LoginUser Integer userId) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
+	@ApiOperation("清楚用户搜索历史")
+	@PostMapping("clearhistory")
+	public ResultJson clearhistory(@LoginUser Integer userId) {
+		if (userId == null) {
+			return ResponseUtil.unlogin();
+		}
 
-        searchHistoryService.deleteByUid(userId);
-        return ResponseUtil.ok();
-    }
+		searchHistoryService.deleteByUid(userId);
+		return ResponseUtil.ok();
+	}
 
 }

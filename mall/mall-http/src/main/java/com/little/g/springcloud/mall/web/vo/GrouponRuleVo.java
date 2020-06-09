@@ -8,105 +8,115 @@ import java.time.LocalDateTime;
 
 @ApiModel("团购规则")
 public class GrouponRuleVo {
-    @ApiModelProperty("产品ID")
-    private Integer id;
-    @ApiModelProperty("产品名")
-    private String name;
-    @ApiModelProperty("产品介绍")
-    private String brief;
-    @ApiModelProperty("产品图片")
-    private String picUrl;
-    @ApiModelProperty("专柜价格")
-    private BigDecimal counterPrice;
-    @ApiModelProperty("零售价")
-    private BigDecimal retailPrice;
-    @ApiModelProperty("团购价")
-    private BigDecimal grouponPrice;
-    @ApiModelProperty("优惠金额")
-    private BigDecimal grouponDiscount;
-    @ApiModelProperty("达到优惠条件的人数")
-    private Integer grouponMember;
-    @ApiModelProperty("过期时间")
-    private LocalDateTime expireTime;
 
-    public LocalDateTime getExpireTime() {
-        return expireTime;
-    }
+	@ApiModelProperty("产品ID")
+	private Integer id;
 
-    public void setExpireTime(LocalDateTime expireTime) {
-        this.expireTime = expireTime;
-    }
+	@ApiModelProperty("产品名")
+	private String name;
 
-    public BigDecimal getGrouponDiscount() {
-        return grouponDiscount;
-    }
+	@ApiModelProperty("产品介绍")
+	private String brief;
 
-    public void setGrouponDiscount(BigDecimal grouponDiscount) {
-        this.grouponDiscount = grouponDiscount;
-    }
+	@ApiModelProperty("产品图片")
+	private String picUrl;
 
-    public Integer getGrouponMember() {
-        return grouponMember;
-    }
+	@ApiModelProperty("专柜价格")
+	private BigDecimal counterPrice;
 
-    public void setGrouponMember(Integer grouponMember) {
-        this.grouponMember = grouponMember;
-    }
+	@ApiModelProperty("零售价")
+	private BigDecimal retailPrice;
 
-    public Integer getId() {
-        return id;
-    }
+	@ApiModelProperty("团购价")
+	private BigDecimal grouponPrice;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@ApiModelProperty("优惠金额")
+	private BigDecimal grouponDiscount;
 
-    public String getName() {
-        return name;
-    }
+	@ApiModelProperty("达到优惠条件的人数")
+	private Integer grouponMember;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@ApiModelProperty("过期时间")
+	private LocalDateTime expireTime;
 
-    public String getBrief() {
-        return brief;
-    }
+	public LocalDateTime getExpireTime() {
+		return expireTime;
+	}
 
-    public void setBrief(String brief) {
-        this.brief = brief;
-    }
+	public void setExpireTime(LocalDateTime expireTime) {
+		this.expireTime = expireTime;
+	}
 
-    public String getPicUrl() {
-        return picUrl;
-    }
+	public BigDecimal getGrouponDiscount() {
+		return grouponDiscount;
+	}
 
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
-    }
+	public void setGrouponDiscount(BigDecimal grouponDiscount) {
+		this.grouponDiscount = grouponDiscount;
+	}
 
-    public BigDecimal getCounterPrice() {
-        return counterPrice;
-    }
+	public Integer getGrouponMember() {
+		return grouponMember;
+	}
 
-    public void setCounterPrice(BigDecimal counterPrice) {
-        this.counterPrice = counterPrice;
-    }
+	public void setGrouponMember(Integer grouponMember) {
+		this.grouponMember = grouponMember;
+	}
 
-    public BigDecimal getRetailPrice() {
-        return retailPrice;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setRetailPrice(BigDecimal retailPrice) {
-        this.retailPrice = retailPrice;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public BigDecimal getGrouponPrice() {
-        return grouponPrice;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setGrouponPrice(BigDecimal grouponPrice) {
-        this.grouponPrice = grouponPrice;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getBrief() {
+		return brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	public BigDecimal getCounterPrice() {
+		return counterPrice;
+	}
+
+	public void setCounterPrice(BigDecimal counterPrice) {
+		this.counterPrice = counterPrice;
+	}
+
+	public BigDecimal getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(BigDecimal retailPrice) {
+		this.retailPrice = retailPrice;
+	}
+
+	public BigDecimal getGrouponPrice() {
+		return grouponPrice;
+	}
+
+	public void setGrouponPrice(BigDecimal grouponPrice) {
+		this.grouponPrice = grouponPrice;
+	}
 
 }

@@ -8,8 +8,8 @@ import lombok.Data;
 @ApiModel("用户订单信息")
 @Data
 public class UserIndexVo {
-    @ApiModelProperty("订单统计信息")
-    private UserOrderInfoDTO order;
 
+	@ApiModelProperty("订单统计信息")
+	private UserOrderInfoDTO order;
 
 }
