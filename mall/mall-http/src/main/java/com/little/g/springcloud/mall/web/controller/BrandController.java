@@ -43,10 +43,10 @@ public class BrandController {
 	 */
 	@ApiOperation(value = "品牌列表", notes = "分页查询品牌列表")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "page", value = "分页", dataType = "Integer",
-					required = false, defaultValue = "1"),
-			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "Integer",
-					required = false, defaultValue = "10"),
+			@ApiImplicitParam(name = "page", value = "分页", dataType = "int",
+					required = false, defaultValue = "1",example = "1"),
+			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "int",
+					required = false, defaultValue = "10",example = "10"),
 			@ApiImplicitParam(name = "sort", value = "排序字段", dataType = "String",
 					required = false, defaultValue = "add_time") })
 	@GetMapping("list")

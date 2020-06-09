@@ -37,101 +37,102 @@ import java.util.List;
 @Slf4j
 public class CollectController {
 
-	@Reference
-	private LitemallCollectService collectService;
+    @Reference
+    private LitemallCollectService collectService;
 
-	@Reference
-	private LitemallGoodsService goodsService;
+    @Reference
+    private LitemallGoodsService goodsService;
 
-	/**
-	 * 用户收藏列表
-	 * @param userId 用户ID
-	 * @param type 类型，如果是0则是商品收藏，如果是1则是专题收藏
-	 * @param page 分页页数
-	 * @param limit 分页大小
-	 * @return 用户收藏列表
-	 */
-	@ApiOperation(value = "收藏列表", notes = "用户收藏列表")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "type", value = "类型，如果是0则是商品收藏，如果是1则是专题收藏",
-					allowableValues = "0,1", dataType = "Byte", required = true),
-			@ApiImplicitParam(name = "page", value = "分页", dataType = "Integer",
-					required = false, defaultValue = "1"),
-			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "Integer",
-					required = false, defaultValue = "10") })
-	@GetMapping("list")
-	public ResultJson<Page<CollectListVo>> list(@LoginUser Integer userId,
-			@NotNull Byte type, @RequestParam(defaultValue = "1") Integer page,
-			@RequestParam(defaultValue = "10") Integer limit,
-			@Sort @RequestParam(defaultValue = "add_time") String sort,
-			@Order @RequestParam(defaultValue = "desc") String order) {
-		if (userId == null) {
-			return ResponseUtil.unlogin();
-		}
+    /**
+     * 用户收藏列表
+     *
+     * @param userId 用户ID
+     * @param type   类型，如果是0则是商品收藏，如果是1则是专题收藏
+     * @param page   分页页数
+     * @param limit  分页大小
+     * @return 用户收藏列表
+     */
+    @ApiOperation(value = "收藏列表", notes = "用户收藏列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "类型，如果是0则是商品收藏，如果是1则是专题收藏",
+                    allowableValues = "0,1", dataType = "Byte", required = true),
+            @ApiImplicitParam(name = "page", value = "分页", dataType = "int", example = "1",
+                    required = false, defaultValue = "1"),
+            @ApiImplicitParam(name = "limit", value = "单页条数", dataType = "int",
+                    required = false, defaultValue = "10", example = "10")})
+    @GetMapping("list")
+    public ResultJson<Page<CollectListVo>> list(@LoginUser Integer userId,
+                                                @NotNull Byte type, @RequestParam(defaultValue = "1") Integer page,
+                                                @RequestParam(defaultValue = "10") Integer limit,
+                                                @Sort @RequestParam(defaultValue = "add_time") String sort,
+                                                @Order @RequestParam(defaultValue = "desc") String order) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
 
-		PageInfo<LitemallCollectDTO> pageInfo = collectService.queryByType(userId, type,
-				page, limit, sort, order);
-		if (pageInfo == null) {
-			return ResponseUtil.ok();
-		}
-		List<LitemallCollectDTO> collectList = pageInfo.getList();
+        PageInfo<LitemallCollectDTO> pageInfo = collectService.queryByType(userId, type,
+                page, limit, sort, order);
+        if (pageInfo == null) {
+            return ResponseUtil.ok();
+        }
+        List<LitemallCollectDTO> collectList = pageInfo.getList();
 
-		List<CollectListVo> collects = new ArrayList<>(collectList.size());
-		for (LitemallCollectDTO collect : collectList) {
-			CollectListVo vo = new CollectListVo();
-			vo.setId(collect.getId());
-			vo.setType(collect.getType());
-			vo.setValueId(collect.getValueId());
-			LitemallGoodsDTO goods = goodsService.findById(collect.getValueId());
-			vo.setName(goods.getName());
-			vo.setBrief(goods.getBrief());
-			vo.setPicUrl(goods.getPicUrl());
-			vo.setRetailPrice(goods.getRetailPrice());
+        List<CollectListVo> collects = new ArrayList<>(collectList.size());
+        for (LitemallCollectDTO collect : collectList) {
+            CollectListVo vo = new CollectListVo();
+            vo.setId(collect.getId());
+            vo.setType(collect.getType());
+            vo.setValueId(collect.getValueId());
+            LitemallGoodsDTO goods = goodsService.findById(collect.getValueId());
+            vo.setName(goods.getName());
+            vo.setBrief(goods.getBrief());
+            vo.setPicUrl(goods.getPicUrl());
+            vo.setRetailPrice(goods.getRetailPrice());
 
-			collects.add(vo);
-		}
+            collects.add(vo);
+        }
 
-		return ResponseUtil.okList(collects, pageInfo);
-	}
+        return ResponseUtil.okList(collects, pageInfo);
+    }
 
-	/**
-	 * 用户收藏添加或删除
-	 * <p>
-	 * 如果商品没有收藏，则添加收藏；如果商品已经收藏，则删除收藏状态。
-	 * @param userId 用户ID
-	 * @param body 请求内容，{ type: xxx, valueId: xxx }
-	 * @return 操作结果
-	 */
+    /**
+     * 用户收藏添加或删除
+     * <p>
+     * 如果商品没有收藏，则添加收藏；如果商品已经收藏，则删除收藏状态。
+     *
+     * @param userId 用户ID
+     * @param body   请求内容，{ type: xxx, valueId: xxx }
+     * @return 操作结果
+     */
 
-	@ApiOperation(value = "用户收藏添加或删除", notes = "如果商品没有收藏，则添加收藏；如果商品已经收藏，则删除收藏状态。")
-	@ApiImplicitParam(value = "收藏类型，收藏值， { type: xxx, valueId: xxx }")
-	@PostMapping("addordelete")
-	public ResultJson addordelete(@LoginUser Integer userId, @RequestBody String body) {
-		if (userId == null) {
-			return ResponseUtil.unlogin();
-		}
+    @ApiOperation(value = "用户收藏添加或删除", notes = "如果商品没有收藏，则添加收藏；如果商品已经收藏，则删除收藏状态。")
+    @ApiImplicitParam(value = "收藏类型，收藏值， { type: xxx, valueId: xxx }")
+    @PostMapping("addordelete")
+    public ResultJson addordelete(@LoginUser Integer userId, @RequestBody String body) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
 
-		Byte type = JacksonUtil.parseByte(body, "type");
-		Integer valueId = JacksonUtil.parseInteger(body, "valueId");
-		if (!ObjectUtils.allNotNull(type, valueId)) {
-			return ResponseUtil.badArgument();
-		}
+        Byte type = JacksonUtil.parseByte(body, "type");
+        Integer valueId = JacksonUtil.parseInteger(body, "valueId");
+        if (!ObjectUtils.allNotNull(type, valueId)) {
+            return ResponseUtil.badArgument();
+        }
 
-		LitemallCollectDTO collect = collectService.queryByTypeAndValue(userId, type,
-				valueId);
+        LitemallCollectDTO collect = collectService.queryByTypeAndValue(userId, type,
+                valueId);
 
-		if (collect != null) {
-			collectService.deleteById(collect.getId());
-		}
-		else {
-			collect = new LitemallCollectDTO();
-			collect.setUserId(userId);
-			collect.setValueId(valueId);
-			collect.setType(type);
-			collectService.add(collect);
-		}
+        if (collect != null) {
+            collectService.deleteById(collect.getId());
+        } else {
+            collect = new LitemallCollectDTO();
+            collect.setUserId(userId);
+            collect.setValueId(valueId);
+            collect.setType(type);
+            collectService.add(collect);
+        }
 
-		return ResponseUtil.ok();
-	}
+        return ResponseUtil.ok();
+    }
 
 }

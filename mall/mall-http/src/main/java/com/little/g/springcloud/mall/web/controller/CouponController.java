@@ -65,10 +65,10 @@ public class CouponController {
 	 */
 	@ApiOperation("优惠券列表")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "page", value = "分页", dataType = "Integer",
-					required = false, defaultValue = "1"),
-			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "Integer",
-					required = false, defaultValue = "10") })
+			@ApiImplicitParam(name = "page", value = "分页", dataType = "int",
+					required = false, defaultValue = "1",example = "1"),
+			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "int",
+					required = false, defaultValue = "10",example = "10") })
 	@GetMapping("list")
 	public ResultJson<Page<LitemallCouponDTO>> list(
 			@RequestParam(defaultValue = "1") Integer page,
