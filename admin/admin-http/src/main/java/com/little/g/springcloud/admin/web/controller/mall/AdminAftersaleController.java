@@ -5,6 +5,8 @@ import com.little.g.springcloud.admin.AdminErrorCodes;
 import com.little.g.springcloud.admin.web.annotation.RequiresPermissions;
 import com.little.g.springcloud.admin.web.annotation.RequiresPermissionsDesc;
 import com.little.g.springcloud.admin.web.manager.LogHelper;
+import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.enums.PayType;
 import com.little.g.springcloud.common.utils.JacksonUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
@@ -18,6 +20,9 @@ import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
 import com.little.g.springcloud.pay.api.LittlePayService;
 import com.little.g.springcloud.thirdpay.dto.PreRefundResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.dubbo.config.annotation.Reference;
@@ -31,204 +36,212 @@ import java.util.List;
 
 import static com.little.g.springcloud.admin.AdminErrorCodes.ORDER_REFUND_FAILED;
 
+@Api("售后管理")
 @RestController
 @RequestMapping("/admin/aftersale")
 @Validated
 public class AdminAftersaleController {
 
-	private final Log logger = LogFactory.getLog(AdminAftersaleController.class);
+    private final Log logger = LogFactory.getLog(AdminAftersaleController.class);
 
-	@Reference
-	private LitemallAftersaleService aftersaleService;
+    @Reference
+    private LitemallAftersaleService aftersaleService;
 
-	@Reference
-	private LitemallOrderService orderService;
+    @Reference
+    private LitemallOrderService orderService;
 
-	@Reference
-	private LitemallOrderGoodsService orderGoodsService;
+    @Reference
+    private LitemallOrderGoodsService orderGoodsService;
 
-	@Reference
-	private LitemallGoodsProductService goodsProductService;
+    @Reference
+    private LitemallGoodsProductService goodsProductService;
 
-	@Resource
-	private LogHelper logHelper;
+    @Resource
+    private LogHelper logHelper;
 
-	@Reference
-	private LittlePayService littlePayService;
+    @Reference
+    private LittlePayService littlePayService;
 
-	@Reference
-	private NotifyService notifyService;
+    @Reference
+    private NotifyService notifyService;
 
-	@RequiresPermissions("admin:aftersale:list")
-	@RequiresPermissionsDesc(menu = { "商城管理", "售后管理" }, button = "查询")
-	@GetMapping("/list")
-	public Object list(Integer orderId, String aftersaleSn, Short status,
-			@RequestParam(defaultValue = "1") Integer page,
-			@RequestParam(defaultValue = "10") Integer limit,
-			@Sort @RequestParam(defaultValue = "add_time") String sort,
-			@Order @RequestParam(defaultValue = "desc") String order) {
-		PageInfo<LitemallAftersaleDTO> pageInfo = aftersaleService.querySelective(orderId,
-				aftersaleSn, status, page, limit, sort, order);
-		return ResponseUtil.okPage(pageInfo);
-	}
+    @ApiOperation("分页查询售后列表")
+    @RequiresPermissions("admin:aftersale:list")
+    @RequiresPermissionsDesc(menu = {"商城管理", "售后管理"}, button = "查询")
+    @GetMapping("/list")
+    public ResultJson<Page<LitemallAftersaleDTO>> list(Integer orderId, String aftersaleSn, Short status,
+                                                       @RequestParam(defaultValue = "1") Integer page,
+                                                       @RequestParam(defaultValue = "10") Integer limit,
+                                                       @Sort @RequestParam(defaultValue = "add_time") String sort,
+                                                       @Order @RequestParam(defaultValue = "desc") String order) {
+        PageInfo<LitemallAftersaleDTO> pageInfo = aftersaleService.querySelective(orderId,
+                aftersaleSn, status, page, limit, sort, order);
+        return ResponseUtil.okPage(pageInfo);
+    }
 
-	@RequiresPermissions("admin:aftersale:recept")
-	@RequiresPermissionsDesc(menu = { "商城管理", "售后管理" }, button = "审核通过")
-	@PostMapping("/recept")
-	public Object recept(@RequestBody LitemallAftersaleDTO aftersale) {
-		Integer id = aftersale.getId();
-		LitemallAftersaleDTO aftersaleOne = aftersaleService.findById(id);
-		if (aftersaleOne == null) {
-			return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED, "售后不存在");
-		}
-		Short status = aftersaleOne.getStatus();
-		if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
-			return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED,
-					"售后不能进行审核通过操作");
-		}
-		aftersaleOne.setStatus(AftersaleConstant.STATUS_RECEPT);
-		aftersaleOne.setHandleTime(LocalDateTime.now());
-		aftersaleService.updateById(aftersaleOne);
+    @ApiOperation("售后审核通过")
+    @RequiresPermissions("admin:aftersale:recept")
+    @RequiresPermissionsDesc(menu = {"商城管理", "售后管理"}, button = "审核通过")
+    @PostMapping("/recept")
+    public ResultJson recept(@RequestBody LitemallAftersaleDTO aftersale) {
+        Integer id = aftersale.getId();
+        LitemallAftersaleDTO aftersaleOne = aftersaleService.findById(id);
+        if (aftersaleOne == null) {
+            return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED, "售后不存在");
+        }
+        Short status = aftersaleOne.getStatus();
+        if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
+            return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED,
+                    "售后不能进行审核通过操作");
+        }
+        aftersaleOne.setStatus(AftersaleConstant.STATUS_RECEPT);
+        aftersaleOne.setHandleTime(LocalDateTime.now());
+        aftersaleService.updateById(aftersaleOne);
 
-		// 订单也要更新售后状态
-		orderService.updateAftersaleStatus(aftersaleOne.getOrderId(),
-				AftersaleConstant.STATUS_RECEPT);
-		return ResponseUtil.ok();
-	}
+        // 订单也要更新售后状态
+        orderService.updateAftersaleStatus(aftersaleOne.getOrderId(),
+                AftersaleConstant.STATUS_RECEPT);
+        return ResponseUtil.ok();
+    }
 
-	@RequiresPermissions("admin:aftersale:batch-recept")
-	@RequiresPermissionsDesc(menu = { "商城管理", "售后管理" }, button = "批量通过")
-	@PostMapping("/batch-recept")
-	public Object batchRecept(@RequestBody String body) {
-		List<Integer> ids = JacksonUtil.parseIntegerList(body, "ids");
-		// NOTE
-		// 批量操作中，如果一部分数据项失败，应该如何处理
-		// 这里采用忽略失败，继续处理其他项。
-		// 当然开发者可以采取其他处理方式，具体情况具体分析，例如利用事务回滚所有操作然后返回用户失败信息
-		for (Integer id : ids) {
-			LitemallAftersaleDTO aftersale = aftersaleService.findById(id);
-			if (aftersale == null) {
-				continue;
-			}
-			Short status = aftersale.getStatus();
-			if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
-				continue;
-			}
-			aftersale.setStatus(AftersaleConstant.STATUS_RECEPT);
-			aftersale.setHandleTime(LocalDateTime.now());
-			aftersaleService.updateById(aftersale);
+    @ApiOperation(" 批量审批通过")
+    @ApiImplicitParam("售后IDS {ids:[1,2,3]]}")
+    @RequiresPermissions("admin:aftersale:batch-recept")
+    @RequiresPermissionsDesc(menu = {"商城管理", "售后管理"}, button = "批量通过")
+    @PostMapping("/batch-recept")
+    public ResultJson batchRecept(@RequestBody String body) {
+        List<Integer> ids = JacksonUtil.parseIntegerList(body, "ids");
+        // NOTE
+        // 批量操作中，如果一部分数据项失败，应该如何处理
+        // 这里采用忽略失败，继续处理其他项。
+        // 当然开发者可以采取其他处理方式，具体情况具体分析，例如利用事务回滚所有操作然后返回用户失败信息
+        for (Integer id : ids) {
+            LitemallAftersaleDTO aftersale = aftersaleService.findById(id);
+            if (aftersale == null) {
+                continue;
+            }
+            Short status = aftersale.getStatus();
+            if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
+                continue;
+            }
+            aftersale.setStatus(AftersaleConstant.STATUS_RECEPT);
+            aftersale.setHandleTime(LocalDateTime.now());
+            aftersaleService.updateById(aftersale);
 
-			// 订单也要更新售后状态
-			orderService.updateAftersaleStatus(aftersale.getOrderId(),
-					AftersaleConstant.STATUS_RECEPT);
-		}
-		return ResponseUtil.ok();
-	}
+            // 订单也要更新售后状态
+            orderService.updateAftersaleStatus(aftersale.getOrderId(),
+                    AftersaleConstant.STATUS_RECEPT);
+        }
+        return ResponseUtil.ok();
+    }
 
-	@RequiresPermissions("admin:aftersale:reject")
-	@RequiresPermissionsDesc(menu = { "商城管理", "售后管理" }, button = "审核拒绝")
-	@PostMapping("/reject")
-	public Object reject(@RequestBody LitemallAftersaleDTO aftersale) {
-		Integer id = aftersale.getId();
-		LitemallAftersaleDTO aftersaleOne = aftersaleService.findById(id);
-		if (aftersaleOne == null) {
-			return ResponseUtil.badArgumentValue();
-		}
-		Short status = aftersaleOne.getStatus();
-		if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
-			return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED,
-					"售后不能进行审核拒绝操作");
-		}
-		aftersaleOne.setStatus(AftersaleConstant.STATUS_REJECT);
-		aftersaleOne.setHandleTime(LocalDateTime.now());
-		aftersaleService.updateById(aftersaleOne);
+    @ApiOperation("售后驳回")
+    @RequiresPermissions("admin:aftersale:reject")
+    @RequiresPermissionsDesc(menu = {"商城管理", "售后管理"}, button = "审核拒绝")
+    @PostMapping("/reject")
+    public ResultJson reject(@RequestBody LitemallAftersaleDTO aftersale) {
+        Integer id = aftersale.getId();
+        LitemallAftersaleDTO aftersaleOne = aftersaleService.findById(id);
+        if (aftersaleOne == null) {
+            return ResponseUtil.badArgumentValue();
+        }
+        Short status = aftersaleOne.getStatus();
+        if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
+            return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED,
+                    "售后不能进行审核拒绝操作");
+        }
+        aftersaleOne.setStatus(AftersaleConstant.STATUS_REJECT);
+        aftersaleOne.setHandleTime(LocalDateTime.now());
+        aftersaleService.updateById(aftersaleOne);
 
-		// 订单也要更新售后状态
-		orderService.updateAftersaleStatus(aftersaleOne.getOrderId(),
-				AftersaleConstant.STATUS_REJECT);
-		return ResponseUtil.ok();
-	}
+        // 订单也要更新售后状态
+        orderService.updateAftersaleStatus(aftersaleOne.getOrderId(),
+                AftersaleConstant.STATUS_REJECT);
+        return ResponseUtil.ok();
+    }
 
-	@RequiresPermissions("admin:aftersale:batch-reject")
-	@RequiresPermissionsDesc(menu = { "商城管理", "售后管理" }, button = "批量拒绝")
-	@PostMapping("/batch-reject")
-	public Object batchReject(@RequestBody String body) {
-		List<Integer> ids = JacksonUtil.parseIntegerList(body, "ids");
-		for (Integer id : ids) {
-			LitemallAftersaleDTO aftersale = aftersaleService.findById(id);
-			if (aftersale == null) {
-				continue;
-			}
-			Short status = aftersale.getStatus();
-			if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
-				continue;
-			}
-			aftersale.setStatus(AftersaleConstant.STATUS_REJECT);
-			aftersale.setHandleTime(LocalDateTime.now());
-			aftersaleService.updateById(aftersale);
+    @ApiOperation("售后批量驳回")
+    @RequiresPermissions("admin:aftersale:batch-reject")
+    @RequiresPermissionsDesc(menu = {"商城管理", "售后管理"}, button = "批量拒绝")
+    @PostMapping("/batch-reject")
+    public Object batchReject(@RequestBody String body) {
+        List<Integer> ids = JacksonUtil.parseIntegerList(body, "ids");
+        for (Integer id : ids) {
+            LitemallAftersaleDTO aftersale = aftersaleService.findById(id);
+            if (aftersale == null) {
+                continue;
+            }
+            Short status = aftersale.getStatus();
+            if (!status.equals(AftersaleConstant.STATUS_REQUEST)) {
+                continue;
+            }
+            aftersale.setStatus(AftersaleConstant.STATUS_REJECT);
+            aftersale.setHandleTime(LocalDateTime.now());
+            aftersaleService.updateById(aftersale);
 
-			// 订单也要更新售后状态
-			orderService.updateAftersaleStatus(aftersale.getOrderId(),
-					AftersaleConstant.STATUS_REJECT);
-		}
-		return ResponseUtil.ok();
-	}
+            // 订单也要更新售后状态
+            orderService.updateAftersaleStatus(aftersale.getOrderId(),
+                    AftersaleConstant.STATUS_REJECT);
+        }
+        return ResponseUtil.ok();
+    }
 
-	@RequiresPermissions("admin:aftersale:refund")
-	@RequiresPermissionsDesc(menu = { "商城管理", "售后管理" }, button = "退款")
-	@PostMapping("/refund")
-	public Object refund(@RequestBody LitemallAftersaleDTO aftersale) {
-		Integer id = aftersale.getId();
-		LitemallAftersaleDTO aftersaleOne = aftersaleService.findById(id);
-		if (aftersaleOne == null) {
-			return ResponseUtil.badArgumentValue();
-		}
-		if (!aftersaleOne.getStatus().equals(AftersaleConstant.STATUS_RECEPT)) {
-			return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED, "售后不能进行退款操作");
-		}
-		Integer orderId = aftersaleOne.getOrderId();
-		LitemallOrderDTO order = orderService.findById(orderId);
+    @ApiOperation("退款")
+    @RequiresPermissions("admin:aftersale:refund")
+    @RequiresPermissionsDesc(menu = {"商城管理", "售后管理"}, button = "退款")
+    @PostMapping("/refund")
+    public ResultJson refund(@RequestBody LitemallAftersaleDTO aftersale) {
+        Integer id = aftersale.getId();
+        LitemallAftersaleDTO aftersaleOne = aftersaleService.findById(id);
+        if (aftersaleOne == null) {
+            return ResponseUtil.badArgumentValue();
+        }
+        if (!aftersaleOne.getStatus().equals(AftersaleConstant.STATUS_RECEPT)) {
+            return ResponseUtil.fail(AdminErrorCodes.AFTERSALE_NOT_ALLOWED, "售后不能进行退款操作");
+        }
+        Integer orderId = aftersaleOne.getOrderId();
+        LitemallOrderDTO order = orderService.findById(orderId);
 
-		Long totalFee = aftersaleOne.getAmount().multiply(new BigDecimal(100))
-				.longValue();
+        Long totalFee = aftersaleOne.getAmount().multiply(new BigDecimal(100))
+                .longValue();
 
-		// 微信退款
+        // 微信退款
 
-		PreRefundResult refund = littlePayService.refund(order.getUserId(),
-				PayType.WEXINPAY, order.getOrderSn(), totalFee, totalFee);
-		if (!refund.getErrorCode().equals("SUCCESS")) {
-			logger.warn("refund fail: " + refund.getErrorMsg());
-			return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
-		}
+        PreRefundResult refund = littlePayService.refund(order.getUserId(),
+                PayType.WEXINPAY, order.getOrderSn(), totalFee, totalFee);
+        if (!refund.getErrorCode().equals("SUCCESS")) {
+            logger.warn("refund fail: " + refund.getErrorMsg());
+            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
+        }
 
-		aftersaleOne.setStatus(AftersaleConstant.STATUS_REFUND);
-		aftersaleOne.setHandleTime(LocalDateTime.now());
-		aftersaleService.updateById(aftersaleOne);
+        aftersaleOne.setStatus(AftersaleConstant.STATUS_REFUND);
+        aftersaleOne.setHandleTime(LocalDateTime.now());
+        aftersaleService.updateById(aftersaleOne);
 
-		orderService.updateAftersaleStatus(orderId, AftersaleConstant.STATUS_REFUND);
+        orderService.updateAftersaleStatus(orderId, AftersaleConstant.STATUS_REFUND);
 
-		// NOTE
-		// 如果是“退货退款”类型的售后，这里退款说明用户的货已经退回，则需要商品货品数量增加
-		// 开发者也可以删除一下代码，在其他地方增加商品货品入库操作
-		if (aftersale.getType().equals(AftersaleConstant.TYPE_GOODS_REQUIRED)) {
-			List<LitemallOrderGoodsDTO> orderGoodsList = orderGoodsService
-					.queryByOid(orderId);
-			for (LitemallOrderGoodsDTO orderGoods : orderGoodsList) {
-				Integer productId = orderGoods.getProductId();
-				Short number = orderGoods.getNumber();
-				goodsProductService.addStock(productId, number);
-			}
-		}
+        // NOTE
+        // 如果是“退货退款”类型的售后，这里退款说明用户的货已经退回，则需要商品货品数量增加
+        // 开发者也可以删除一下代码，在其他地方增加商品货品入库操作
+        if (aftersale.getType().equals(AftersaleConstant.TYPE_GOODS_REQUIRED)) {
+            List<LitemallOrderGoodsDTO> orderGoodsList = orderGoodsService
+                    .queryByOid(orderId);
+            for (LitemallOrderGoodsDTO orderGoods : orderGoodsList) {
+                Integer productId = orderGoods.getProductId();
+                Short number = orderGoods.getNumber();
+                goodsProductService.addStock(productId, number);
+            }
+        }
 
-		// 发送短信通知，这里采用异步发送
-		// 退款成功通知用户, 例如“您申请的订单退款 [ 单号:{1} ] 已成功，请耐心等待到账。”
-		// TODO 注意订单号只发后6位
-		notifyService.notifySmsTemplate(order.getMobile(), NotifyType.REFUND,
-				new String[] { order.getOrderSn().substring(8, 14) });
+        // 发送短信通知，这里采用异步发送
+        // 退款成功通知用户, 例如“您申请的订单退款 [ 单号:{1} ] 已成功，请耐心等待到账。”
+        // TODO 注意订单号只发后6位
+        notifyService.notifySmsTemplate(order.getMobile(), NotifyType.REFUND,
+                new String[]{order.getOrderSn().substring(8, 14)});
 
-		logHelper.logOrderSucceed("退款",
-				"订单编号 " + order.getOrderSn() + " 售后编号 " + aftersale.getAftersaleSn());
-		return ResponseUtil.ok();
-	}
+        logHelper.logOrderSucceed("退款",
+                "订单编号 " + order.getOrderSn() + " 售后编号 " + aftersale.getAftersaleSn());
+        return ResponseUtil.ok();
+    }
 
 }
