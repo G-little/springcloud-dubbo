@@ -117,7 +117,7 @@
                 <little.nacos.host>${NACOS_HOST}</little.nacos.host>
                 <!--suppress UnresolvedMavenProperty -->
                 <little.nacos.port>${NACOS_PORT}</little.nacos.port>
-                <little.online>true</little.online>
+                <little.online>false</little.online>
             </properties>
         </profile>
 
