@@ -11,6 +11,7 @@ import com.little.g.springcloud.mall.web.vo.CartCheckoutVo;
 import com.little.g.springcloud.mall.web.vo.CartIndexVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -425,9 +426,16 @@ public class CartController {
      * @return 购物车操作结果
      */
     @ApiOperation(value = "购物车下单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cartId", value = "购物车商品ID： 如果购物车商品ID是空，则下单当前用户所有购物车商品； 如果购物车商品ID非空，则只下单当前购物车商品。"),
+            @ApiImplicitParam(name = "addressId", value = "如果收货地址ID是空，则查询当前用户的默认地址。"),
+            @ApiImplicitParam(name = "couponId", value = "优惠券ID： 如果优惠券ID是空，则自动选择合适的优惠券。"),
+            @ApiImplicitParam(name = "userCouponId", value = "用户选择的优惠券ID"),
+            @ApiImplicitParam(name = "grouponRulesId", value = "团购规则ID")
+    })
     @GetMapping("checkout")
-    public Object checkout(@LoginUser Integer userId, @RequestParam Integer cartId, @RequestParam Integer addressId,
-                           @RequestParam Integer couponId, @RequestParam Integer userCouponId, @RequestParam Integer grouponRulesId) {
+    public Object checkout(@LoginUser Integer userId, @RequestParam(required = false) Integer cartId, @RequestParam(required = false) Integer addressId,
+                           @RequestParam(required = false) Integer couponId, @RequestParam(required = false) Integer userCouponId, @RequestParam(required = false) Integer grouponRulesId) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -456,10 +464,13 @@ public class CartController {
 
         // 团购优惠
         BigDecimal grouponPrice = new BigDecimal(0.00);
-        LitemallGrouponRulesDTO grouponRules = grouponRulesService
-                .findById(grouponRulesId);
-        if (grouponRules != null) {
-            grouponPrice = grouponRules.getDiscount();
+        LitemallGrouponRulesDTO grouponRules = null;
+        if (grouponRulesId != null) {
+            grouponRules = grouponRulesService
+                    .findById(grouponRulesId);
+            if (grouponRules != null) {
+                grouponPrice = grouponRules.getDiscount();
+            }
         }
 
         // 商品价格

@@ -124,8 +124,8 @@ public class CommentController {
             @ApiImplicitParam(value = "商品或专题ID。如果type是0，则是商品ID；如果type是1，则是专题ID。",
                     allowableValues = "0,1")})
     @GetMapping("count")
-    public ResultJson<CommentCountVo> count(@NotNull Byte type,
-                                            @NotNull Integer valueId) {
+    public ResultJson<CommentCountVo> count(@RequestParam @NotNull Byte type,
+                                            @RequestParam @NotNull Integer valueId) {
         int allCount = commentService.count(type, valueId, 0);
         int hasPicCount = commentService.count(type, valueId, 1);
         CommentCountVo vo = new CommentCountVo();
@@ -159,8 +159,9 @@ public class CommentController {
             @ApiImplicitParam(name = "limit", value = "单页条数", dataType = "int",
                     required = false, defaultValue = "10", example = "10")})
     @GetMapping("list")
-    public ResultJson<Page<CommentListVo>> list(@NotNull Byte type,
-                                                @NotNull Integer valueId, @NotNull Integer showType,
+    public ResultJson<Page<CommentListVo>> list(@RequestParam @NotNull Byte type,
+                                                @RequestParam @NotNull Integer valueId,
+                                                @RequestParam @NotNull Integer showType,
                                                 @RequestParam(defaultValue = "1") Integer page,
                                                 @RequestParam(defaultValue = "10") Integer limit) {
         PageInfo<LitemallCommentDTO> commentPage = commentService.query(type, valueId,

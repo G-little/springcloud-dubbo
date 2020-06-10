@@ -24,26 +24,27 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController {
 
-	@Reference
-	private LitemallOrderService orderService;
+    @Reference
+    private LitemallOrderService orderService;
 
-	/**
-	 * 用户个人页面数据
-	 * <p>
-	 * 目前是用户订单统计信息
-	 * @param userId 用户ID
-	 * @return 用户个人页面数据
-	 */
-	@ApiOperation("用户个人页面数据")
-	@GetMapping("index")
-	public ResultJson<UserIndexVo> list(@LoginUser Integer userId) {
-		if (userId == null) {
-			return ResponseUtil.unlogin();
-		}
+    /**
+     * 用户个人页面数据
+     * <p>
+     * 目前是用户订单统计信息
+     *
+     * @param userId 用户ID
+     * @return 用户个人页面数据
+     */
+    @ApiOperation("用户个人页面数据")
+    @GetMapping("index")
+    public ResultJson<UserIndexVo> list(@LoginUser Integer userId) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
 
-		UserIndexVo data = new UserIndexVo();
-		data.setOrder(orderService.orderInfo(userId));
-		return ResponseUtil.ok(data);
-	}
+        UserIndexVo data = new UserIndexVo();
+        data.setOrder(orderService.orderInfo(userId));
+        return ResponseUtil.ok(data);
+    }
 
 }

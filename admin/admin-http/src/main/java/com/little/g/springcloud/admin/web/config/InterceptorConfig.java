@@ -23,7 +23,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/layer/**")
 				.excludePathPatterns("/startbootstrap/**")
 				.excludePathPatterns("/admin/login").excludePathPatterns("/favicon.ico")
-				.excludePathPatterns("/login").excludePathPatterns("/login_code");
+				.excludePathPatterns("/login").excludePathPatterns("/login_code")
+				.excludePathPatterns("/static/**", "/swagger-resources/**", "/webjars/**",
+						"/v2/**", "/swagger-ui.html/**", "/configuration/**");
+
 		registry.addInterceptor(headerInterceptor()).addPathPatterns("/**");
 	}
 

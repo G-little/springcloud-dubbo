@@ -62,7 +62,7 @@ public class CollectController {
                     required = false, defaultValue = "10", example = "10")})
     @GetMapping("list")
     public ResultJson<Page<CollectListVo>> list(@LoginUser Integer userId,
-                                                @NotNull Byte type, @RequestParam(defaultValue = "1") Integer page,
+                                                @RequestParam @NotNull Byte type, @RequestParam(defaultValue = "1") Integer page,
                                                 @RequestParam(defaultValue = "10") Integer limit,
                                                 @Sort @RequestParam(defaultValue = "add_time") String sort,
                                                 @Order @RequestParam(defaultValue = "desc") String order) {

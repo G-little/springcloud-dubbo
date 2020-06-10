@@ -104,7 +104,7 @@ public class GoodsController {
     @ApiOperation(value = "商品详情", notes = "用户可以不登录。 如果用户登录，则记录用户足迹以及返回用户收藏信息。")
     @ApiImplicitParam(name = "id", required = true, value = "商品ID")
     @GetMapping("detail")
-    public Object detail(@LoginUser Integer userId, @NotNull Integer id) {
+    public Object detail(@LoginUser Integer userId, @RequestParam @NotNull Integer id) {
         // 商品信息
         LitemallGoodsDTO info = goodsService.findById(id);
 
@@ -291,8 +291,8 @@ public class GoodsController {
                     required = false, defaultValue = "10", example = "10")})
 
     @GetMapping("list")
-    public ResultJson<GoodsSearchPageResultVo> list(Integer categoryId, Integer brandId,
-                                                    String keyword, Boolean isNew, Boolean isHot, @LoginUser Integer userId,
+    public ResultJson<GoodsSearchPageResultVo> list(@RequestParam(required = false) Integer categoryId, @RequestParam(required = false) Integer brandId,
+                                                    @RequestParam(required = false) String keyword, @RequestParam(required = false) Boolean isNew, @RequestParam(required = false) Boolean isHot, @LoginUser Integer userId,
                                                     @RequestParam(defaultValue = "1") Integer page,
                                                     @RequestParam(defaultValue = "10") Integer limit,
                                                     @Sort(accepts = {"add_time", "retail_price", "name"}) @RequestParam(
@@ -339,7 +339,7 @@ public class GoodsController {
     @ApiOperation("商品详情页面“大家都在看”推荐商品")
     @ApiImplicitParam(name = "id", value = "商品ID")
     @GetMapping("related")
-    public ResultJson<Page<LitemallGoodsDTO>> related(@NotNull Integer id) {
+    public ResultJson<Page<LitemallGoodsDTO>> related(@RequestParam @NotNull Integer id) {
         LitemallGoodsDTO goods = goodsService.findById(id);
         if (goods == null) {
             return ResponseUtil.badArgumentValue();
