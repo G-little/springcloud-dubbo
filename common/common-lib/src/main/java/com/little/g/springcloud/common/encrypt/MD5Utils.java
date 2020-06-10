@@ -23,7 +23,7 @@ public class MD5Utils {
 
 	public static void main(String[] args) {
 
-		String encrypt = MD5Utils.encode("littleg");
+		String encrypt = MD5Utils.encode("123456");
 		System.out.println(encrypt);
 
 		System.out.println(check("little", encrypt));
