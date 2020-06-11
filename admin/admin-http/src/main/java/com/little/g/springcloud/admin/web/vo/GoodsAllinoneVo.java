@@ -9,45 +9,49 @@ import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel
 public class GoodsAllinoneVo {
-    @ApiModelProperty("产品")
-    LitemallGoodsDTO goods;
-    @ApiModelProperty("产品规格")
-    LitemallGoodsSpecificationDTO[] specifications;
-    @ApiModelProperty("产品属性")
-    LitemallGoodsAttributeDTO[] attributes;
-    @ApiModelProperty("商品")
-    LitemallGoodsProductDTO[] products;
 
-    public LitemallGoodsDTO getGoods() {
-        return goods;
-    }
+	@ApiModelProperty("产品")
+	LitemallGoodsDTO goods;
 
-    public void setGoods(LitemallGoodsDTO goods) {
-        this.goods = goods;
-    }
+	@ApiModelProperty("产品规格")
+	LitemallGoodsSpecificationDTO[] specifications;
 
-    public LitemallGoodsSpecificationDTO[] getSpecifications() {
-        return specifications;
-    }
+	@ApiModelProperty("产品属性")
+	LitemallGoodsAttributeDTO[] attributes;
 
-    public void setSpecifications(LitemallGoodsSpecificationDTO[] specifications) {
-        this.specifications = specifications;
-    }
+	@ApiModelProperty("商品")
+	LitemallGoodsProductDTO[] products;
 
-    public LitemallGoodsAttributeDTO[] getAttributes() {
-        return attributes;
-    }
+	public LitemallGoodsDTO getGoods() {
+		return goods;
+	}
 
-    public void setAttributes(LitemallGoodsAttributeDTO[] attributes) {
-        this.attributes = attributes;
-    }
+	public void setGoods(LitemallGoodsDTO goods) {
+		this.goods = goods;
+	}
 
-    public LitemallGoodsProductDTO[] getProducts() {
-        return products;
-    }
+	public LitemallGoodsSpecificationDTO[] getSpecifications() {
+		return specifications;
+	}
 
-    public void setProducts(LitemallGoodsProductDTO[] products) {
-        this.products = products;
-    }
+	public void setSpecifications(LitemallGoodsSpecificationDTO[] specifications) {
+		this.specifications = specifications;
+	}
+
+	public LitemallGoodsAttributeDTO[] getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(LitemallGoodsAttributeDTO[] attributes) {
+		this.attributes = attributes;
+	}
+
+	public LitemallGoodsProductDTO[] getProducts() {
+		return products;
+	}
+
+	public void setProducts(LitemallGoodsProductDTO[] products) {
+		this.products = products;
+	}
 
 }

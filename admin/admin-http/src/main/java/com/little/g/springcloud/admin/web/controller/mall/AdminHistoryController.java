@@ -25,23 +25,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin/history")
 public class AdminHistoryController {
 
-    private final Log logger = LogFactory.getLog(AdminHistoryController.class);
+	private final Log logger = LogFactory.getLog(AdminHistoryController.class);
 
-    @Reference
-    private LitemallSearchHistoryService searchHistoryService;
+	@Reference
+	private LitemallSearchHistoryService searchHistoryService;
 
-    @ApiOperation("搜索历史")
-    @RequiresPermissions("admin:history:list")
-    @RequiresPermissionsDesc(menu = {"用户管理", "搜索历史"}, button = "查询")
-    @GetMapping("/list")
-    public ResultJson<Page<LitemallSearchHistoryDTO>> list(String userId, String keyword,
-                                                           @RequestParam(defaultValue = "1") Integer page,
-                                                           @RequestParam(defaultValue = "10") Integer limit,
-                                                           @Sort @RequestParam(defaultValue = "add_time") String sort,
-                                                           @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallSearchHistoryDTO> pageInfo = searchHistoryService
-                .querySelective(userId, keyword, page, limit, sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+	@ApiOperation("搜索历史")
+	@RequiresPermissions("admin:history:list")
+	@RequiresPermissionsDesc(menu = { "用户管理", "搜索历史" }, button = "查询")
+	@GetMapping("/list")
+	public ResultJson<Page<LitemallSearchHistoryDTO>> list(String userId, String keyword,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
+		PageInfo<LitemallSearchHistoryDTO> pageInfo = searchHistoryService
+				.querySelective(userId, keyword, page, limit, sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
 }

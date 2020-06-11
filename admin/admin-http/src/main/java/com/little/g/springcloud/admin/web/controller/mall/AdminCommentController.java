@@ -24,36 +24,36 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class AdminCommentController {
 
-    private final Log logger = LogFactory.getLog(AdminCommentController.class);
+	private final Log logger = LogFactory.getLog(AdminCommentController.class);
 
-    @Reference
-    private LitemallCommentService commentService;
+	@Reference
+	private LitemallCommentService commentService;
 
-    @ApiOperation("评论分页查询")
-    @RequiresPermissions("admin:comment:list")
-    @RequiresPermissionsDesc(menu = {"商品管理", "评论管理"}, button = "查询")
-    @GetMapping("/list")
-    public ResultJson<Page<LitemallCommentDTO>> list(String userId, String valueId,
-                                                     @RequestParam(defaultValue = "1") Integer page,
-                                                     @RequestParam(defaultValue = "10") Integer limit,
-                                                     @Sort @RequestParam(defaultValue = "add_time") String sort,
-                                                     @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallCommentDTO> pageInfo = commentService.querySelective(userId,
-                valueId, page, limit, sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+	@ApiOperation("评论分页查询")
+	@RequiresPermissions("admin:comment:list")
+	@RequiresPermissionsDesc(menu = { "商品管理", "评论管理" }, button = "查询")
+	@GetMapping("/list")
+	public ResultJson<Page<LitemallCommentDTO>> list(String userId, String valueId,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
+		PageInfo<LitemallCommentDTO> pageInfo = commentService.querySelective(userId,
+				valueId, page, limit, sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
-    @ApiOperation("评论删除")
-    @RequiresPermissions("admin:comment:delete")
-    @RequiresPermissionsDesc(menu = {"商品管理", "评论管理"}, button = "删除")
-    @PostMapping("/delete")
-    public ResultJson delete(@RequestBody LitemallCommentDTO comment) {
-        Integer id = comment.getId();
-        if (id == null) {
-            return ResponseUtil.badArgument();
-        }
-        commentService.deleteById(id);
-        return ResponseUtil.ok();
-    }
+	@ApiOperation("评论删除")
+	@RequiresPermissions("admin:comment:delete")
+	@RequiresPermissionsDesc(menu = { "商品管理", "评论管理" }, button = "删除")
+	@PostMapping("/delete")
+	public ResultJson delete(@RequestBody LitemallCommentDTO comment) {
+		Integer id = comment.getId();
+		if (id == null) {
+			return ResponseUtil.badArgument();
+		}
+		commentService.deleteById(id);
+		return ResponseUtil.ok();
+	}
 
 }

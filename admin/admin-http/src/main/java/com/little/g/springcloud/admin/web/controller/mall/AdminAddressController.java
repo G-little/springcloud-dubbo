@@ -28,27 +28,27 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AdminAddressController {
 
-    private final Log logger = LogFactory.getLog(AdminAddressController.class);
+	private final Log logger = LogFactory.getLog(AdminAddressController.class);
 
-    @Reference
-    private LitemallAddressService addressService;
+	@Reference
+	private LitemallAddressService addressService;
 
-    @Reference
-    private LitemallRegionService regionService;
+	@Reference
+	private LitemallRegionService regionService;
 
-    @ApiOperation("收货地址分页查询")
-    @RequiresPermissions("admin:address:list")
-    @RequiresPermissionsDesc(menu = {"用户管理", "收货地址"}, button = "查询")
-    @GetMapping("/list")
-    public ResultJson<Page<LitemallAddressDTO>> list(Integer userId, String name,
-                                                     @RequestParam(defaultValue = "1") Integer page,
-                                                     @RequestParam(defaultValue = "10") Integer limit,
-                                                     @Sort @RequestParam(defaultValue = "add_time") String sort,
-                                                     @Order @RequestParam(defaultValue = "desc") String order) {
+	@ApiOperation("收货地址分页查询")
+	@RequiresPermissions("admin:address:list")
+	@RequiresPermissionsDesc(menu = { "用户管理", "收货地址" }, button = "查询")
+	@GetMapping("/list")
+	public ResultJson<Page<LitemallAddressDTO>> list(Integer userId, String name,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
 
-        PageInfo<LitemallAddressDTO> pageInfo = addressService.querySelective(userId,
-                name, page, limit, sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+		PageInfo<LitemallAddressDTO> pageInfo = addressService.querySelective(userId,
+				name, page, limit, sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
 }

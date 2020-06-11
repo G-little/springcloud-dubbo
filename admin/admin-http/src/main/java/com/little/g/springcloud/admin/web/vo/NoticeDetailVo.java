@@ -11,8 +11,11 @@ import java.util.List;
 @ApiModel("通知详情")
 @Data
 public class NoticeDetailVo {
-    @ApiModelProperty("通知")
-    private LitemallNoticeDTO notice;
-    @ApiModelProperty("管理员列表")
-    private List<LitemallNoticeAdminDTO> noticeAdminList;
+
+	@ApiModelProperty("通知")
+	private LitemallNoticeDTO notice;
+
+	@ApiModelProperty("管理员列表")
+	private List<LitemallNoticeAdminDTO> noticeAdminList;
+
 }

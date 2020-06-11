@@ -5,6 +5,9 @@ import com.little.g.springcloud.admin.api.AdminUserService;
 import com.little.g.springcloud.admin.dto.AdminUserDTO;
 import com.little.g.springcloud.admin.params.AdminUserParams;
 import com.little.g.springcloud.admin.web.utils.SessionUtils;
+import com.little.g.springcloud.admin.web.vo.CatnoticeVo;
+import com.little.g.springcloud.common.ResultJson;
+import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.encrypt.MD5Utils;
 import com.little.g.springcloud.common.utils.JacksonUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
@@ -14,6 +17,8 @@ import com.little.g.springcloud.mall.dto.LitemallNoticeAdminDTO;
 import com.little.g.springcloud.mall.dto.LitemallNoticeDTO;
 import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.dubbo.config.annotation.Reference;
@@ -22,12 +27,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.little.g.springcloud.admin.AdminErrorCodes.ADMIN_INVALID_ACCOUNT;
 
+@Api("管理员信息")
 @RestController
 @RequestMapping("/admin/profile")
 @Validated
@@ -44,8 +48,9 @@ public class AdminProfileController {
 	@Reference
 	private LitemallNoticeAdminService noticeAdminService;
 
+	@ApiOperation("管理员密码修改")
 	@PostMapping("/password")
-	public Object create(@RequestBody String body) {
+	public ResultJson create(@RequestBody String body) {
 		String oldPassword = JacksonUtil.parseString(body, "oldPassword");
 		String newPassword = JacksonUtil.parseString(body, "newPassword");
 		if (StringUtils.isEmpty(oldPassword)) {
@@ -71,14 +76,16 @@ public class AdminProfileController {
 		return SessionUtils.get().getId();
 	}
 
+	@ApiOperation("未读通知计数")
 	@GetMapping("/nnotice")
-	public Object nNotice() {
+	public ResultJson<Integer> nNotice() {
 		int count = noticeAdminService.countUnread(getAdminId());
 		return ResponseUtil.ok(count);
 	}
 
+	@ApiOperation("通知分页列表")
 	@GetMapping("/lsnotice")
-	public Object lsNotice(String title, String type,
+	public ResultJson<Page<LitemallNoticeAdminDTO>> lsNotice(String title, String type,
 			@RequestParam(defaultValue = "1") Integer page,
 			@RequestParam(defaultValue = "10") Integer limit,
 			@Sort @RequestParam(defaultValue = "add_time") String sort,
@@ -88,8 +95,9 @@ public class AdminProfileController {
 		return ResponseUtil.okPage(pageInfo);
 	}
 
+	@ApiOperation("获取notice详情")
 	@PostMapping("/catnotice")
-	public Object catNotice(@RequestBody String body) {
+	public ResultJson<CatnoticeVo> catNotice(@RequestBody String body) {
 		Integer noticeId = JacksonUtil.parseInteger(body, "noticeId");
 		if (noticeId == null) {
 			return ResponseUtil.badArgument();
@@ -105,32 +113,34 @@ public class AdminProfileController {
 		noticeAdminService.update(noticeAdmin);
 
 		// 返回通知的相关信息
-		Map<String, Object> data = new HashMap<>();
+		CatnoticeVo data = new CatnoticeVo();
 		LitemallNoticeDTO notice = noticeService.findById(noticeId);
-		data.put("title", notice.getTitle());
-		data.put("content", notice.getContent());
-		data.put("time", notice.getUpdateTime());
+		data.setTitle(notice.getTitle());
+		data.setContent(notice.getContent());
+		data.setTime(notice.getUpdateTime());
 		Integer adminId = notice.getAdminId();
 		if (adminId.equals(0)) {
-			data.put("admin", "系统");
+			data.setAdmin("系统");
 		}
 		else {
 			AdminUserDTO admin = adminUserService.get(notice.getAdminId());
-			data.put("admin", admin.getRealName());
-			data.put("avatar", "");
+			data.setAdmin(admin.getRealName());
+			data.setAvatar("");
 		}
 		return ResponseUtil.ok(data);
 	}
 
+	@ApiOperation("批量标记已读")
 	@PostMapping("/bcatnotice")
-	public Object bcatNotice(@RequestBody String body) {
+	public ResultJson bcatNotice(@RequestBody String body) {
 		List<Integer> ids = JacksonUtil.parseIntegerList(body, "ids");
 		noticeAdminService.markReadByIds(ids, getAdminId());
 		return ResponseUtil.ok();
 	}
 
+	@ApiOperation("删除通知")
 	@PostMapping("/rmnotice")
-	public Object rmNotice(@RequestBody String body) {
+	public ResultJson rmNotice(@RequestBody String body) {
 		Integer id = JacksonUtil.parseInteger(body, "id");
 		if (id == null) {
 			return ResponseUtil.badArgument();
@@ -139,8 +149,9 @@ public class AdminProfileController {
 		return ResponseUtil.ok();
 	}
 
+	@ApiOperation("批量删除通知")
 	@PostMapping("/brmnotice")
-	public Object brmNotice(@RequestBody String body) {
+	public ResultJson brmNotice(@RequestBody String body) {
 		List<Integer> ids = JacksonUtil.parseIntegerList(body, "ids");
 		noticeAdminService.deleteByIds(ids, getAdminId());
 		return ResponseUtil.ok();

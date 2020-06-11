@@ -12,44 +12,47 @@ import java.util.List;
 @Data
 @ApiModel("我的团购")
 public class MyGrouponVo {
-    @ApiModelProperty("我的团购ID")
-    private Integer id;
-    @ApiModelProperty("我的团购ID")
-    private LitemallGrouponDTO groupon;
 
-    private LitemallGrouponRulesDTO rules;
+	@ApiModelProperty("我的团购ID")
+	private Integer id;
 
-    private String creator;
+	@ApiModelProperty("我的团购ID")
+	private LitemallGrouponDTO groupon;
 
-    private Boolean isCreator;
+	private LitemallGrouponRulesDTO rules;
 
-    private Integer joinerCount;
+	private String creator;
 
-    private Integer orderId;
+	private Boolean isCreator;
 
-    private String orderSn;
+	private Integer joinerCount;
 
-    private BigDecimal actualPrice;
+	private Integer orderId;
 
-    private String orderStatusText;
+	private String orderSn;
 
+	private BigDecimal actualPrice;
 
-    private List<MyGrouponOrderGoodsVo> goodsList;
+	private String orderStatusText;
 
+	private List<MyGrouponOrderGoodsVo> goodsList;
 
-    @ApiModel("团购订单产品")
-    @Data
-    public static class MyGrouponOrderGoodsVo {
-        @ApiModelProperty("产品ID")
-        private Integer id;
-        @ApiModelProperty("产品名")
-        private String goodsName;
-        @ApiModelProperty("产品数量")
-        private Short number;
-        @ApiModelProperty("产品图片")
-        private String picUrl;
+	@ApiModel("团购订单产品")
+	@Data
+	public static class MyGrouponOrderGoodsVo {
 
+		@ApiModelProperty("产品ID")
+		private Integer id;
 
-    }
+		@ApiModelProperty("产品名")
+		private String goodsName;
+
+		@ApiModelProperty("产品数量")
+		private Short number;
+
+		@ApiModelProperty("产品图片")
+		private String picUrl;
+
+	}
 
 }

@@ -42,13 +42,15 @@ public class OrderController {
 	 * @return 订单列表
 	 */
 	@ApiOperation(value = "订单列表")
-	@ApiImplicitParams({ @ApiImplicitParam(name = "showType",
-			value = "显示类型，0，全部订单； 1，待付款； 2，待发货； 3，待收货； 4，待评价。 ", dataType = "int",
-			required = false, defaultValue = "0", allowableValues = "0,1,2,3,4",example = "0"),
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "showType",
+					value = "显示类型，0，全部订单； 1，待付款； 2，待发货； 3，待收货； 4，待评价。 ", dataType = "int",
+					required = false, defaultValue = "0", allowableValues = "0,1,2,3,4",
+					example = "0"),
 			@ApiImplicitParam(name = "page", value = "分页", dataType = "int",
-					required = false, defaultValue = "1",example = "1"),
+					required = false, defaultValue = "1", example = "1"),
 			@ApiImplicitParam(name = "limit", value = "单页条数", dataType = "int",
-					required = false, defaultValue = "10",example = "10") })
+					required = false, defaultValue = "10", example = "10") })
 	@GetMapping("list")
 	public ResultJson<Page<OrderVo>> list(@LoginUser Integer userId,
 			@RequestParam(defaultValue = "0") Integer showType,

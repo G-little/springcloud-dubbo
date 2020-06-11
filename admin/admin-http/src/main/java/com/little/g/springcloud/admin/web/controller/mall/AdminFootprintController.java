@@ -27,23 +27,23 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AdminFootprintController {
 
-    private final Log logger = LogFactory.getLog(AdminFootprintController.class);
+	private final Log logger = LogFactory.getLog(AdminFootprintController.class);
 
-    @Reference
-    private LitemallFootprintService footprintService;
+	@Reference
+	private LitemallFootprintService footprintService;
 
-    @ApiOperation("用户足迹分页查询")
-    @RequiresPermissions("admin:footprint:list")
-    @RequiresPermissionsDesc(menu = {"用户管理", "用户足迹"}, button = "查询")
-    @GetMapping("/list")
-    public ResultJson<Page<LitemallFootprintDTO>> list(String userId, String goodsId,
-                                                       @RequestParam(defaultValue = "1") Integer page,
-                                                       @RequestParam(defaultValue = "10") Integer limit,
-                                                       @Sort @RequestParam(defaultValue = "add_time") String sort,
-                                                       @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallFootprintDTO> pageInfo = footprintService.querySelective(userId,
-                goodsId, page, limit, sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+	@ApiOperation("用户足迹分页查询")
+	@RequiresPermissions("admin:footprint:list")
+	@RequiresPermissionsDesc(menu = { "用户管理", "用户足迹" }, button = "查询")
+	@GetMapping("/list")
+	public ResultJson<Page<LitemallFootprintDTO>> list(String userId, String goodsId,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
+		PageInfo<LitemallFootprintDTO> pageInfo = footprintService.querySelective(userId,
+				goodsId, page, limit, sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
 }

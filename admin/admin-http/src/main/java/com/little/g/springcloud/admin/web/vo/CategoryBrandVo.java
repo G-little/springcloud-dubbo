@@ -9,8 +9,11 @@ import java.util.List;
 @ApiModel("类目，品牌VO")
 @Data
 public class CategoryBrandVo {
-    @ApiModelProperty("分类列表")
-    private List<CatVo> categoryList;
-    @ApiModelProperty("品牌列表")
-    private List<BrandVo> brandList;
+
+	@ApiModelProperty("分类列表")
+	private List<CatVo> categoryList;
+
+	@ApiModelProperty("品牌列表")
+	private List<BrandVo> brandList;
+
 }

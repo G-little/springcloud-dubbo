@@ -97,7 +97,6 @@ public class ResultJson<T> implements Serializable {
 		return this;
 	}
 
-
 	public static ResultJson newInstance() {
 		return new ResultJson();
 	}

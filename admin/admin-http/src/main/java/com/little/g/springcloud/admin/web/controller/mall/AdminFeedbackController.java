@@ -31,23 +31,23 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AdminFeedbackController {
 
-    private final Log logger = LogFactory.getLog(AdminFeedbackController.class);
+	private final Log logger = LogFactory.getLog(AdminFeedbackController.class);
 
-    @Reference
-    private LitemallFeedbackService feedbackService;
+	@Reference
+	private LitemallFeedbackService feedbackService;
 
-    @ApiOperation("意见反馈分页查询")
-    @RequiresPermissions("admin:feedback:list")
-    @RequiresPermissionsDesc(menu = {"用户管理", "意见反馈"}, button = "查询")
-    @GetMapping("/list")
-    public ResultJson<Page<LitemallFeedbackDTO>> list(Integer userId, String username,
-                                                      @RequestParam(defaultValue = "1") Integer page,
-                                                      @RequestParam(defaultValue = "10") Integer limit,
-                                                      @Sort @RequestParam(defaultValue = "add_time") String sort,
-                                                      @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallFeedbackDTO> pageInfo = feedbackService.querySelective(userId,
-                username, page, limit, sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+	@ApiOperation("意见反馈分页查询")
+	@RequiresPermissions("admin:feedback:list")
+	@RequiresPermissionsDesc(menu = { "用户管理", "意见反馈" }, button = "查询")
+	@GetMapping("/list")
+	public ResultJson<Page<LitemallFeedbackDTO>> list(Integer userId, String username,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
+		PageInfo<LitemallFeedbackDTO> pageInfo = feedbackService.querySelective(userId,
+				username, page, limit, sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
 }

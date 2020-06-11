@@ -7,8 +7,11 @@ import lombok.Data;
 @ApiModel("一级类目Vo")
 @Data
 public class L1CategoryVo {
-    @ApiModelProperty("类目ID")
-    private Integer value;
-    @ApiModelProperty("类目Label")
-    private String label;
+
+	@ApiModelProperty("类目ID")
+	private Integer value;
+
+	@ApiModelProperty("类目Label")
+	private String label;
+
 }

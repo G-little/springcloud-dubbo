@@ -20,33 +20,33 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AdminDashbordController {
 
-    private final Log logger = LogFactory.getLog(AdminDashbordController.class);
+	private final Log logger = LogFactory.getLog(AdminDashbordController.class);
 
-    @Reference
-    private UserService userService;
+	@Reference
+	private UserService userService;
 
-    @Reference
-    private LitemallGoodsService goodsService;
+	@Reference
+	private LitemallGoodsService goodsService;
 
-    @Reference
-    private LitemallGoodsProductService productService;
+	@Reference
+	private LitemallGoodsProductService productService;
 
-    @Reference
-    private LitemallOrderService orderService;
+	@Reference
+	private LitemallOrderService orderService;
 
-    @GetMapping("")
-    public ResultJson<DashboardVo> info() {
-        long userTotal = userService.count();
-        int goodsTotal = goodsService.count();
-        int productTotal = productService.count();
-        int orderTotal = orderService.count();
-        DashboardVo data = new DashboardVo();
-        data.setUserTotal(new Long(userTotal).intValue());
-        data.setGoodsTotal(goodsTotal);
-        data.setProductTotal(productTotal);
-        data.setOrderTotal(orderTotal);
+	@GetMapping("")
+	public ResultJson<DashboardVo> info() {
+		long userTotal = userService.count();
+		int goodsTotal = goodsService.count();
+		int productTotal = productService.count();
+		int orderTotal = orderService.count();
+		DashboardVo data = new DashboardVo();
+		data.setUserTotal(new Long(userTotal).intValue());
+		data.setGoodsTotal(goodsTotal);
+		data.setProductTotal(productTotal);
+		data.setOrderTotal(orderTotal);
 
-        return ResponseUtil.ok(data);
-    }
+		return ResponseUtil.ok(data);
+	}
 
 }

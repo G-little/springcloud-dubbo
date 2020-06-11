@@ -12,11 +12,14 @@ import java.util.List;
 @ApiModel("管理员订单详情")
 @Data
 public class AdminOrderDetailVo {
-    @ApiModelProperty("订单信息")
-    private LitemallOrderDTO order;
-    @ApiModelProperty("商品信息")
-    private List<LitemallOrderGoodsDTO> orderGoods;
-    @ApiModelProperty("用户信息")
-    private UserDTO user;
+
+	@ApiModelProperty("订单信息")
+	private LitemallOrderDTO order;
+
+	@ApiModelProperty("商品信息")
+	private List<LitemallOrderGoodsDTO> orderGoods;
+
+	@ApiModelProperty("用户信息")
+	private UserDTO user;
 
 }

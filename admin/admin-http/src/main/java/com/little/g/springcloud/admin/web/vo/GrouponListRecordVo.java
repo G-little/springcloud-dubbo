@@ -11,8 +11,13 @@ import java.util.List;
 @ApiModel("团购记录Vo")
 @Data
 public class GrouponListRecordVo {
-    private LitemallGrouponDTO groupon;
-    private List<LitemallGrouponDTO> subGroupons;
-    private LitemallGrouponRulesDTO rules;
-    private LitemallGoodsDTO goods;
+
+	private LitemallGrouponDTO groupon;
+
+	private List<LitemallGrouponDTO> subGroupons;
+
+	private LitemallGrouponRulesDTO rules;
+
+	private LitemallGoodsDTO goods;
+
 }

@@ -27,22 +27,23 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AdminLogController {
 
-    private final Log logger = LogFactory.getLog(AdminLogController.class);
+	private final Log logger = LogFactory.getLog(AdminLogController.class);
 
-    @Reference
-    private LitemallLogService logService;
+	@Reference
+	private LitemallLogService logService;
 
-    @ApiOperation("操作日志分页查询")
-    @RequiresPermissions("admin:log:list")
-    @RequiresPermissionsDesc(menu = {"系统管理", "操作日志"}, button = "查询")
-    @GetMapping("/list")
-    public ResultJson<Page<LitemallLogDTO>> list(String name, @RequestParam(defaultValue = "1") Integer page,
-                                                 @RequestParam(defaultValue = "10") Integer limit,
-                                                 @Sort @RequestParam(defaultValue = "add_time") String sort,
-                                                 @Order @RequestParam(defaultValue = "desc") String order) {
-        PageInfo<LitemallLogDTO> pageInfo = logService.querySelective(name, page, limit,
-                sort, order);
-        return ResponseUtil.okPage(pageInfo);
-    }
+	@ApiOperation("操作日志分页查询")
+	@RequiresPermissions("admin:log:list")
+	@RequiresPermissionsDesc(menu = { "系统管理", "操作日志" }, button = "查询")
+	@GetMapping("/list")
+	public ResultJson<Page<LitemallLogDTO>> list(String name,
+			@RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer limit,
+			@Sort @RequestParam(defaultValue = "add_time") String sort,
+			@Order @RequestParam(defaultValue = "desc") String order) {
+		PageInfo<LitemallLogDTO> pageInfo = logService.querySelective(name, page, limit,
+				sort, order);
+		return ResponseUtil.okPage(pageInfo);
+	}
 
 }

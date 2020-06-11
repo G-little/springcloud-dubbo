@@ -60,8 +60,8 @@ public class CatalogController {
 	 */
 	@ApiOperation("分类详情 ")
 	@ApiImplicitParams(@ApiImplicitParam(name = "id",
-			value = "分类类目ID。 如果分类类目ID是空，则选择第一个分类类目。 需要注意，这里分类类目是一级类目",
-			dataType = "int", example = "1", required = false))
+			value = "分类类目ID。 如果分类类目ID是空，则选择第一个分类类目。 需要注意，这里分类类目是一级类目", dataType = "int",
+			example = "1", required = false))
 	@GetMapping("index")
 	public ResultJson<CategoryIndexVo> index(Integer id) {
 
