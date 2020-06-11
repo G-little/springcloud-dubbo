@@ -21,66 +21,65 @@ import javax.validation.Valid;
 @RestController
 public class AdminRoleController {
 
-	@Reference
-	private AdminRoleService adminRoleService;
+    @Reference
+    private AdminRoleService adminRoleService;
 
-	@RequestMapping("/list")
-	public ResultJson list(@Valid PageQueryParam param) {
-		ResultJson r = new ResultJson();
-		r.setData(adminRoleService.pageList(param));
-		return r;
-	}
+    @RequestMapping("/list")
+    public ResultJson list(@Valid PageQueryParam param) {
+        ResultJson r = new ResultJson();
+        r.setData(adminRoleService.pageList(param));
+        return r;
+    }
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResultJson add(@Valid AdminRoleForm form) {
-		ResultJson r = new ResultJson();
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResultJson add(@Valid AdminRoleForm form) {
+        ResultJson r = new ResultJson();
 
-		AdminRoleParams params = new AdminRoleParams();
-		BeanUtils.copyProperties(form, params);
+        AdminRoleParams params = new AdminRoleParams();
+        BeanUtils.copyProperties(form, params);
 
-		if (params.getId() != null && params.getId() > 0) {
-			if (adminRoleService.update(params)) {
-				return r;
-			}
-		}
-		else {
-			if (adminRoleService.add(params)) {
-				return r;
-			}
-		}
-		r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
+        if (params.getId() != null && params.getId() > 0) {
+            if (adminRoleService.update(params)) {
+                return r;
+            }
+        } else {
+            if (adminRoleService.add(params)) {
+                return r;
+            }
+        }
+        r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
 
-		return r;
-	}
+        return r;
+    }
 
-	@RequestMapping(value = "/get")
-	public ResultJson get(@RequestParam Integer id) {
-		ResultJson r = new ResultJson();
-		r.setData(adminRoleService.get(id));
-		return r;
-	}
+    @RequestMapping(value = "/get")
+    public ResultJson get(@RequestParam Integer id) {
+        ResultJson r = new ResultJson();
+        r.setData(adminRoleService.get(id));
+        return r;
+    }
 
-	@RequestMapping(value = "/status")
-	public ResultJson status(@RequestParam Integer id, @RequestParam Byte status) {
-		ResultJson r = new ResultJson();
-		AdminRoleParams adminRole = new AdminRoleParams();
-		adminRole.setId(id);
-		if (adminRoleService.update(adminRole)) {
-			return r;
-		}
-		r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
-		return r;
-	}
+    @RequestMapping(value = "/status")
+    public ResultJson status(@RequestParam Integer id, @RequestParam Byte status) {
+        ResultJson r = new ResultJson();
+        AdminRoleParams adminRole = new AdminRoleParams();
+        adminRole.setId(id);
+        if (adminRoleService.update(adminRole)) {
+            return r;
+        }
+        r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
+        return r;
+    }
 
-	@RequestMapping("/del")
-	public ResultJson del(@RequestParam Integer id) {
-		ResultJson r = new ResultJson();
-		if (adminRoleService.delete(id)) {
-			return r;
-		}
-		r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
+    @RequestMapping("/del")
+    public ResultJson del(@RequestParam Integer id) {
+        ResultJson r = new ResultJson();
+        if (adminRoleService.delete(id)) {
+            return r;
+        }
+        r.setC(ResultJson.SYSTEM_UNKNOWN_EXCEPTION);
 
-		return r;
-	}
+        return r;
+    }
 
 }
