@@ -91,11 +91,11 @@ public class HomeController {
 	 */
 	@ApiOperation("首页数据")
 	@GetMapping("/index")
-	public Object index(@LoginUser Integer userId) {
+	public ResultJson<IndexDataVo> index(@LoginUser Integer userId) {
 		// 优先从缓存中读取
 		if (HomeCacheManager.hasData(HomeCacheManager.INDEX)) {
-			return ResponseUtil.ok(
-					HomeCacheManager.getCacheData(HomeCacheManager.INDEX, Object.class));
+			return ResponseUtil.ok(HomeCacheManager.getCacheData(HomeCacheManager.INDEX,
+					IndexDataVo.class));
 		}
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 
