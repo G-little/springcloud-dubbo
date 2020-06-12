@@ -74,6 +74,7 @@
 
 
         <!--表名-->
+        <!--
         <table tableName="litemall_ad">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
@@ -201,6 +202,11 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="pictures" javaType="java.lang.String[]"
                             typeHandler="com.little.g.springcloud.mall.mybatis.JsonStringArrayTypeHandler"/>
+        </table>
+
+         -->
+        <table tableName="litemall_order">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>
