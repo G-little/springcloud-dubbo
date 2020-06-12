@@ -5,9 +5,11 @@ import com.little.g.springcloud.common.dto.Page;
 import com.little.g.springcloud.common.web.annotation.LoginUser;
 import com.little.g.springcloud.mall.validator.Order;
 import com.little.g.springcloud.mall.validator.Sort;
+import com.little.g.springcloud.mall.web.form.PrepayForm;
 import com.little.g.springcloud.mall.web.manager.OrderManager;
 import com.little.g.springcloud.mall.web.vo.OrderDetailVo;
 import com.little.g.springcloud.mall.web.vo.OrderVo;
+import com.little.g.springcloud.pay.api.LittlePayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -17,8 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Api("订单")
@@ -30,6 +34,9 @@ public class OrderController {
 
     @Autowired
     private OrderManager orderManager;
+
+    @Resource
+    private LittlePayService littlePayService;
 
     /**
      * 订单列表
@@ -109,17 +116,17 @@ public class OrderController {
      * 付款订单的预支付会话标识
      *
      * @param userId 用户ID
-     * @param body   订单信息，{ orderId：xxx }
+     * @param form   订单信息，{ orderId：xxx }
      * @return 支付订单ID
      */
     @ApiOperation("付款订单的预支付会话标识")
     @ApiImplicitParam("订单信息，{ orderId：xxx }")
     @PostMapping("prepay")
-    public Object prepay(@LoginUser Integer userId, @RequestBody String body,
+    public Object prepay(@LoginUser Integer userId, @Valid @RequestBody PrepayForm form,
                          HttpServletRequest request) {
 
         // TODO: 待统一支付逻辑的时候统一处理
-        return orderManager.prepay(userId, body, request);
+        return orderManager.prepay(userId, form, request);
     }
 
     /**
@@ -131,8 +138,8 @@ public class OrderController {
      * @return
      */
     @PostMapping("h5pay")
-    public Object h5pay(@LoginUser Integer userId, @RequestBody String body,
-                        HttpServletRequest request) {
+    public ResultJson h5pay(@LoginUser Integer userId, @RequestBody PrepayForm body,
+                            HttpServletRequest request) {
         return orderManager.h5pay(userId, body, request);
     }
 

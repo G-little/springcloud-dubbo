@@ -8,7 +8,6 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.pagehelper.PageInfo;
 import com.little.g.springcloud.common.ResultJson;
 import com.little.g.springcloud.common.dto.Page;
-import com.little.g.springcloud.common.enums.PayType;
 import com.little.g.springcloud.common.utils.DateTimeUtil;
 import com.little.g.springcloud.common.utils.JacksonUtil;
 import com.little.g.springcloud.common.utils.ResponseUtil;
@@ -21,6 +20,7 @@ import com.little.g.springcloud.mall.util.CouponUserConstant;
 import com.little.g.springcloud.mall.util.GrouponConstant;
 import com.little.g.springcloud.mall.util.OrderHandleOption;
 import com.little.g.springcloud.mall.util.OrderUtil;
+import com.little.g.springcloud.mall.web.form.PrepayForm;
 import com.little.g.springcloud.mall.web.task.OrderUnpaidTask;
 import com.little.g.springcloud.mall.web.vo.*;
 import com.little.g.springcloud.pay.api.LittlePayService;
@@ -562,16 +562,12 @@ public class OrderManager {
      * @return 支付订单ID
      */
     @Transactional
-    public ResultJson prepay(Integer userId, String body, HttpServletRequest request) {
+    public ResultJson prepay(Integer userId, PrepayForm body, HttpServletRequest request) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
-        if (orderId == null) {
-            return ResponseUtil.badArgument();
-        }
 
-        LitemallOrderDTO order = orderService.findById(userId, orderId);
+        LitemallOrderDTO order = orderService.findById(userId, body.getOrderId());
         if (order == null) {
             return ResponseUtil.badArgumentValue();
         }
@@ -590,7 +586,7 @@ public class OrderManager {
         if (openid == null) {
             return ResponseUtil.fail(AUTH_OPENID_UNACCESS, "订单不能支付");
         }
-        ResultJson result = createPayParams(userId, order);
+        ResultJson result = createPayParams(userId, body.getPayType(), order);
 
         if (orderService.updateWithOptimisticLocker(order) == 0) {
             return ResponseUtil.updatedDateExpired();
@@ -599,7 +595,7 @@ public class OrderManager {
         return result;
     }
 
-    private ResultJson createPayParams(Integer userId, LitemallOrderDTO order) {
+    private ResultJson createPayParams(Integer userId, String payType, LitemallOrderDTO order) {
         PreOrderParams params = new PreOrderParams();
         params.setAccountId(userId);
         params.setMchId(MerchantId.LittelG.getValue());
@@ -613,7 +609,7 @@ public class OrderManager {
         params.setOutTradeNo(order.getOrderSn());
         PreorderDTO preorderDTO = preOrderService.create(params);
 
-        return littlePayService.prePay(userId, PayType.WEXINPAY,
+        return littlePayService.prePay(userId, payType,
                 preorderDTO.getPreOrderNo());
     }
 
@@ -626,16 +622,13 @@ public class OrderManager {
      * @return
      */
     @Transactional
-    public Object h5pay(Integer userId, String body, HttpServletRequest request) {
+    public ResultJson h5pay(Integer userId, PrepayForm body, HttpServletRequest request) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
-        if (orderId == null) {
-            return ResponseUtil.badArgument();
-        }
 
-        LitemallOrderDTO order = orderService.findById(userId, orderId);
+
+        LitemallOrderDTO order = orderService.findById(userId, body.getOrderId());
         if (order == null) {
             return ResponseUtil.badArgumentValue();
         }
@@ -649,7 +642,7 @@ public class OrderManager {
             return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能支付");
         }
 
-        ResultJson result = createPayParams(userId, order);
+        ResultJson result = createPayParams(userId, body.getPayType(), order);
 
         return result;
     }
